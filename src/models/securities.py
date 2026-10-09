@@ -37,7 +37,6 @@ from .mbs import (
     MONTHS_PER_YEAR,
     MortgagePool,
     PrepaymentModel,
-    age_pool,
     monthly_grid,
     pool_cash_flows,
     ten_year_zero_along_paths,

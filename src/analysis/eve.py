@@ -103,6 +103,14 @@ def value_other_assets(sheet: pd.DataFrame, bank: str, as_of: str, curve) -> flo
 
 
 def value_borrowings(sheet: pd.DataFrame, bank: str, as_of: str, curve) -> float:
+    """
+    Short-term borrowings and long-term debt, marked on the curve.
+
+    Priced at the curve's own rate for their maturity, so they sit at par in the base
+    case and move with the shock. No issuer spread is applied: the filings give no fair
+    value for these liabilities to calibrate one against, and a spread that does not
+    move with rates would not change the sensitivity this module measures.
+    """
     rows = sheet[(sheet["bank"] == bank) & (sheet["as_of"] == as_of)
                  & (sheet["instrument"] == "borrowings")]
     total = 0.0
@@ -123,6 +131,14 @@ def economic_value_of_equity(sheet: pd.DataFrame, bank: str, as_of: str,
                              paths: int, seed: int, beta: float | None = None,
                              uninsured_half_life: float | None = None,
                              insured_half_life: float | None = None) -> dict:
+    """
+    Market value of assets less market value of liabilities, on one curve.
+
+    The deposit franchise enters here with its sign the right way round: a larger
+    franchise value makes the liability cheaper than its book balance, which raises EVE.
+    That is the hedge, and it is why the deposit assumptions passed in move the answer
+    as much as anything on the asset side.
+    """
     curve = model.curve
     securities = value_securities(sheet, bank, as_of, model, oas, prepayment, spread,
                                   paths, seed)

@@ -290,6 +290,7 @@ def borrowing_positions() -> pd.DataFrame:
 
 
 def build() -> pd.DataFrame:
+    """Every position at both dates for both banks, in one table."""
     frames = [securities_positions(), loan_positions(), cash_positions(),
               deposit_positions(), borrowing_positions()]
     sheet = pd.concat(frames, ignore_index=True)
@@ -326,7 +327,7 @@ def reconcile(sheet: pd.DataFrame, tolerance: float = 2.0) -> pd.DataFrame:
     checks = []
 
     for (bank, as_of), block in sheet.groupby(["bank", "as_of"], sort=False):
-        def bucketed(**mask) -> float:
+        def bucketed(block=block, **mask) -> float:
             rows = block
             for column, value in mask.items():
                 rows = rows[rows[column] == value]

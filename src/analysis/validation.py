@@ -31,7 +31,7 @@ import pandas as pd
 from ..config import DATA_PROCESSED, DATA_RAW, params
 from ..data.buckets import build as build_sheet
 from ..models.hull_white import build as build_hull_white
-from ..models.mbs import MONTHS_PER_YEAR, MortgagePool, PrepaymentModel, mortgage_spread
+from ..models.mbs import MortgagePool, PrepaymentModel, mortgage_spread
 from ..models.nss import build_curve
 from ..models.securities import (
     CalibratedBook,
@@ -93,10 +93,10 @@ def age_position(position: pd.Series, book: CalibratedBook, base_model,
     return dict(kind="bullet", balance=balance, pool=None, maturity=maturity)
 
 
-def reprice_aged_book(sheet: pd.DataFrame, bank: str, classification: str,
-                      book: CalibratedBook, base_model, test_model,
-                      prepayment: PrepaymentModel, base_spread: float,
-                      test_spread: float, paths: int, seed: int) -> pd.DataFrame:
+def reprice_aged_book(bank: str, classification: str, book: CalibratedBook,
+                      base_model, test_model, prepayment: PrepaymentModel,
+                      base_spread: float, test_spread: float, paths: int,
+                      seed: int) -> pd.DataFrame:
     """
     Age the end-2021 book one year, then reprice it on the end-2022 curve.
 
@@ -146,6 +146,13 @@ def reprice_aged_book(sheet: pd.DataFrame, bank: str, classification: str,
 
 
 def run(paths: int | None = None) -> dict:
+    """
+    Calibrate at end-2021, freeze, age one year, reprice on the end-2022 curve.
+
+    Both banks go through the same sequence so the comparison is like for like. The
+    Hull-White parameters are estimated once and shared between the two dates: only the
+    curve the model sits on changes, which is the point of the exercise.
+    """
     config = params()
     base_date = str(config["valuation_dates"]["base"])
     test_date = str(config["valuation_dates"]["test"])
@@ -169,9 +176,9 @@ def run(paths: int | None = None) -> dict:
                                    base_spread, paths, seed)
         per_class = {}
         for classification in sorted(book.positions["classification"].unique()):
-            aged = reprice_aged_book(sheet, bank, classification, book, base_model,
-                                     test_model, prepayment, base_spread, test_spread,
-                                     paths, seed)
+            aged = reprice_aged_book(bank, classification, book, base_model,
+                                     test_model, prepayment, base_spread,
+                                     test_spread, paths, seed)
             if aged.empty:
                 continue
 
@@ -192,6 +199,13 @@ def run(paths: int | None = None) -> dict:
 
 
 def summary_table(outcome: dict) -> pd.DataFrame:
+    """
+    Predicted against disclosed, per bank and classification.
+
+    Reported as a price per $100 of amortized cost rather than a dollar total, because
+    the books changed size over 2022 and a dollar comparison would mix a pricing error
+    with a composition change.
+    """
     rows = []
     for bank, payload in outcome["results"].items():
         for classification, block in payload["by_classification"].items():
@@ -273,7 +287,6 @@ def combined_comparison(outcome: dict, sheet: pd.DataFrame) -> pd.DataFrame:
 
 
 def main() -> None:
-    config = params()
     outcome = run()
     table = summary_table(outcome)
 

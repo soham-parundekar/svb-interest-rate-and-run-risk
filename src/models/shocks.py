@@ -28,6 +28,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+import pandas as pd
 
 from ..config import params
 
@@ -136,10 +137,8 @@ def shocked_curves(base) -> dict[str, ShockedCurve]:
     return {name: ShockedCurve(base, shape) for name, shape in scenarios().items()}
 
 
-def shock_table(base, tenors=(0.25, 1, 2, 5, 10, 20, 30)) -> "pd.DataFrame":
+def shock_table(base, tenors=(0.25, 1, 2, 5, 10, 20, 30)) -> pd.DataFrame:
     """Realised change in the zero rate under each scenario, after the floor."""
-    import pandas as pd
-
     t = np.asarray(tenors, dtype=float)
     rows = [dict(tenor=tenor, base_zero_pct=z * 100)
             for tenor, z in zip(t, base.zero_rate(t))]

@@ -12,13 +12,15 @@ reporting units. SVB and Schwab disagree on the sign convention for unrealized l
 the normalisation is checked rather than assumed.
 
     python -m src.data.extract_filings
+
+Each per-bank extractor takes (filing, tables) whether or not it needs the filing, so
+the dispatch in `main` can call any of them the same way. A few do not use it.
 """
 
 from __future__ import annotations
 
 import csv
 import re
-from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
@@ -26,7 +28,6 @@ from .filings import (
     cut_at,
     sectioned_rows,
     Filing,
-    clean_label,
     find_table,
     label_rows,
     load_tables,
@@ -649,27 +650,31 @@ def balance_sheet(filing: Filing, tables) -> list[dict]:
     Only the current year's column is kept. The prior-year column in each filing is a
     restatement and does not always agree with what that year's own 10-K published:
     SVB's FY2022 filing shows end-2021 cash of $14,586m where the FY2021 filing showed
-    $14,619m. We take each year's figures from that year's own filing and let
-    `check_restatements` report the differences instead of hiding them.
+    $14,619m. Each year's figures are taken from that year's own filing.
+
+    Matching is on a label prefix, and the first match for a line item wins. That
+    matters for one pair in particular: "Total liabilities and total equity" also starts
+    with "Total liabilities", so without the first-match rule the balance-sheet total
+    would overwrite the liabilities figure.
     """
     anchor = ("Consolidated Balance Sheets" if filing.bank == "Schwab"
               else "Total investment securities")
     _, table = find_table(tables, anchor, "Total assets", "Total liabilities",
                           max_chars=3000)
     frame = table_to_frame(table)
-    wanted = BALANCE_SHEET_LINES[filing.bank]
-    out = []
+
+    out: list[dict] = []
+    seen: set[str] = set()
     for label, v in label_rows(frame):
         if _is_header(label):
             continue
-        for prefix, name in wanted:
-            if label.lower().startswith(prefix.lower()):
-                if name in {n for _, n, in [(r["line_item"], r["line_item"])
-                                            for r in out]}:
-                    break  # first match wins; "Total liabilities and total equity"
-                           # must not overwrite "Total liabilities"
+        for prefix, name in BALANCE_SHEET_LINES[filing.bank]:
+            if not label.lower().startswith(prefix.lower()):
+                continue
+            if name not in seen:
+                seen.add(name)
                 out.append(dict(line_item=name, label=label, amount=v[0]))
-                break
+            break
     return out
 
 

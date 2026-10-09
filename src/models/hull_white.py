@@ -124,6 +124,16 @@ def calibrate_short_rate(series: pd.Series | None = None) -> OrnsteinUhlenbeckFi
     anything this understates how fast rates revert. `main` prints the sensitivity.
     """
     config = params()["hull_white"]
+
+    # An explicit pair short-circuits the estimate. Only the robustness sweep sets
+    # these; the committed config leaves them empty so a normal run always estimates.
+    forced_a, forced_sigma = config.get("override_a"), config.get("override_sigma")
+    if forced_a and forced_sigma:
+        return OrnsteinUhlenbeckFit(
+            a=float(forced_a), sigma=float(forced_sigma), long_run_mean=float("nan"),
+            observations=0, start="(overridden)", end="(overridden)",
+            r_squared=float("nan"))
+
     if series is None:
         series = load_fred(config["short_rate_series"])
 
@@ -191,6 +201,15 @@ class HullWhite:
     curve: NelsonSiegelSvensson
 
     def alpha(self, t):
+        """
+        The deterministic part of the short rate, carrying the initial term structure.
+
+            alpha(t) = f(0,t) + sigma^2 / (2 a^2) * (1 - exp(-a t))^2
+
+        The second term is the convexity adjustment that keeps the model arbitrage-free;
+        dropping it is a common slip and shows up as simulated discount factors that
+        drift away from the fitted curve at long maturities.
+        """
         t = np.asarray(t, dtype=float)
         decay = 1.0 - np.exp(-self.a * t)
         return self.curve.forward_rate(t) + (self.sigma ** 2) / (2 * self.a ** 2) * decay ** 2

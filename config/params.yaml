@@ -53,6 +53,11 @@ hull_white:
   # Guard against the degenerate fits above silently returning. Anything beyond this is
   # the estimator failing, not a finding about rates.
   max_half_life_years: 50.0
+  # Left empty so a normal run always estimates from history. The robustness sweep in
+  # src/analysis/robustness.py sets these to test how much the result depends on the
+  # mean reversion speed.
+  override_a:
+  override_sigma:
   paths: 20000
   steps_per_year: 12
   horizon_years: 30

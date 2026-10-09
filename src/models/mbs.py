@@ -25,7 +25,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-import pandas as pd
 
 from ..config import params
 from ..data.market_data import load_fred

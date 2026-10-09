@@ -61,6 +61,7 @@ make data        # download filings and market data, extract tables, bucket the 
 make test        # 44 tests: parser conventions, curves, pricing, reconciliation
 make results     # out-of-sample test, EVE scenarios, run risk
 make figures     # the seven charts in reports/figures
+make robustness  # re-run the out-of-sample test across assumption variants
 ```
 
 `make all` runs the lot. The EVE scenario stage is the slow one — it prices four
@@ -85,8 +86,10 @@ end-2022, both at the 20-year point.
 volatility are estimated from the realised path of the three-month bill, because
 swaption surfaces are not free. A historical calibration carries no market price of
 interest rate risk and will tend to undervalue the prepayment option embedded in a
-mortgage book. The direction of that bias is known and stated; it is not corrected for,
-and the OAS absorbs what is left.
+mortgage book. It is not corrected for, and the OAS absorbs what is left. The
+sensitivity sweep (`make robustness`) shows it is not where the residual error lives:
+moving the mean reversion speed or the volatility shifts the headline by a few tenths
+of a point against a three-point gap.
 
 **Schwab's disclosed cost basis is not comparable with SVB's.** Schwab moved $206.8bn of
 original cost out of available-for-sale during 2022 at $188.6bn of fair value, parking
@@ -107,8 +110,11 @@ The ones that would change a number, rather than a list of everything imperfect:
   prepayment model. The parameters are held fixed across both banks and both dates so
   that nothing can be tuned after seeing the answer.
 - Representative maturities stand in for each contractual bucket. The over-ten-year
-  bucket is modelled at 20 years for bullets and 25 for pass-throughs; results are
-  sensitive to this and the sensitivity is reported rather than hidden.
+  bucket is modelled at 20 years for bullets and 25 for pass-throughs. `make robustness`
+  re-runs the whole out-of-sample test across thirteen variants of these and the
+  prepayment assumptions: the prediction spans 3.6 points and every variant errs in the
+  same direction, which is how the residual bias was traced to the bullet approximation
+  rather than to the rate model.
 - Loans carry no credit spread, since the filings disclose no loan-level fair value to
   calibrate one against. This understates credit risk and does not affect rate
   sensitivity, which is what the EVE measures.

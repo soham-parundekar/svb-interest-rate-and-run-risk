@@ -144,7 +144,13 @@ def bootstrap_zero_curve(tenors: np.ndarray, par_yields: np.ndarray,
             times = _coupon_dates(maturity, frequency)
             coupon = par / frequency
 
-            def par_price_error(z_long: float) -> float:
+            def par_price_error(z_long: float, maturity=maturity, times=times,
+                                coupon=coupon) -> float:
+                # Defaults bind this iteration's values. The closure is handed
+                # straight to brentq below so late binding would not bite today, but
+                # relying on that is the kind of thing that breaks when a loop is
+                # refactored.
+                #
                 # Coupon dates between the last solved node and this maturity are
                 # interpolated against the TRIAL long rate, not against the previously
                 # solved nodes alone. Interpolating without it leaves the intermediate
@@ -158,8 +164,8 @@ def bootstrap_zero_curve(tenors: np.ndarray, par_yields: np.ndarray,
                 dfs = np.exp(-z * times)
                 return coupon * dfs.sum() + dfs[-1] - 1.0
 
-            # The zero rate sits near the par yield; a wide bracket keeps the solve
-            # robust when the curve is steep or inverted.
+            # The zero rate sits near the par yield. The bracket is deliberately wide
+            # so the solve still brackets a root when the curve is steep or inverted.
             zeros[i] = brentq(par_price_error, -0.02, 0.25, xtol=1e-14, maxiter=200)
 
         known_t.append(float(maturity))

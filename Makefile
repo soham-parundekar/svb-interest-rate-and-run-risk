@@ -4,13 +4,14 @@
 PYTHON ?= python
 export PYTHONPATH := .
 
-.PHONY: all data test results figures clean help
+.PHONY: all data test results figures robustness clean help
 
 help:
 	@echo "make data     - fetch filings and market data, extract tables, bucket the books"
 	@echo "make test     - run the test suite"
 	@echo "make results  - out-of-sample test, EVE scenarios, run risk"
 	@echo "make figures  - build the charts in reports/figures"
+	@echo "make robustness - re-run the out-of-sample test across assumption variants"
 	@echo "make all      - everything, in order"
 
 all: data test results figures
@@ -33,6 +34,11 @@ results:
 
 figures:
 	$(PYTHON) -m src.plots
+
+# Not part of `make all`: it re-runs the out-of-sample test once per variant and the
+# report quotes its output rather than depending on it.
+robustness:
+	$(PYTHON) -m src.analysis.robustness
 
 clean:
 	rm -rf data/processed/*.csv reports/figures/*.png

@@ -11,7 +11,6 @@ how par-versus-spot errors get buried.
 
 from __future__ import annotations
 
-import io
 import urllib.request
 from pathlib import Path
 

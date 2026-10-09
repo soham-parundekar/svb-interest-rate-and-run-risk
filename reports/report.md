@@ -16,7 +16,7 @@ at +100bp, down 27.7% at +200bp. The bank also disclosed, in the same section, t
 
 On 24 February 2023, two weeks before the bank was closed, SVB filed its FY2022 10-K.
 Item 7A of that filing contains no EVE figure. It reports the sensitivity of twelve-month
-net interest income, in percentage terms only — +3.5% at +200bp — and nothing about
+net interest income, in percentage terms only (+3.5% at +200bp), and nothing about
 economic value. The EVE table, the dollar amounts, the base level: all gone. Both
 filings are in `references/sec_filings/`, and the comparison is made by reading them
 side by side rather than asserted.
@@ -37,7 +37,7 @@ before any model is built.
 
 **SVB had bought a very long book at the bottom of the rate cycle.** Held-to-maturity
 securities went from $16.6bn at end-2020 to $98.2bn at end-2021, an increase of $81.6bn
-driven by $85.6bn of purchases. Of the $98.2bn, $93.2bn — 95% — sat in the
+driven by $85.6bn of purchases. Of the $98.2bn, $93.2bn, or 95%, sat in the
 over-ten-years contractual maturity bucket, yielding 1.61%. Agency MBS alone accounted
 for $64.4bn at a 1.55% book yield.
 
@@ -45,7 +45,7 @@ for $64.4bn at a 1.55% book yield.
 uninsured deposits in U.S. offices at end-2021, plus $16.1bn of foreign deposits outside
 any U.S. insurance regime, against $189.2bn of total deposits. That is 96% of the
 deposit base outside the FDIC limit. Schwab disclosed $134.8bn of uninsured deposits
-against $443.8bn — 30%.
+against $443.8bn, or 30%.
 
 **Neither bank's regulatory capital reflected its securities losses.** Both elected the
 AOCI opt-out. SVB's FY2022 capital reconciliation adds back $1,880m of accumulated other
@@ -54,9 +54,11 @@ comprehensive loss to arrive at CET1; Schwab's adds back $22,620m. Schwab's CET1
 
 ![Treasury zero curves at the two valuation dates](figures/01_curve_shift.png)
 
-*Figure 1. The curve the book was bought into and the curve it was marked against. The
-two-year zero rate went from 0.73% to 4.41% across 2022; the ten-year from 1.60% to
-3.92%.*
+*Figure 1. The curve the book was bought into and the curve it was marked against. On
+the bootstrapped zero curve the two-year rate went from 0.74% to 4.36% across 2022 and
+the ten-year from 1.60% to 3.92%. Treasury's published par yields for the same two
+tenors are 0.73% and 4.41%, and 1.52% and 3.88%: close at the short end, and far enough
+apart further out to matter for a book with this much duration.*
 
 ## 3. How the reconstruction works
 
@@ -73,7 +75,7 @@ filing reprints.
 
 Two conventions in these documents will corrupt a careless parse silently. An em-dash
 cell means zero while a blank cell is layout padding, and conflating them shifts every
-later figure in a row one column left — which reads SVB's agency CMO fair value as an
+later figure in a row one column left, which reads SVB's agency CMO fair value as an
 unrealized loss. And Schwab writes negative percentages as `(4.5)%`, with the percent
 sign outside the bracket, which defeats a parser that tests for a trailing `)` before
 stripping symbols. Both are covered by tests.
@@ -93,7 +95,7 @@ distorting the tenors that matter more here.
 so the model reproduces the fitted forward curve exactly at time zero. Mean reversion
 and volatility are estimated from the historical three-month bill. That specification
 needed care: run daily on a 2003–2022 window, the regression returns a mean reversion
-speed of 0.002 — a half-life of 365 years — an implied long-run mean of 86%, and an R²
+speed of 0.002, a half-life of 365 years, an implied long-run mean of 86% and an R²
 of 0.00000, because more than half those years sit at the zero bound where the level
 carries no information about the next change. Monthly sampling from 1990 gives a
 7.8-year half-life, 62bp of volatility and a 1.76% long-run mean. The full grid is
@@ -103,7 +105,7 @@ reported by `calibration_sensitivity()` and a guard rejects degenerate fits.
 function of refinancing incentive, the incentive is computed along each simulated rate
 path from the model's own ten-year zero plus the observed primary-secondary spread, and
 cash flows are discounted on the same path. Bullets price analytically off the fitted
-curve. Agency CMBS is treated as a bullet on purpose — K-deal and DUS collateral carries
+curve. Agency CMBS is treated as a bullet on purpose: K-deal and DUS collateral carries
 lockout and yield maintenance, so applying a residential refinancing curve to it would
 invent an option those bonds do not grant.
 
@@ -172,14 +174,56 @@ Restore it and the comparison becomes like-for-like:
 
 Against the disclosed basis the Schwab error is −6.35 points. Against what Schwab
 actually paid it is −1.75 points, or **−2.0%**. SVB bought its HTM book rather than
-transferring into it — it re-designated only $8.95bn during 2021, carrying $132m of loss,
-0.1% of the book — so its disclosed unrealized loss is the whole economic loss, and
+transferring into it. It re-designated only $8.95bn during 2021, carrying $132m of loss,
+0.1% of the book, so its disclosed unrealized loss is the whole economic loss, and
 Schwab's understates its own by roughly $17.5bn.
 
 Both banks' errors share a sign. Two independent portfolios missing in the same direction
-points at model bias rather than sampling noise, and the most likely source is the
-historical rather than risk-neutral calibration of rate volatility, which undervalues the
-prepayment option and therefore overstates how far these pools should have fallen.
+points at model bias rather than sampling noise, so the next section asks which
+assumption is responsible.
+
+### Which assumption carries the error
+
+Thirteen variants of the end-2022 test, each changing one judgement call and holding
+everything else including the random seed fixed:
+
+| variant | predicted price | error |
+|---|---|---|
+| base case | 80.35 | −3.7% |
+| over-10y bullet maturity 15y | 81.43 | −2.4% |
+| over-10y bullet maturity 25y | 79.52 | −4.7% |
+| pass-through life 20y | 81.48 | −2.3% |
+| pass-through life 28y | 79.80 | −4.3% |
+| prepayment floor 2% / ceiling 60% | 78.30 | −6.1% |
+| prepayment floor 8% / ceiling 35% | 81.90 | −1.8% |
+| prepayment curve twice as steep | 80.71 | −3.2% |
+| servicing and guarantee fee 25bp | 80.51 | −3.5% |
+| servicing and guarantee fee 75bp | 80.14 | −3.9% |
+| mean reversion half-life 14y (a = 0.05) | 80.63 | −3.3% |
+| mean reversion half-life 4.6y (a = 0.15) | 80.12 | −3.9% |
+| short-rate volatility 100bp | 81.04 | −2.8% |
+
+Three things come out of this, and the first contradicts what I expected.
+
+The short-rate calibration is not the culprit. Widening the prepayment S-curve moves the
+answer by two points and shortening the representative maturities by about one, but
+halving or near-doubling the mean reversion speed moves it by three tenths of a point,
+and taking volatility from 62bp to 100bp moves it by two thirds of a point. Whatever the
+historical rather than risk-neutral calibration costs in realism, it is not what is
+producing a three-point gap. The plausible first guess was wrong and the sweep is what
+showed it.
+
+Every variant under-predicts. Not one of the thirteen lands above the disclosed price.
+A bias that survives this much variation in the assumptions is structural rather than
+parametric, and the most likely candidate is the bullet approximation applied to the
+non-mortgage third of the book: $15.0bn of agency CMBS and $7.2bn of municipals in the
+over-ten-years bucket are priced as par bonds at a 20-year representative maturity, when
+both almost certainly have shorter effective lives than that. Shortening that bucket to
+15 years closes a third of the gap on its own.
+
+And the result is not fragile. Across every variant the prediction spans 3.6 points, from
+78.30 to 81.90, and the error never exceeds 6.1%. The headline is not resting on a lucky
+parameter.
 
 ## 5. The second test, and the finding underneath it
 
@@ -238,7 +282,7 @@ marks the point implied by SVB's own disclosure.*
 Two features of this figure are worth reading carefully.
 
 SVB's contour is nearly vertical: beta barely matters, half-life is almost everything.
-That is a direct consequence of its funding mix — 67% of SVB's deposits were
+That is a direct consequence of its funding mix: 67% of SVB's deposits were
 non-interest-bearing at end-2021, and a balance paying nothing has no beta to speak of.
 Schwab's contour bends, because essentially all of its deposits were interest-bearing and
 the pass-through rate does real work.
@@ -286,13 +330,13 @@ roughly $4.0bn, and that cushion survives a complete liquidation only while the
 forced-sale discount stays under about 4%.
 
 What actually happened, as the Federal Reserve's April 2023 review records: over $40bn
-was withdrawn on 9 March 2023, with management expecting $100bn more the following day —
+was withdrawn on 9 March 2023, with management expecting $100bn more the following day,
 together "roughly 85 percent of the bank's deposit base". Against uninsured deposits
 that two-day demand is 84.6%, comfortably beyond the modelled threshold of 67.5%.
 
 Schwab never reaches either threshold at any run size on this grid. Its $68.9bn of
 uninsured deposits at end-2022 sit against $40.2bn of cash and $306.8bn of securities at
-fair value. Its equity stays above $31bn even in the worst cell of the sensitivity grid —
+fair value. Its equity stays above $31bn even in the worst cell of the sensitivity grid:
 no secured borrowing at all, and a 15% discount on everything sold.
 
 ## 7. What separated them
@@ -324,13 +368,20 @@ The limitations that would move a number:
 - **The prepayment curve is stylised.** Closing the gap properly needs loan-level
   balances, actual WAC and WAM, and an issuer prepayment model. Parameters are held fixed
   across both banks and both dates so nothing could be tuned after seeing the answer.
+  Widening the curve to a 2%-60% range moves the prediction -2.05 points and narrowing
+  it to 8%-35% moves it +1.55, which makes it the most influential assumption in the
+  model.
 - **Representative maturities stand in for contractual buckets.** The over-ten-years
-  bucket is modelled at 20 years for bullets and 25 for pass-throughs. Results are
-  sensitive to this.
+  bucket is modelled at 20 years for bullets and 25 for pass-throughs. Moving the bullet
+  figure to 15 or 25 years shifts the headline prediction by +1.08 and -0.83 points; the
+  pass-through figure by +1.13 and -0.56. This is the largest single lever after the
+  prepayment curve and is the most likely home of the residual bias.
 - **The Hull–White calibration is historical, not risk-neutral**, because swaption
   surfaces are not free. This carries no market price of interest rate risk and will
-  undervalue the prepayment option. The consistent sign of the out-of-sample errors is
-  consistent with that bias.
+  undervalue the prepayment option. It is worth saying plainly that the sensitivity
+  sweep does not support blaming the residual error on it: halving or near-doubling the
+  mean reversion speed moves the prediction by about three tenths of a point, and taking
+  volatility from 62bp to 100bp by two thirds of a point, against a gap of three points.
 - **Loans carry no credit spread**, since the filings disclose no loan-level fair value
   to calibrate against. This understates credit risk; it does not affect the rate
   sensitivity EVE measures.
@@ -342,8 +393,8 @@ The limitations that would move a number:
 - **The waterfall is mechanical.** It assumes collateral is eligible, pre-positioned and
   pledgeable at speed. Nothing in it captures the pace at which a modern run moves, which
   is why the modelled 67.5% threshold is better read as an upper bound than a forecast.
-- **The BCBS shocks use the 2016 USD calibration** — 200bp parallel, 300bp short, 150bp
-  long — which is what applied at both valuation dates. The Committee's 2024
+- **The BCBS shocks use the 2016 USD calibration** of 200bp parallel, 300bp short and
+  150bp long, which is what applied at both valuation dates. The Committee's 2024
   recalibration raises the long shock to 225bp from 1 January 2026; that post-dates the
   period analysed and is run only as a robustness check.
 

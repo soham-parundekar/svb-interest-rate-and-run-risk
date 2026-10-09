@@ -1,11 +1,11 @@
-bank,as_of,classification,label,amortized_cost,disclosed_fair_value,modelled_fair_value,oas_bp,at_solver_bound,instrument_kind
-Schwab,2021-12-31,AFS,U.S. agency mortgage-backed securities,335803.0,334355.0,334354.9999953242,-31.233590804305766,False,pass_through
-Schwab,2021-12-31,AFS,U.S. Treasury securities,21394.0,21282.0,21281.999988584485,92.560043325332,False,bullet
-Schwab,2021-12-31,AFS,Asset-backed securities,17547.0,17546.0,17545.99972162778,-51.83827908324109,False,bullet
-Schwab,2021-12-31,AFS,Corporate debt securities,12309.999999999998,12344.0,12343.99993861063,49.798663941361546,False,bullet
-Schwab,2021-12-31,AFS,U.S. state and municipal securities,1611.0,1687.0,1686.9999994874581,-70.34474831357582,False,bullet
-Schwab,2021-12-31,AFS,Certificates of deposit,1000.0,999.0,998.9999999797692,96.98711120647478,False,bullet
-Schwab,2021-12-31,AFS,Foreign government agency securities,425.0,425.0,424.9999999899637,92.10512075602217,False,bullet
-Schwab,2021-12-31,AFS,Non-agency commercial mortgage-backed securities,1170.0,1190.0,1190.0000111585,-84.8378622906072,False,bullet
-Schwab,2021-12-31,AFS,Other,22.0,26.0,25.999999957646025,-167.96248525225377,False,bullet
-Schwab,2021-12-31,AFS,Commercial paper,200.0,200.0,200.00000000087678,109.94197730388977,False,bullet
+bank,as_of,classification,label,amortized_cost,disclosed_fair_value,modelled_fair_value,oas_bp,at_solver_bound,repricing_residual,instrument_kind
+Schwab,2021-12-31,AFS,U.S. agency mortgage-backed securities,335803.0,334355.0,334354.9999953242,-31.233590804305766,False,-4.675821401178837e-06,pass_through
+Schwab,2021-12-31,AFS,U.S. Treasury securities,21394.0,21282.0,21281.999988584485,92.560043325332,False,-1.1415515473345295e-05,bullet
+Schwab,2021-12-31,AFS,Asset-backed securities,17547.0,17546.0,17545.99972162778,-51.83827908324109,False,-0.00027837221932713874,bullet
+Schwab,2021-12-31,AFS,Corporate debt securities,12309.999999999998,12344.0,12343.99993861063,49.798663941361546,False,-6.138936987554189e-05,bullet
+Schwab,2021-12-31,AFS,U.S. state and municipal securities,1611.0,1687.0,1686.9999994874581,-70.34474831357582,False,-5.125418738316512e-07,bullet
+Schwab,2021-12-31,AFS,Certificates of deposit,1000.0,999.0,998.9999999797692,96.98711120647478,False,-2.0230800146237016e-08,bullet
+Schwab,2021-12-31,AFS,Foreign government agency securities,425.0,425.0,424.9999999899637,92.10512075602217,False,-1.0036274034064263e-08,bullet
+Schwab,2021-12-31,AFS,Non-agency commercial mortgage-backed securities,1170.0,1190.0,1190.0000111585,-84.8378622906072,False,1.115850000132923e-05,bullet
+Schwab,2021-12-31,AFS,Other,22.0,26.0,25.999999957646025,-167.96248525225377,False,-4.235397454976919e-08,bullet
+Schwab,2021-12-31,AFS,Commercial paper,200.0,200.0,200.00000000087678,109.94197730388977,False,8.767813142185332e-10,bullet
