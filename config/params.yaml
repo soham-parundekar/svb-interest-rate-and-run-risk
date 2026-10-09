@@ -15,8 +15,8 @@ banks: [SVB, Schwab]
 nelson_siegel_svensson:
   # beta0..beta3 are linear in the loadings once the two decay parameters are fixed, so
   # the fit is a grid search over (lambda1, lambda2) with OLS inside. Grid is in years.
-  lambda1_grid: [0.5, 10.0, 40]    # min, max, points
-  lambda2_grid: [0.5, 10.0, 40]
+  lambda1_grid: [0.2, 25.0, 30]    # min, max, points (starting grid only)
+  lambda2_grid: [0.2, 25.0, 30]
   # Treasury publishes a 2-month and (from Oct 2022) a 4-month bill. Both are thin and
   # sit on top of the 1- and 3-month points; including them distorts the short end of
   # the fit without adding information.
@@ -42,8 +42,17 @@ hull_white:
   # free. It almost certainly understates the market price of rate risk, and the report
   # says so rather than presenting the result as a market-implied number.
   short_rate_series: DGS3MO
-  calibration_start: 2003-01-01
+  # Monthly sampling, not daily. Daily changes in the three-month bill carry no
+  # information about the level, so the regression returns a = 0.002 (a 365-year
+  # half-life) and an implied long-run mean of 86%. See calibration_sensitivity().
+  sampling_days: 21
+  # From 1990, not 2003. The 2003-2022 window is more than half zero-bound, where the
+  # level cannot predict the change; 1990 onward spans four complete rate cycles.
+  calibration_start: 1990-01-01
   calibration_end: 2022-12-31      # never extends past a valuation date
+  # Guard against the degenerate fits above silently returning. Anything beyond this is
+  # the estimator failing, not a finding about rates.
+  max_half_life_years: 50.0
   paths: 20000
   steps_per_year: 12
   horizon_years: 30

@@ -58,6 +58,15 @@ UNITS = "USD millions"
 
 MATURITY_BUCKETS = ["le_1y", "1_5y", "5_10y", "gt_10y"]
 
+# Column headers that the row parser cannot tell from data, because the year beside
+# them parses as a perfectly good number. "December 31, 2021" would otherwise be filed
+# as a deposit type holding $2,021m.
+HEADER_LABELS = re.compile(r"^\(?(dollars|in millions|december 31|year ended)", re.I)
+
+
+def _is_header(label: str) -> bool:
+    return bool(HEADER_LABELS.match(label.strip()))
+
 
 def _rounded_equal(parts: float, total: float, tol: float = 2.0) -> bool:
     """Filers round each line independently, so component sums miss totals by a unit
@@ -136,10 +145,8 @@ def svb_deposits(filing: Filing, tables) -> list[dict]:
     frame = table_to_frame(table)
     # The note shows the current year beside the prior year; column 0 is the label,
     # column 1 the current year.
-    out = []
-    for label, v in label_rows(frame, width=2):
-        out.append(dict(deposit_type=label, amount=v[0]))
-    return out
+    return [dict(deposit_type=label, amount=v[0])
+            for label, v in label_rows(frame, width=2) if not _is_header(label)]
 
 
 # Metrics we keep out of the capital composition tables. The 15% supervisory outlier
@@ -397,7 +404,8 @@ def schwab_deposits(filing: Filing, tables) -> list[dict]:
     _, table = find_table(tables, "Deposits swept from brokerage accounts",
                           "Total bank deposits", max_chars=500)
     return [dict(deposit_type=label, amount=v[0])
-            for label, v in label_rows(table_to_frame(table), width=2)]
+            for label, v in label_rows(table_to_frame(table), width=2)
+            if not _is_header(label)]
 
 
 def schwab_rate_sensitivity(filing: Filing, body: str) -> list[dict]:
@@ -430,6 +438,58 @@ def schwab_rate_sensitivity(filing: Filing, body: str) -> list[dict]:
     ]
 
 
+# SVB's loan maturity table uses its own bucket edges - one year, five years, fifteen
+# years - which do not line up with the securities buckets. Kept distinct rather than
+# forced into the securities scheme, because 91% of the book is variable rate and
+# reprices within a quarter regardless of when it contractually matures.
+LOAN_BUCKETS = ["le_1y", "1_5y", "5_15y", "gt_15y"]
+
+
+def svb_loans(filing: Filing, tables) -> list[dict]:
+    """
+    Loans split fixed against variable, by remaining contractual maturity.
+
+    Only the two total lines are kept. The per-segment detail (global fund banking,
+    investor dependent, private bank and the rest) is a credit breakdown; for interest
+    rate risk the repricing behaviour is what matters and that is captured by the
+    fixed/variable split.
+    """
+    _, table = find_table(tables, "Fixed-rate loans", "Variable-rate loans", "Total",
+                          max_chars=4000)
+    wanted = {"total fixed-rate loans": "fixed",
+              "total variable-rate loans": "floating",
+              "total loans": "all"}
+    rows = []
+    for label, v in label_rows(table_to_frame(table), width=5):
+        rate_type = wanted.get(label.strip().lower())
+        if rate_type is None:
+            continue
+        for bucket, amount in zip(LOAN_BUCKETS, v[:4]):
+            rows.append(dict(rate_type=rate_type, bucket=bucket, amount=amount))
+        rows.append(dict(rate_type=rate_type, bucket="total", amount=v[4]))
+    return rows
+
+
+def schwab_loans(filing: Filing, tables) -> list[dict]:
+    """
+    Loans by product. Schwab publishes no maturity table and no fixed/floating split,
+    so the repricing assumption is made in Module A from the product names and recorded
+    there rather than invented here.
+    """
+    _, table = find_table(tables, "Pledged asset lines", "Total bank loans",
+                          f"December 31, {filing.fiscal_year}", max_chars=1400)
+    frame = cut_at(table_to_frame(table), f"December 31, {filing.fiscal_year - 1}")
+    keep = {"first mortgages", "helocs", "pledged asset lines", "other",
+            "total bank loans"}
+    rows = []
+    for label, v in label_rows(frame):
+        if label.strip().lower() in keep and len(v) >= 6:
+            # Columns: current, 30-59, 60-89, >90, total past due, total loans, ...
+            rows.append(dict(rate_type="unclassified", bucket="total",
+                             product=label, amount=v[5]))
+    return rows
+
+
 # ------------------------------------------------------------------- narrative facts
 
 UNINSURED_SVB = re.compile(
@@ -457,13 +517,14 @@ def uninsured_deposits(filing: Filing, body: str) -> dict:
         f = FOREIGN_SVB.search(body)
         if not m or not f:
             raise LookupError("SVB uninsured-deposit sentence not found")
-        current, foreign = float(m.group(1)) * 1000, float(f.group(1)) * 1000
+        current = round(float(m.group(1)) * 1000, 1)
+        foreign = round(float(f.group(1)) * 1000, 1)
         quote = squash(body[m.start():m.start() + 260])
     else:
         m = UNINSURED_SCHWAB.search(body)
         if not m:
             raise LookupError("Schwab uninsured-deposit sentence not found")
-        current, foreign = float(m.group(1)) * 1000, 0.0
+        current, foreign = round(float(m.group(1)) * 1000, 1), 0.0
         quote = squash(body[m.start():m.start() + 200])
     return dict(uninsured_domestic=current, foreign_deposits=foreign,
                 source_quote=quote)
@@ -477,7 +538,10 @@ BALANCE_SHEET_LINES = {
         ("Loans, amortized cost", "loans_amortized_cost"),
         ("Total assets", "total_assets"),
         ("Total deposits", "total_deposits"),
-        ("Total SVB Financial Group stockholders", "total_equity"),
+        ("Short-term borrowings", "short_term_borrowings"),
+        ("Long-term debt", "long_term_debt"),
+        ("Total liabilities", "total_liabilities"),
+        ("Total SVBFG stockholders", "total_equity"),
     ],
     "Schwab": [
         ("Cash and cash equivalents", "cash"),
@@ -486,6 +550,9 @@ BALANCE_SHEET_LINES = {
         ("Bank loans", "loans_amortized_cost"),
         ("Total assets", "total_assets"),
         ("Bank deposits", "total_deposits"),
+        ("Short-term borrowings", "short_term_borrowings"),
+        ("Long-term debt", "long_term_debt"),
+        ("Total liabilities", "total_liabilities"),
         ("Total stockholders", "total_equity"),
     ],
 }
@@ -509,8 +576,14 @@ def balance_sheet(filing: Filing, tables) -> list[dict]:
     wanted = BALANCE_SHEET_LINES[filing.bank]
     out = []
     for label, v in label_rows(frame):
+        if _is_header(label):
+            continue
         for prefix, name in wanted:
             if label.lower().startswith(prefix.lower()):
+                if name in {n for _, n, in [(r["line_item"], r["line_item"])
+                                            for r in out]}:
+                    break  # first match wins; "Total liabilities and total equity"
+                           # must not overwrite "Total liabilities"
                 out.append(dict(line_item=name, label=label, amount=v[0]))
                 break
     return out
@@ -624,6 +697,7 @@ def main() -> None:
     sensitivity: list[dict] = []
     uninsured: list[dict] = []
     capital_rows: list[dict] = []
+    loan_rows: list[dict] = []
     ratios: dict[tuple, dict] = {}
     manifest: list[dict] = []
 
@@ -665,6 +739,9 @@ def main() -> None:
         ratios[(filing.bank, filing.fiscal_year)] = published_capital_ratios(
             filing, tables)
 
+        loan_rows += [{**tag, **r} for r in
+                      (svb_loans(filing, tables) if filing.bank == "SVB"
+                       else schwab_loans(filing, tables))]
         securities += [{**tag, **r} for r in sec]
         maturity += [{**tag, **r} for r in mat]
         deposits += [{**tag, **r} for r in dep]
@@ -707,6 +784,9 @@ def main() -> None:
               ["bank", "as_of", "uninsured_domestic", "foreign_deposits",
                "source_quote", "accession"])
     check_capital_ratio(capital_rows, ratios)
+    write_csv(RAW / "loans.csv", loan_rows,
+              ["bank", "as_of", "rate_type", "product", "bucket", "amount",
+               "accession"])
     write_csv(RAW / "regulatory_capital.csv", capital_rows,
               ["bank", "as_of", "entity", "metric", "value", "accession"])
     write_csv(RAW / "filing_manifest.csv", manifest,

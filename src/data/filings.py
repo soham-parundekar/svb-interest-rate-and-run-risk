@@ -33,8 +33,10 @@ warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 # and a column of zeros is data.
 PADDING_CELLS = {"", "$", "%", "(", ")"}
 
-# A footnote marker trailing a row label, e.g. "U.S. agency debentures (1)".
-FOOTNOTE_SUFFIX = re.compile(r"\s*\((\d{1,2})\)\s*$")
+# Footnote markers trailing a row label. SVB writes "U.S. agency debentures (1)";
+# Schwab writes "First Mortgages (1,2)" and sometimes "(1)(2)". All three have to come
+# off or the label stops matching anything.
+FOOTNOTE_SUFFIX = re.compile(r"(?:\s*\(\s*\d{1,2}(?:\s*,\s*\d{1,2})*\s*\))+\s*$")
 
 
 @dataclass(frozen=True)
