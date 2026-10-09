@@ -86,11 +86,27 @@ mbs:
   cpr_max: 0.45
   incentive_midpoint: 0.0          # I0, in decimal (0.0 = at the money)
   steepness: 1.5                   # k, per percentage point of incentive
-  # Mortgage rate proxy: m(t) = 10y zero from the simulated curve + spread. The spread
-  # is calibrated once, so the proxy tracks MORTGAGE30US over the sample.
+  # Mortgage rate proxy: m(t) = the model's own 10-year zero rate plus a spread, with
+  # the spread anchored at each valuation date to Freddie Mac's published survey rate.
+  # A single sample-average spread will not do: the primary-secondary gap ran 1.59% at
+  # end-2021 and 2.59% at end-2022, so averaging puts the end-2022 mortgage rate 75bp
+  # too low and flatters the out-of-sample prediction.
   mortgage_spread_source: MORTGAGE30US
-  mortgage_spread_window: [2015-01-01, 2022-12-31]
-  weighted_average_maturity_years: 25.0   # agency pass-throughs at the 2021 vintage
+  # Weighted-average maturity of the representative pool in each contractual maturity
+  # bucket. A single figure for the whole book will not do. SVB keeps 98.6% of its
+  # pass-throughs in the over-ten-year bucket so it barely notices, but 29% of Schwab's
+  # sits in shorter buckets, and handing those a 25-year life roughly doubles the
+  # duration of a third of a $334bn portfolio.
+  bucket_wam_years:
+    le_1y: 0.75
+    1_5y: 3.0
+    5_10y: 7.5
+    gt_10y: 25.0        # a 2020-21 vintage thirty-year pool, lightly seasoned
+  weighted_average_maturity_years: 25.0   # fallback when no bucket is given
+  # Gap between what the borrower pays and what reaches the investor: servicing plus the
+  # agency guarantee fee. Applied to turn a disclosed book yield into a WAC, since the
+  # refinancing decision is made on the borrower's rate, not the pass-through coupon.
+  servicing_and_guarantee_fee: 0.005
 
 oas:
   # One option-adjusted spread per maturity/type bucket, solved so the model reproduces

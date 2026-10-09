@@ -490,6 +490,90 @@ def schwab_loans(filing: Filing, tables) -> list[dict]:
     return rows
 
 
+# Schwab's two 2022 transfers out of available-for-sale. Needed because a transferred
+# security is rebased to its fair value on the transfer date: that becomes its new
+# amortized cost, and the unrealized loss moves to AOCI and amortizes over the
+# remaining life instead of staying visible in the securities note. So Schwab's
+# disclosed HTM "amortized cost" is NOT what it paid, and its disclosed unrealized loss
+# is not the whole economic loss. Comparing it with SVB's HTM - classified that way from
+# purchase, and therefore carried at genuine original cost - without this adjustment is
+# comparing two different measurements.
+TRANSFER_SENTENCE = re.compile(
+    r"transferred investment securities from the AFS category to the HTM category, "
+    r"with aggregate fair values of \$([\d.]+) billion and \$([\d.]+) billion, "
+    r"respectively, and net unrealized losses at the time of transfer of "
+    r"\$([\d.]+) billion and \$([\d.]+) billion", re.I)
+
+RECLASSIFIED_LOSS = re.compile(
+    r"Reclassification of net unrealized loss transferred to held to maturity "
+    r"([\d,]+)", re.I)
+
+AMORTIZED_BACK = re.compile(
+    r"Amortization of amounts previously recorded upon transfer to held to maturity "
+    r"from available for sale ([\d,]+)", re.I)
+
+
+SVB_TRANSFER = re.compile(
+    r"re-designation of \$([\d.]+) billion of AFS securities to HTM securities", re.I)
+SVB_TRANSFER_LOSS = re.compile(
+    r"re-designated for capital management purposes[^.]*?unrealized losses totaling "
+    r"\$([\d,]+) million", re.I)
+
+
+def securities_transfers(filing: Filing, body: str) -> list[dict]:
+    """
+    Fair value transferred out of available-for-sale, and the loss that went with it.
+
+    Both banks did this, at wildly different scale, and the difference is the point.
+    SVB re-designated $8.95bn during 2021 carrying $132m of loss - 0.1% of its HTM book,
+    so its disclosed amortized cost is effectively what it paid. Schwab moved $206.8bn
+    of original cost at $188.6bn of fair value during 2022, which means $18.2bn of loss
+    left the securities note for AOCI.
+    """
+    if filing.bank == "SVB":
+        size = SVB_TRANSFER.search(body)
+        loss = SVB_TRANSFER_LOSS.search(body)
+        if not size or filing.fiscal_year != 2021:
+            return []
+        fair_value = float(size.group(1)) * 1000
+        loss_amount = to_number(loss.group(1)) if loss else 0.0
+        return [dict(transfer=f"{filing.fiscal_year}-redesignation",
+                     fair_value_transferred=fair_value,
+                     unrealized_loss_at_transfer=loss_amount,
+                     original_cost=fair_value + (loss_amount or 0.0),
+                     amortized_back_in_year=None,
+                     unamortized_at_year_end=loss_amount)]
+
+    match = TRANSFER_SENTENCE.search(body)
+    if not match:
+        return []
+
+    first_fv, second_fv, first_loss, second_loss = (float(g) * 1000
+                                                    for g in match.groups())
+    reclassified = RECLASSIFIED_LOSS.search(body)
+    amortized = AMORTIZED_BACK.search(body)
+
+    rows = [
+        dict(transfer="2022-01", fair_value_transferred=first_fv,
+             unrealized_loss_at_transfer=first_loss,
+             original_cost=first_fv + first_loss),
+        dict(transfer="2022-11", fair_value_transferred=second_fv,
+             unrealized_loss_at_transfer=second_loss,
+             original_cost=second_fv + second_loss),
+    ]
+    total_loss = to_number(reclassified.group(1)) if reclassified else None
+    amortized_back = to_number(amortized.group(1)) if amortized else 0.0
+    rows.append(dict(
+        transfer="total", fair_value_transferred=first_fv + second_fv,
+        unrealized_loss_at_transfer=total_loss or (first_loss + second_loss),
+        original_cost=(first_fv + second_fv
+                       + (total_loss or (first_loss + second_loss))),
+        amortized_back_in_year=amortized_back,
+        unamortized_at_year_end=((total_loss or (first_loss + second_loss))
+                                 - (amortized_back or 0.0))))
+    return rows
+
+
 # ------------------------------------------------------------------- narrative facts
 
 UNINSURED_SVB = re.compile(
@@ -698,6 +782,7 @@ def main() -> None:
     uninsured: list[dict] = []
     capital_rows: list[dict] = []
     loan_rows: list[dict] = []
+    transfer_rows: list[dict] = []
     ratios: dict[tuple, dict] = {}
     manifest: list[dict] = []
 
@@ -748,6 +833,7 @@ def main() -> None:
         sheet += [{**tag, **r} for r in balance_sheet(filing, tables)]
         sensitivity += [{**tag, **r} for r in sens]
         uninsured.append({**tag, **uninsured_deposits(filing, body)})
+        transfer_rows += [{**tag, **r} for r in securities_transfers(filing, body)]
         manifest.append(dict(**tag, fiscal_year=filing.fiscal_year, cik=filing.cik,
                              units=UNITS, url=filing.url,
                              local_file=filing.path.name,
@@ -784,6 +870,10 @@ def main() -> None:
               ["bank", "as_of", "uninsured_domestic", "foreign_deposits",
                "source_quote", "accession"])
     check_capital_ratio(capital_rows, ratios)
+    write_csv(RAW / "securities_transfers.csv", transfer_rows,
+              ["bank", "as_of", "transfer", "fair_value_transferred",
+               "unrealized_loss_at_transfer", "original_cost",
+               "amortized_back_in_year", "unamortized_at_year_end", "accession"])
     write_csv(RAW / "loans.csv", loan_rows,
               ["bank", "as_of", "rate_type", "product", "bucket", "amount",
                "accession"])

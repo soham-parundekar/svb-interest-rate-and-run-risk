@@ -1,0 +1,5 @@
+bank,as_of,transfer,fair_value_transferred,unrealized_loss_at_transfer,original_cost,amortized_back_in_year,unamortized_at_year_end,accession
+SVB,2021-12-31,2021-redesignation,8800.0,132.0,8932.0,,132.0,0000719739-22-000023
+Schwab,2022-12-31,2022-01,108800.0,2400.0,111200.0,,,0000316709-23-000009
+Schwab,2022-12-31,2022-11,79800.0,15800.0,95600.0,,,0000316709-23-000009
+Schwab,2022-12-31,total,188600.0,18228.0,206828.0,707.0,17521.0,0000316709-23-000009
