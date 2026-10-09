@@ -184,6 +184,12 @@ def solve_oas(flow_sets: list[CashFlowSet], target_value: float) -> float:
                         xtol=float(params()["oas"]["solver_tolerance"])))
 
 
+def oas_at_bound(oas: float) -> bool:
+    """Whether a solved spread is sitting on its bracket rather than inside it."""
+    low, high = (float(b) / 1e4 for b in params()["oas"]["solver_bounds_bp"])
+    return abs(oas - low) < 1e-9 or abs(oas - high) < 1e-9
+
+
 @dataclass
 class CalibratedBook:
     """Everything the end-2022 test needs carried forward from the end-2021 solve."""
@@ -240,7 +246,13 @@ def calibrate_portfolio(sheet: pd.DataFrame, bank: str, as_of: str, model: HullW
             amortized_cost=float(group["amortized_cost"].sum()),
             disclosed_fair_value=target, modelled_fair_value=modelled,
             oas_bp=oas * 1e4,
-            at_solver_bound=bool(abs(modelled - target) > 1.0),
+            # Flag a spread the solver could not reach inside its bracket. The only
+            # position that does this is SVB's $100m variable-rate CMO, which prices at
+            # par whatever the spread, so no finite OAS reproduces the $101m fair value
+            # the filing shows. The residual is $0.3m and the position is 0.1% of the
+            # book.
+            at_solver_bound=oas_at_bound(oas),
+            repricing_residual=modelled - target,
             instrument_kind=("pass_through" if is_pass_through(label)
                              else "floating" if is_floating(label) else "bullet")))
 

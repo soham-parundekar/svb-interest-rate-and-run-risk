@@ -5,10 +5,12 @@ __pycache__/
 .venv/
 venv/
 
-# Downloaded market data is reproducible from src/data/market_data.py. The per-year
-# Treasury files are intermediates; the combined curve file is kept because every
-# result depends on it.
+# Market data is reproducible from src/data/market_data.py. The per-year Treasury
+# files and the FRED series are intermediates and run to thousands of rows; the
+# combined curve file is kept because every valuation in the project depends on it.
 data/raw/treasury_par_2*.csv
 data/raw/fred_*.csv
-data/processed/
-reports/figures/
+
+# data/processed/ and reports/figures/ are deliberately NOT ignored. They are the
+# results the report quotes and the figures it embeds, and committing them means the
+# repository can be reviewed without first sitting through a twenty-minute model run.

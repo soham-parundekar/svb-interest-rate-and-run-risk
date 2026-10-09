@@ -1,0 +1,10 @@
+# Pinned loosely: the project uses stable APIs from each of these and has been run
+# against the versions noted beside them.
+numpy>=1.24          # 2.5.3
+scipy>=1.10          # 1.18.1
+pandas>=2.0          # 3.0.5
+matplotlib>=3.7      # 3.11.2
+beautifulsoup4>=4.12 # 4.15.0
+lxml>=4.9            # 6.1.3
+PyYAML>=6.0          # 6.0.3
+pytest>=7.4          # 9.1.1

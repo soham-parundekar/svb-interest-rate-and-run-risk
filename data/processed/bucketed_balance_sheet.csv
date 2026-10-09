@@ -1,0 +1,193 @@
+bank,as_of,side,instrument,classification,label,bucket,rate_type,maturity_years,amortized_cost,fair_value,book_yield
+SVB,2021-12-31,asset,cash,cash,Cash and cash equivalents,le_1y,floating,0.0,14619.0,14619.0,
+SVB,2021-12-31,asset,loans,loans,fixed-rate loans,1_5y,fixed,3.0,1547.0,,
+SVB,2021-12-31,asset,loans,loans,floating-rate loans,1_5y,floating,0.25,13131.0,,
+SVB,2021-12-31,asset,loans,loans,fixed-rate loans,5_15y,fixed,10.0,1229.0,,
+SVB,2021-12-31,asset,loans,loans,floating-rate loans,5_15y,floating,0.25,2223.0,,
+SVB,2021-12-31,asset,loans,loans,fixed-rate loans,gt_15y,fixed,20.0,1776.0,,
+SVB,2021-12-31,asset,loans,loans,floating-rate loans,gt_15y,floating,0.25,6151.0,,
+SVB,2021-12-31,asset,loans,loans,fixed-rate loans,le_1y,fixed,0.5,1302.0,,
+SVB,2021-12-31,asset,loans,loans,floating-rate loans,le_1y,floating,0.25,38917.0,,
+SVB,2021-12-31,asset,securities,AFS,U.S. Treasury securities,1_5y,fixed,3.0,15042.442208201894,15091.0,0.0105
+SVB,2021-12-31,asset,securities,AFS,U.S. agency debentures,1_5y,fixed,3.0,36.734693877551024,36.0,0.0104
+SVB,2021-12-31,asset,securities,AFS,Agency-issued CMBS,1_5y,fixed,3.0,66.69604666234608,67.0,0.0113
+SVB,2021-12-31,asset,securities,AFS,U.S. Treasury securities,5_10y,fixed,7.5,510.35255520504734,512.0,0.0121
+SVB,2021-12-31,asset,securities,AFS,U.S. agency debentures,5_10y,fixed,7.5,81.63265306122449,80.0,0.0158
+SVB,2021-12-31,asset,securities,AFS,Agency-issued CMBS,5_10y,fixed,7.5,1469.3039533376539,1476.0,0.0179
+SVB,2021-12-31,asset,securities,AFS,Agency-issued MBS,gt_10y,fixed,20.0,8786.0,8589.0,0.0128
+SVB,2021-12-31,asset,securities,AFS,Agency-issued CMO - fixed rate,gt_10y,fixed,20.0,988.0,982.0,0.0141
+SVB,2021-12-31,asset,securities,AFS,U.S. Treasury securities,le_1y,fixed,0.5,246.20523659305994,247.0,0.0049
+SVB,2021-12-31,asset,securities,AFS,U.S. agency debentures,le_1y,fixed,0.5,81.63265306122449,80.0,0.0027
+SVB,2021-12-31,asset,securities,AFS,Foreign government debt securities,le_1y,fixed,0.5,61.0,61.0,-0.008100000000000001
+SVB,2021-12-31,asset,securities,HTM,U.S. agency debentures,1_5y,fixed,3.0,133.0,134.31034482758622,0.024300000000000002
+SVB,2021-12-31,asset,securities,HTM,Agency-issued MBS,1_5y,fixed,3.0,7.0,6.917115411474418,0.022799999999999997
+SVB,2021-12-31,asset,securities,HTM,Agency-issued CMO - fixed rate,1_5y,fixed,3.0,14.0,13.813807940543711,0.0172
+SVB,2021-12-31,asset,securities,HTM,Agency-issued CMBS,1_5y,fixed,3.0,211.0,207.64295741693965,0.0075
+SVB,2021-12-31,asset,securities,HTM,Municipal bonds and notes,1_5y,fixed,3.0,176.0,179.91056456120737,0.024300000000000002
+SVB,2021-12-31,asset,securities,HTM,Corporate bonds,1_5y,fixed,3.0,33.0,33.140226628895185,0.017
+SVB,2021-12-31,asset,securities,HTM,U.S. agency debentures,5_10y,fixed,7.5,475.0,479.6798029556651,0.0194
+SVB,2021-12-31,asset,securities,HTM,Agency-issued MBS,5_10y,fixed,7.5,806.0,796.4564316640544,0.0217
+SVB,2021-12-31,asset,securities,HTM,Agency-issued CMO - fixed rate,5_10y,fixed,7.5,316.0,311.79737922941524,0.0161
+SVB,2021-12-31,asset,securities,HTM,Agency-issued CMBS,5_10y,fixed,7.5,971.0,955.5512400561535,0.019299999999999998
+SVB,2021-12-31,asset,securities,HTM,Municipal bonds and notes,5_10y,fixed,7.5,1152.0,1177.5964225824484,0.0276
+SVB,2021-12-31,asset,securities,HTM,Corporate bonds,5_10y,fixed,7.5,673.0,675.8597733711048,0.0187
+SVB,2021-12-31,asset,securities,HTM,Agency-issued MBS,gt_10y,fixed,20.0,63626.0,62872.62645292447,0.0154
+SVB,2021-12-31,asset,securities,HTM,Agency-issued CMO - fixed rate,gt_10y,fixed,20.0,9896.0,9764.388812830042,0.013500000000000002
+SVB,2021-12-31,asset,securities,HTM,Agency-issued CMO - variable rate,gt_10y,floating,0.25,100.0,101.0,0.0074
+SVB,2021-12-31,asset,securities,HTM,Agency-issued CMBS,gt_10y,fixed,20.0,13777.0,13557.805802526906,0.0163
+SVB,2021-12-31,asset,securities,HTM,Municipal bonds and notes,gt_10y,fixed,20.0,5780.0,5908.426495248742,0.0285
+SVB,2021-12-31,asset,securities,HTM,U.S. agency debentures,le_1y,fixed,0.5,1.0,1.0098522167487685,0.0226
+SVB,2021-12-31,asset,securities,HTM,Municipal bonds and notes,le_1y,fixed,0.5,48.0,49.066517607602016,0.0282
+SVB,2021-12-31,liability,borrowings,long_term_debt,Long-term debt,long_term_debt,fixed,5.0,2570.0,,
+SVB,2021-12-31,liability,borrowings,short_term_borrowings,Short-term borrowings,short_term_borrowings,floating,0.5,121.0,,
+SVB,2021-12-31,liability,deposits,non_maturity_insured,Noninterest-bearing demand,insured,fixed,,4724.658980037308,,
+SVB,2021-12-31,liability,deposits,non_maturity_insured,Interest-bearing checking and savings accounts,insured,floating,,191.68785907200174,,
+SVB,2021-12-31,liability,deposits,non_maturity_insured,Money market,insured,floating,,2058.861254842679,,
+SVB,2021-12-31,liability,deposits,non_maturity_insured,Money market deposits in foreign offices,insured,floating,,26.12901486762891,,
+SVB,2021-12-31,liability,deposits,non_maturity_insured,Sweep deposits in foreign offices,insured,floating,,36.37789569932818,,
+SVB,2021-12-31,liability,deposits,non_maturity_uninsured,Noninterest-bearing demand,uninsured,fixed,,121126.3410199627,,
+SVB,2021-12-31,liability,deposits,non_maturity_uninsured,Interest-bearing checking and savings accounts,uninsured,floating,,4914.312140927998,,
+SVB,2021-12-31,liability,deposits,non_maturity_uninsured,Money market,uninsured,floating,,52783.13874515732,,
+SVB,2021-12-31,liability,deposits,non_maturity_uninsured,Money market deposits in foreign offices,uninsured,floating,,669.8709851323711,,
+SVB,2021-12-31,liability,deposits,non_maturity_uninsured,Sweep deposits in foreign offices,uninsured,floating,,932.6221043006718,,
+SVB,2021-12-31,liability,deposits,time_insured,Time,insured,floating,,65.28499548104408,,
+SVB,2021-12-31,liability,deposits,time_uninsured,Time,uninsured,floating,,1673.715004518956,,
+SVB,2022-12-31,asset,cash,cash,Cash and cash equivalents,le_1y,floating,0.0,13803.0,13803.0,
+SVB,2022-12-31,asset,loans,loans,fixed-rate loans,1_5y,fixed,3.0,1189.0,,
+SVB,2022-12-31,asset,loans,loans,floating-rate loans,1_5y,floating,0.25,17062.0,,
+SVB,2022-12-31,asset,loans,loans,fixed-rate loans,5_15y,fixed,10.0,1365.0,,
+SVB,2022-12-31,asset,loans,loans,floating-rate loans,5_15y,floating,0.25,2264.0,,
+SVB,2022-12-31,asset,loans,loans,fixed-rate loans,gt_15y,fixed,20.0,2420.0,,
+SVB,2022-12-31,asset,loans,loans,floating-rate loans,gt_15y,floating,0.25,7037.0,,
+SVB,2022-12-31,asset,loans,loans,fixed-rate loans,le_1y,fixed,0.5,918.0,,
+SVB,2022-12-31,asset,loans,loans,floating-rate loans,le_1y,floating,0.25,41995.0,,
+SVB,2022-12-31,asset,securities,AFS,U.S. Treasury securities,1_5y,fixed,3.0,15327.04295010846,14373.0,0.0143
+SVB,2022-12-31,asset,securities,AFS,U.S. agency debentures,1_5y,fixed,3.0,39.20792079207921,33.0,0.0447
+SVB,2022-12-31,asset,securities,AFS,Foreign government debt securities,1_5y,fixed,3.0,57.783088235294116,52.0,0.0229
+SVB,2022-12-31,asset,securities,AFS,Agency-issued CMBS,1_5y,fixed,3.0,357.1748633879781,326.0,0.022099999999999998
+SVB,2022-12-31,asset,securities,AFS,U.S. Treasury securities,5_10y,fixed,7.5,830.7080260303687,779.0,0.0296
+SVB,2022-12-31,asset,securities,AFS,U.S. agency debentures,5_10y,fixed,7.5,80.79207920792079,68.0,0.04019999999999999
+SVB,2022-12-31,asset,securities,AFS,Foreign government debt securities,5_10y,fixed,7.5,1038.984375,935.0,0.022099999999999998
+SVB,2022-12-31,asset,securities,AFS,Agency-issued MBS,5_10y,fixed,7.5,50.15038618809632,43.0,0.0286
+SVB,2022-12-31,asset,securities,AFS,Agency-issued CMBS,5_10y,fixed,7.5,1246.8251366120219,1138.0,0.0184
+SVB,2022-12-31,asset,securities,AFS,Agency-issued MBS,gt_10y,fixed,20.0,7650.8496138119035,6560.0,0.015300000000000001
+SVB,2022-12-31,asset,securities,AFS,Agency-issued CMO - fixed rate,gt_10y,fixed,20.0,762.0,678.0,0.013300000000000001
+SVB,2022-12-31,asset,securities,AFS,U.S. Treasury securities,le_1y,fixed,0.5,1048.2490238611715,983.0,0.0116
+SVB,2022-12-31,asset,securities,AFS,Foreign government debt securities,le_1y,fixed,0.5,112.23253676470588,101.0,0.0106
+SVB,2022-12-31,asset,securities,HTM,U.S. agency debentures,1_5y,fixed,3.0,118.0,105.37448559670783,0.025
+SVB,2022-12-31,asset,securities,HTM,Agency-issued MBS,1_5y,fixed,3.0,25.0,20.949657741963435,0.023799999999999998
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMO - fixed rate,1_5y,fixed,3.0,90.0,73.78262116432464,0.0147
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMBS,1_5y,fixed,3.0,153.0,126.63126252505009,0.0086
+SVB,2022-12-31,asset,securities,HTM,Municipal bonds and notes,1_5y,fixed,3.0,235.0,194.88268608414242,0.0248
+SVB,2022-12-31,asset,securities,HTM,Corporate bonds,1_5y,fixed,3.0,115.0,97.98719772403982,0.0172
+SVB,2022-12-31,asset,securities,HTM,U.S. agency debentures,5_10y,fixed,7.5,367.0,327.73251028806584,0.0172
+SVB,2022-12-31,asset,securities,HTM,Agency-issued MBS,5_10y,fixed,7.5,1066.0,893.2934061173208,0.0232
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMO - fixed rate,5_10y,fixed,7.5,129.0,105.75509033553199,0.0171
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMBS,5_10y,fixed,7.5,966.0,799.5150300601201,0.019299999999999998
+SVB,2022-12-31,asset,securities,HTM,Municipal bonds and notes,5_10y,fixed,7.5,1362.0,1129.490291262136,0.0274
+SVB,2022-12-31,asset,securities,HTM,Corporate bonds,5_10y,fixed,7.5,588.0,501.0128022759602,0.018799999999999997
+SVB,2022-12-31,asset,securities,HTM,Agency-issued MBS,gt_10y,fixed,20.0,56614.0,47441.756936140715,0.0154
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMO - fixed rate,gt_10y,fixed,20.0,10242.0,8396.462288500144,0.0148
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMO - variable rate,gt_10y,floating,0.25,79.0,77.0,0.0074
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMBS,gt_10y,fixed,20.0,13313.0,11018.575150300601,0.016200000000000003
+SVB,2022-12-31,asset,securities,HTM,Municipal bonds and notes,gt_10y,fixed,20.0,5790.0,4801.577669902913,0.0285
+SVB,2022-12-31,asset,securities,HTM,U.S. agency debentures,le_1y,fixed,0.5,1.0,0.8930041152263375,0.0239
+SVB,2022-12-31,asset,securities,HTM,Agency-issued CMBS,le_1y,fixed,0.5,39.0,32.278557114228455,0.0045000000000000005
+SVB,2022-12-31,asset,securities,HTM,Municipal bonds and notes,le_1y,fixed,0.5,29.0,24.049352750809064,0.0226
+SVB,2022-12-31,liability,borrowings,long_term_debt,Long-term debt,long_term_debt,fixed,5.0,5370.0,,
+SVB,2022-12-31,liability,borrowings,short_term_borrowings,Short-term borrowings,short_term_borrowings,floating,0.5,13565.0,,
+SVB,2022-12-31,liability,deposits,non_maturity_insured,Noninterest-bearing demand,insured,fixed,,3596.1439151055156,,
+SVB,2022-12-31,liability,deposits,non_maturity_insured,Interest-bearing checking and savings accounts,insured,floating,,1465.8362303519764,,
+SVB,2022-12-31,liability,deposits,non_maturity_insured,Money market,insured,floating,,2317.122090705858,,
+SVB,2022-12-31,liability,deposits,non_maturity_insured,Money market deposits in foreign offices,insured,floating,,2.2711644108625224,,
+SVB,2022-12-31,liability,deposits,non_maturity_insured,Sweep deposits in foreign offices,insured,floating,,29.5696699767199,,
+SVB,2022-12-31,liability,deposits,non_maturity_uninsured,Noninterest-bearing demand,uninsured,fixed,,77156.85608489449,,
+SVB,2022-12-31,liability,deposits,non_maturity_uninsured,Interest-bearing checking and savings accounts,uninsured,floating,,31450.163769648025,,
+SVB,2022-12-31,liability,deposits,non_maturity_uninsured,Money market,uninsured,floating,,49714.87790929414,,
+SVB,2022-12-31,liability,deposits,non_maturity_uninsured,Money market deposits in foreign offices,uninsured,floating,,48.728835589137475,,
+SVB,2022-12-31,liability,deposits,non_maturity_uninsured,Sweep deposits in foreign offices,uninsured,floating,,634.4303300232801,,
+SVB,2022-12-31,liability,deposits,time_insured,Time,insured,floating,,298.05692944907577,,
+SVB,2022-12-31,liability,deposits,time_uninsured,Time,uninsured,floating,,6394.943070550924,,
+Schwab,2021-12-31,asset,cash,cash,Cash and cash equivalents,le_1y,floating,0.0,62975.0,62975.0,
+Schwab,2021-12-31,asset,loans,loans,First Mortgages,product,fixed,7.0,21090.0,,
+Schwab,2021-12-31,asset,loans,loans,HELOCs,product,floating,0.25,648.0,,
+Schwab,2021-12-31,asset,loans,loans,Pledged asset lines,product,floating,0.25,12709.0,,
+Schwab,2021-12-31,asset,loans,loans,Other,product,floating,0.25,207.0,,
+Schwab,2021-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,1_5y,fixed,3.0,21006.581471788966,20916.0,0.0189
+Schwab,2021-12-31,asset,securities,AFS,U.S. Treasury securities,1_5y,fixed,3.0,14645.67174137769,14569.0,0.0189
+Schwab,2021-12-31,asset,securities,AFS,Asset-backed securities,1_5y,fixed,3.0,4922.280519776587,4922.0,0.0189
+Schwab,2021-12-31,asset,securities,AFS,Corporate debt securities,1_5y,fixed,3.0,6425.253564484769,6443.0,0.0189
+Schwab,2021-12-31,asset,securities,AFS,U.S. state and municipal securities,1_5y,fixed,3.0,143.2424422050978,150.0,0.0189
+Schwab,2021-12-31,asset,securities,AFS,Certificates of deposit,1_5y,fixed,3.0,699.6996996996997,699.0,0.0189
+Schwab,2021-12-31,asset,securities,AFS,Foreign government agency securities,1_5y,fixed,3.0,324.0,324.0,0.0189
+Schwab,2021-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,5_10y,fixed,7.5,72015.53473104934,71705.0,0.0178
+Schwab,2021-12-31,asset,securities,AFS,U.S. Treasury securities,5_10y,fixed,7.5,2678.019734987313,2664.0,0.0178
+Schwab,2021-12-31,asset,securities,AFS,Asset-backed securities,5_10y,fixed,7.5,3003.1711501196855,3003.0,0.0178
+Schwab,2021-12-31,asset,securities,AFS,Corporate debt securities,5_10y,fixed,7.5,4255.24708360337,4267.0,0.0178
+Schwab,2021-12-31,asset,securities,AFS,U.S. state and municipal securities,5_10y,fixed,7.5,964.4991108476586,1010.0,0.0178
+Schwab,2021-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,gt_10y,fixed,20.0,239282.79987737583,238251.0,0.0111
+Schwab,2021-12-31,asset,securities,AFS,Asset-backed securities,gt_10y,fixed,20.0,9621.548330103727,9621.0,0.0111
+Schwab,2021-12-31,asset,securities,AFS,U.S. state and municipal securities,gt_10y,fixed,20.0,481.2946058091286,504.0,0.0111
+Schwab,2021-12-31,asset,securities,AFS,Non-agency commercial mortgage-backed securities,gt_10y,fixed,20.0,1170.0,1190.0,0.0111
+Schwab,2021-12-31,asset,securities,AFS,Other,gt_10y,fixed,20.0,22.0,26.0,0.0111
+Schwab,2021-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,le_1y,fixed,0.5,3498.083919785857,3483.0,0.0128
+Schwab,2021-12-31,asset,securities,AFS,U.S. Treasury securities,le_1y,fixed,0.5,4070.308523634997,4049.0,0.0128
+Schwab,2021-12-31,asset,securities,AFS,Corporate debt securities,le_1y,fixed,0.5,1629.4993519118602,1634.0,0.0128
+Schwab,2021-12-31,asset,securities,AFS,U.S. state and municipal securities,le_1y,fixed,0.5,21.963841138114997,23.0,0.0128
+Schwab,2021-12-31,asset,securities,AFS,Certificates of deposit,le_1y,fixed,0.5,300.3003003003003,300.0,0.0128
+Schwab,2021-12-31,asset,securities,AFS,Foreign government agency securities,le_1y,fixed,0.5,101.0,101.0,0.0128
+Schwab,2021-12-31,asset,securities,AFS,Commercial paper,le_1y,fixed,0.5,200.0,200.0,0.0128
+Schwab,2021-12-31,liability,borrowings,long_term_debt,Long-term debt,long_term_debt,fixed,5.0,18914.0,,
+Schwab,2021-12-31,liability,borrowings,short_term_borrowings,Short-term borrowings,short_term_borrowings,floating,0.5,4855.0,,
+Schwab,2021-12-31,liability,deposits,non_maturity_insured,Deposits swept from brokerage accounts,insured,floating,,286636.0661463644,,
+Schwab,2021-12-31,liability,deposits,non_maturity_insured,Checking,insured,floating,,15841.608887039996,,
+Schwab,2021-12-31,liability,deposits,non_maturity_insured,Savings and other,insured,floating,,5029.3249665956,,
+Schwab,2021-12-31,liability,deposits,non_maturity_insured,Non-interest-bearing deposits,insured,floating,,1022.6896635142559,,
+Schwab,2021-12-31,liability,deposits,non_maturity_uninsured,Deposits swept from brokerage accounts,uninsured,floating,,125650.93385363561,,
+Schwab,2021-12-31,liability,deposits,non_maturity_uninsured,Checking,uninsured,floating,,6944.391112960003,,
+Schwab,2021-12-31,liability,deposits,non_maturity_uninsured,Savings and other,uninsured,floating,,2204.6750334044004,,
+Schwab,2021-12-31,liability,deposits,non_maturity_uninsured,Non-interest-bearing deposits,uninsured,floating,,448.3103364857441,,
+Schwab,2022-12-31,asset,cash,cash,Cash and cash equivalents,le_1y,floating,0.0,40195.0,40195.0,
+Schwab,2022-12-31,asset,loans,loans,First Mortgages,product,fixed,7.0,25198.0,,
+Schwab,2022-12-31,asset,loans,loans,HELOCs,product,floating,0.25,597.0,,
+Schwab,2022-12-31,asset,loans,loans,Pledged asset lines,product,floating,0.25,14592.0,,
+Schwab,2022-12-31,asset,loans,loans,Other,product,floating,0.25,191.0,,
+Schwab,2022-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,1_5y,fixed,3.0,16066.86888579961,14515.0,0.0194
+Schwab,2022-12-31,asset,securities,AFS,U.S. Treasury securities,1_5y,fixed,3.0,18923.126968651566,18075.0,0.0194
+Schwab,2022-12-31,asset,securities,AFS,Asset-backed securities,1_5y,fixed,3.0,4407.206941564924,4198.0,0.0194
+Schwab,2022-12-31,asset,securities,AFS,Corporate debt securities,1_5y,fixed,3.0,10065.99283154122,9138.0,0.0194
+Schwab,2022-12-31,asset,securities,AFS,Certificates of deposit,1_5y,fixed,3.0,97.6086956521739,97.0,0.0194
+Schwab,2022-12-31,asset,securities,AFS,Foreign government agency securities,1_5y,fixed,3.0,1033.0,969.0,0.0194
+Schwab,2022-12-31,asset,securities,AFS,U.S. state and municipal securities,1_5y,fixed,3.0,33.52664576802508,30.0,0.0194
+Schwab,2022-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,5_10y,fixed,7.5,16294.893342601175,14721.0,0.0199
+Schwab,2022-12-31,asset,securities,AFS,U.S. Treasury securities,5_10y,fixed,7.5,750.6435428228589,717.0,0.0199
+Schwab,2022-12-31,asset,securities,AFS,Asset-backed securities,5_10y,fixed,7.5,1799.417031405974,1714.0,0.0199
+Schwab,2022-12-31,asset,securities,AFS,Corporate debt securities,5_10y,fixed,7.5,3343.213859020311,3035.0,0.0199
+Schwab,2022-12-31,asset,securities,AFS,U.S. state and municipal securities,5_10y,fixed,7.5,466.0203761755486,417.0,0.0199
+Schwab,2022-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,gt_10y,fixed,20.0,52301.72613531048,47250.0,0.0229
+Schwab,2022-12-31,asset,securities,AFS,Asset-backed securities,gt_10y,fixed,20.0,7465.376027029102,7111.0,0.0229
+Schwab,2022-12-31,asset,securities,AFS,U.S. state and municipal securities,gt_10y,fixed,20.0,172.10344827586206,154.0,0.0229
+Schwab,2022-12-31,asset,securities,AFS,Non-agency commercial mortgage-backed securities,gt_10y,fixed,20.0,473.0,450.0,0.0229
+Schwab,2022-12-31,asset,securities,AFS,Other,gt_10y,fixed,20.0,20.507936507936506,20.0,0.0229
+Schwab,2022-12-31,asset,securities,AFS,U.S. agency mortgage-backed securities,le_1y,fixed,0.5,1330.5116362887447,1202.0,0.0227
+Schwab,2022-12-31,asset,securities,AFS,U.S. Treasury securities,le_1y,fixed,0.5,22205.229488525572,21210.0,0.0227
+Schwab,2022-12-31,asset,securities,AFS,Corporate debt securities,le_1y,fixed,0.5,420.7933094384707,382.0,0.0227
+Schwab,2022-12-31,asset,securities,AFS,Certificates of deposit,le_1y,fixed,0.5,2147.391304347826,2134.0,0.0227
+Schwab,2022-12-31,asset,securities,AFS,U.S. state and municipal securities,le_1y,fixed,0.5,41.34952978056426,37.0,0.0227
+Schwab,2022-12-31,asset,securities,AFS,Other,le_1y,fixed,0.5,302.4920634920635,295.0,0.0227
+Schwab,2022-12-31,asset,securities,HTM,U.S. agency mortgage-backed securities,1_5y,fixed,3.0,5924.998955554437,5441.0,0.0239
+Schwab,2022-12-31,asset,securities,HTM,U.S. agency mortgage-backed securities,5_10y,fixed,7.5,42347.244878441634,38888.0,0.0172
+Schwab,2022-12-31,asset,securities,HTM,U.S. agency mortgage-backed securities,gt_10y,fixed,20.0,124356.37396184629,114198.0,0.0171
+Schwab,2022-12-31,asset,securities,HTM,U.S. agency mortgage-backed securities,le_1y,fixed,0.5,445.3822041576484,409.0,0.025099999999999997
+Schwab,2022-12-31,liability,borrowings,long_term_debt,Long-term debt,long_term_debt,fixed,5.0,20828.0,,
+Schwab,2022-12-31,liability,borrowings,short_term_borrowings,Short-term borrowings,short_term_borrowings,floating,0.5,17050.0,,
+Schwab,2022-12-31,liability,deposits,non_maturity_insured,Deposits swept from brokerage accounts,insured,floating,,270858.7087397229,,
+Schwab,2022-12-31,liability,deposits,non_maturity_insured,Checking,insured,floating,,16002.992855931601,,
+Schwab,2022-12-31,liability,deposits,non_maturity_insured,Savings and other,insured,floating,,4948.843776838121,,
+Schwab,2022-12-31,liability,deposits,non_maturity_insured,Non-interest-bearing deposits,insured,floating,,897.5764541133095,,
+Schwab,2022-12-31,liability,deposits,non_maturity_uninsured,Deposits swept from brokerage accounts,uninsured,floating,,62895.29126027712,,
+Schwab,2022-12-31,liability,deposits,non_maturity_uninsured,Checking,uninsured,floating,,3716.007144068399,,
+Schwab,2022-12-31,liability,deposits,non_maturity_uninsured,Savings and other,uninsured,floating,,1149.1562231618793,,
+Schwab,2022-12-31,liability,deposits,non_maturity_uninsured,Non-interest-bearing deposits,uninsured,floating,,208.42354588669048,,
+Schwab,2022-12-31,liability,deposits,time_insured,Time certificates of deposit,insured,floating,,4907.454627507398,,
+Schwab,2022-12-31,liability,deposits,time_uninsured,Time certificates of deposit,uninsured,floating,,1139.5453724926015,,

@@ -1,5 +1,4 @@
 bank,as_of,deposit_type,amount,accession
-SVB,2021-12-31,(Dollars in millions),2021.0,0000719739-22-000023
 SVB,2021-12-31,Noninterest-bearing demand,125851.0,0000719739-22-000023
 SVB,2021-12-31,Interest-bearing checking and savings accounts,5106.0,0000719739-22-000023
 SVB,2021-12-31,Money market,54842.0,0000719739-22-000023
@@ -7,7 +6,6 @@ SVB,2021-12-31,Money market deposits in foreign offices,696.0,0000719739-22-0000
 SVB,2021-12-31,Sweep deposits in foreign offices,969.0,0000719739-22-000023
 SVB,2021-12-31,Time,1739.0,0000719739-22-000023
 SVB,2021-12-31,Total deposits,189203.0,0000719739-22-000023
-SVB,2022-12-31,(Dollars in millions),2022.0,0000719739-23-000021
 SVB,2022-12-31,Noninterest-bearing demand,80753.0,0000719739-23-000021
 SVB,2022-12-31,Interest-bearing checking and savings accounts,32916.0,0000719739-23-000021
 SVB,2022-12-31,Money market,52032.0,0000719739-23-000021
@@ -15,14 +13,12 @@ SVB,2022-12-31,Money market deposits in foreign offices,51.0,0000719739-23-00002
 SVB,2022-12-31,Sweep deposits in foreign offices,664.0,0000719739-23-000021
 SVB,2022-12-31,Time,6693.0,0000719739-23-000021
 SVB,2022-12-31,Total deposits,173109.0,0000719739-23-000021
-Schwab,2021-12-31,"December 31,",2021.0,0000316709-22-000009
 Schwab,2021-12-31,Deposits swept from brokerage accounts,412287.0,0000316709-22-000009
 Schwab,2021-12-31,Checking,22786.0,0000316709-22-000009
 Schwab,2021-12-31,Savings and other,7234.0,0000316709-22-000009
 Schwab,2021-12-31,Total interest-bearing deposits,442307.0,0000316709-22-000009
 Schwab,2021-12-31,Non-interest-bearing deposits,1471.0,0000316709-22-000009
 Schwab,2021-12-31,Total bank deposits,443778.0,0000316709-22-000009
-Schwab,2022-12-31,"December 31,",2022.0,0000316709-23-000009
 Schwab,2022-12-31,Deposits swept from brokerage accounts,333754.0,0000316709-23-000009
 Schwab,2022-12-31,Checking,19719.0,0000316709-23-000009
 Schwab,2022-12-31,Time certificates of deposit,6047.0,0000316709-23-000009

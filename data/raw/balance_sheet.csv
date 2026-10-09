@@ -5,17 +5,28 @@ SVB,2021-12-31,htm_net_carry,"Held-to-maturity securities, at amortized cost and
 SVB,2021-12-31,loans_amortized_cost,"Loans, amortized cost",66276.0,0000719739-22-000023
 SVB,2021-12-31,total_assets,Total assets,211478.0,0000719739-22-000023
 SVB,2021-12-31,total_deposits,Total deposits,189203.0,0000719739-22-000023
+SVB,2021-12-31,short_term_borrowings,Short-term borrowings,121.0,0000719739-22-000023
+SVB,2021-12-31,long_term_debt,Long-term debt,2570.0,0000719739-22-000023
+SVB,2021-12-31,total_liabilities,Total liabilities,194869.0,0000719739-22-000023
+SVB,2021-12-31,total_equity,Total SVBFG stockholders’ equity,16236.0,0000719739-22-000023
 SVB,2022-12-31,cash,Cash and cash equivalents,13803.0,0000719739-23-000021
 SVB,2022-12-31,afs_fair_value,"Available-for-sale securities, at fair value (cost of $ 28,602 and $ 27,370 , respectively, including $ 530 and $ 61 pledged as collateral, respectively)",26069.0,0000719739-23-000021
 SVB,2022-12-31,htm_net_carry,"Held-to-maturity securities, at amortized cost and net of allowance for credit losses of $ 6 and $ 7 (fair value of $ 76,169 and $ 97,227 , respectively)",91321.0,0000719739-23-000021
 SVB,2022-12-31,loans_amortized_cost,"Loans, amortized cost",74250.0,0000719739-23-000021
 SVB,2022-12-31,total_assets,Total assets,211793.0,0000719739-23-000021
 SVB,2022-12-31,total_deposits,Total deposits,173109.0,0000719739-23-000021
+SVB,2022-12-31,short_term_borrowings,Short-term borrowings,13565.0,0000719739-23-000021
+SVB,2022-12-31,long_term_debt,Long-term debt,5370.0,0000719739-23-000021
+SVB,2022-12-31,total_liabilities,Total liabilities,195498.0,0000719739-23-000021
+SVB,2022-12-31,total_equity,Total SVBFG stockholders’ equity,16004.0,0000719739-23-000021
 Schwab,2021-12-31,cash,Cash and cash equivalents,62975.0,0000316709-22-000009
 Schwab,2021-12-31,afs_fair_value,"Available for sale securities (amortized cost of $ 391,482 and $ 330,248 at December 31, 2021 and 2020, respectively)",390054.0,0000316709-22-000009
 Schwab,2021-12-31,loans_amortized_cost,Bank loans — net,34636.0,0000316709-22-000009
 Schwab,2021-12-31,total_assets,Total assets,667270.0,0000316709-22-000009
 Schwab,2021-12-31,total_deposits,Bank deposits,443778.0,0000316709-22-000009
+Schwab,2021-12-31,short_term_borrowings,Short-term borrowings,4855.0,0000316709-22-000009
+Schwab,2021-12-31,long_term_debt,Long-term debt,18914.0,0000316709-22-000009
+Schwab,2021-12-31,total_liabilities,Total liabilities,611009.0,0000316709-22-000009
 Schwab,2021-12-31,total_equity,Total stockholders’ equity,56261.0,0000316709-22-000009
 Schwab,2022-12-31,cash,Cash and cash equivalents,40195.0,0000316709-23-000009
 Schwab,2022-12-31,afs_fair_value,"Available for sale securities (amortized cost of $ 160,162 and $ 391,482 at December 31, 2022 and 2021, respectively; including assets pledged of $ 41 at December 31, 2022)",147871.0,0000316709-23-000009
@@ -23,4 +34,7 @@ Schwab,2022-12-31,htm_net_carry,"Held to maturity securities (including assets p
 Schwab,2022-12-31,loans_amortized_cost,Bank loans — net,40505.0,0000316709-23-000009
 Schwab,2022-12-31,total_assets,Total assets,551772.0,0000316709-23-000009
 Schwab,2022-12-31,total_deposits,Bank deposits,366724.0,0000316709-23-000009
+Schwab,2022-12-31,short_term_borrowings,Short-term borrowings,17050.0,0000316709-23-000009
+Schwab,2022-12-31,long_term_debt,Long-term debt,20828.0,0000316709-23-000009
+Schwab,2022-12-31,total_liabilities,Total liabilities,515164.0,0000316709-23-000009
 Schwab,2022-12-31,total_equity,Total stockholders’ equity,36608.0,0000316709-23-000009

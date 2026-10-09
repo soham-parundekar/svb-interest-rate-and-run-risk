@@ -173,6 +173,11 @@ run_risk:
   fire_sale_discount: 0.02         # delta, applied to forced sales
   tax_rate: 0.21                   # US federal statutory, for the loss shield
   run_fraction_grid: [0.0, 1.0, 201]
-  # SVB disclosed roughly $42bn of deposit outflow on 9 March 2023 alone. Used only as
-  # an overlay on the chart, never as a model input.
-  svb_realised_outflow_2023: 42000.0
+  # What actually happened, used only as an overlay on the chart and never as a model
+  # input. The Federal Reserve's April 2023 review reports deposit outflows of "over
+  # $40 billion on March 9, and management expected $100 billion more the next day",
+  # together "roughly 85 percent of the bank's deposit base". Both figures are recorded:
+  # the single day is what the bank actually paid out, the two-day total is the demand
+  # it faced, and the second is the right comparison for a liquidity threshold.
+  svb_outflow_9_march_2023: 40000.0
+  svb_expected_outflow_10_march_2023: 100000.0
