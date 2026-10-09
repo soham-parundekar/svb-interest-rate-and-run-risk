@@ -53,7 +53,10 @@ BILLIONS = FuncFormatter(lambda v, _: f"${v / 1000:,.0f}bn")
 def _save(fig, name: str) -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
     path = FIGURES / name
-    fig.savefig(path)
+    # Dropping the creation timestamp makes the PNGs byte-reproducible, so a rebuild
+    # that changes nothing shows up as no change rather than as seven modified files
+    # in every diff.
+    fig.savefig(path, metadata={"Software": None, "Creation Time": None})
     plt.close(fig)
     print(f"  {path.relative_to(FIGURES.parents[1])}")
 
