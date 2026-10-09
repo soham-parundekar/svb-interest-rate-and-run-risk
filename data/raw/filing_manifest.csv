@@ -1,0 +1,5 @@
+bank,fiscal_year,as_of,cik,accession,units,url,local_file,retrieved,securities_rows,maturity_rows
+SVB,2021,2021-12-31,0000719739,0000719739-22-000023,USD millions,https://www.sec.gov/Archives/edgar/data/719739/000071973922000023/2021_SEC_SVBFinancialGroup_10K.htm,2021_SEC_SVBFinancialGroup_10K.htm,2026-10-09,15,75
+SVB,2022,2022-12-31,0000719739,0000719739-23-000021,USD millions,https://www.sec.gov/Archives/edgar/data/719739/000071973923000021/2022_SEC_SVBFinancialGroup_10K.htm,2022_SEC_SVBFinancialGroup_10K.htm,2026-10-09,15,75
+Schwab,2021,2021-12-31,0000316709,0000316709-22-000009,USD millions,https://www.sec.gov/Archives/edgar/data/316709/000031670922000009/2021_SEC_CharlesSchwabCorp_10K.htm,2021_SEC_CharlesSchwabCorp_10K.htm,2026-10-09,11,55
+Schwab,2022,2022-12-31,0000316709,0000316709-23-000009,USD millions,https://www.sec.gov/Archives/edgar/data/316709/000031670923000009/2022_SEC_CharlesSchwabCorp_10K.htm,2022_SEC_CharlesSchwabCorp_10K.htm,2026-10-09,12,60

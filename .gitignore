@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+
+# Downloaded market data is reproducible from src/data/market_data.py. The per-year
+# Treasury files are intermediates; the combined curve file is kept because every
+# result depends on it.
+data/raw/treasury_par_2*.csv
+data/raw/fred_*.csv
+data/processed/
+reports/figures/

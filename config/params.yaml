@@ -1,0 +1,153 @@
+# Every modelling choice that is not read from a filing lives here.
+#
+# The point of collecting them is that most are judgement calls, and a reader should be
+# able to see what was assumed without reading the code. Where a number is stylised
+# rather than estimated, the comment says so.
+
+valuation_dates:
+  base: 2021-12-31        # everything is calibrated here
+  test: 2022-12-31        # and tested here, out of sample
+
+banks: [SVB, Schwab]
+
+# ---------------------------------------------------------------- Module B: curves
+
+nelson_siegel_svensson:
+  # beta0..beta3 are linear in the loadings once the two decay parameters are fixed, so
+  # the fit is a grid search over (lambda1, lambda2) with OLS inside. Grid is in years.
+  lambda1_grid: [0.5, 10.0, 40]    # min, max, points
+  lambda2_grid: [0.5, 10.0, 40]
+  # Treasury publishes a 2-month and (from Oct 2022) a 4-month bill. Both are thin and
+  # sit on top of the 1- and 3-month points; including them distorts the short end of
+  # the fit without adding information.
+  exclude_tenors: [0.16666666666666666, 0.3333333333333333]
+  max_residual_bp: 15.0            # fit quality gate, checked in tests
+
+bootstrap:
+  # Independent zero curve built straight from par yields, used only to check the NSS
+  # fit. Par yields are semi-annual coupon rates; treating them as spot rates is the
+  # single most common error in this kind of reconstruction.
+  coupon_frequency: 2
+  tolerance_bp: 20.0               # NSS vs bootstrap agreement gate
+
+# ------------------------------------------------------------ Module C: Hull-White
+
+hull_white:
+  # dr = (theta(t) - a*r) dt + sigma dW, with theta(t) fitted analytically so the model
+  # reproduces the NSS forward curve exactly at t=0.
+  #
+  # a and sigma are estimated from the historical short rate by OLS on an
+  # Ornstein-Uhlenbeck discretisation. This is a HISTORICAL calibration, not a
+  # risk-neutral one backed out of swaption volatilities, because swaption data is not
+  # free. It almost certainly understates the market price of rate risk, and the report
+  # says so rather than presenting the result as a market-implied number.
+  short_rate_series: DGS3MO
+  calibration_start: 2003-01-01
+  calibration_end: 2022-12-31      # never extends past a valuation date
+  paths: 20000
+  steps_per_year: 12
+  horizon_years: 30
+  seed: 20231210
+  # Floor on simulated rates. Hull-White is Gaussian and will produce negative paths;
+  # US rates did not go below zero in the sample, and the BCBS shock standard applies a
+  # floor too, so the same convention is used throughout.
+  rate_floor: 0.0
+  mc_vs_closed_form_tolerance_bp: 5.0
+
+# ----------------------------------------------------- Module D: securities pricing
+
+securities:
+  # Contractual maturity buckets as the filings report them, with the representative
+  # maturity used for pricing a bullet position in each. The open-ended last bucket has
+  # no stated upper edge; agency MBS dominate it and are modelled by amortisation
+  # rather than at this point, so it only binds for the small non-MBS residue.
+  bucket_mid_years:
+    le_1y: 0.5
+    1_5y: 3.0
+    5_10y: 7.5
+    gt_10y: 20.0
+  coupon_frequency: 2
+
+mbs:
+  # Prepayment as an S-curve on refinancing incentive I = WAC - mortgage rate.
+  # These are stylised parameters, not an agency or dealer model. They are set so the
+  # curve turns over roughly +/-2 percentage points of incentive, and they are held
+  # fixed across both banks and both dates.
+  cpr_min: 0.05
+  cpr_max: 0.45
+  incentive_midpoint: 0.0          # I0, in decimal (0.0 = at the money)
+  steepness: 1.5                   # k, per percentage point of incentive
+  # Mortgage rate proxy: m(t) = 10y zero from the simulated curve + spread. The spread
+  # is calibrated once, so the proxy tracks MORTGAGE30US over the sample.
+  mortgage_spread_source: MORTGAGE30US
+  mortgage_spread_window: [2015-01-01, 2022-12-31]
+  weighted_average_maturity_years: 25.0   # agency pass-throughs at the 2021 vintage
+
+oas:
+  # One option-adjusted spread per maturity/type bucket, solved so the model reproduces
+  # each bank's disclosed 31 Dec 2021 fair value for that bucket. The spread absorbs
+  # liquidity, model error and anything the prepayment curve does not capture.
+  #
+  # It is then HELD FIXED for the end-2022 reprice. That is the out-of-sample test; any
+  # re-solving at the test date would turn it into a curve-fitting exercise.
+  solver_bounds_bp: [-300.0, 600.0]
+  solver_tolerance: 1.0e-8
+
+risk_measures:
+  # Effective duration and convexity by finite difference, reusing the same Brownian
+  # increments for base, up and down runs so simulation noise cancels.
+  shift_bp: 25.0
+  key_rate_tenors: [2.0, 5.0, 10.0, 30.0]
+
+# ---------------------------------------------------- Module E: deposit franchise
+
+deposits:
+  # Non-maturity deposits valued as a decaying below-market funding source:
+  #   V = sum_t D0 * exp(-t ln2 / h) * [(1 - beta) * y_t - c] * DF_t
+  # Franchise value is book balance less V. A larger franchise value means the deposit
+  # liability is economically cheaper than its face amount.
+  servicing_cost: 0.0035           # c, 35bp, within the usual few-tens-of-bp range
+  base_case:
+    # Uninsured money is the fast layer. SVB's concentration in venture deposits is the
+    # reason this split carries so much weight in the result.
+    uninsured_half_life_years: 2.0
+    insured_half_life_years: 7.0
+    beta: 0.60                     # SVB's own FY2021 Item 7A assumption
+  heatmap:
+    beta_range: [0.2, 0.8, 25]     # min, max, points
+    half_life_range: [0.5, 10.0, 25]
+
+# ------------------------------------------------- Module F: BCBS IRRBB scenarios
+
+bcbs:
+  # Basel Committee (2016), Interest Rate Risk in the Banking Book, USD calibration.
+  # Shapes:
+  #   short:  dR(t) = +/- S * exp(-t/4)
+  #   long:   dR(t) = +/- L * (1 - exp(-t/4))
+  #   steep:  -0.65 * |short| + 0.90 * |long|
+  #   flat:   +0.80 * |short| - 0.60 * |long|
+  parallel_bp: 200.0
+  short_bp: 300.0
+  long_bp: 150.0
+  decay_years: 4.0
+  post_shock_floor: 0.0            # rates floored after the down shocks
+  outlier_threshold: 0.15          # worst-case EVE loss as a share of Tier 1
+
+nii:
+  # Twelve-month net interest income under parallel shocks with a constant balance
+  # sheet, for comparison against each bank's own disclosed sensitivity table.
+  horizon_years: 1.0
+  shocks_bp: [-200, -100, 100, 200]
+
+# --------------------------------------------- Module G: deposit run and solvency
+
+run_risk:
+  # Outflow O(x) = x * D_uninsured, funded in a strict waterfall:
+  #   cash -> secured borrowing -> AFS sales -> HTM sales (which taint the whole book)
+  collateral_haircut: 0.05         # on securities pledged for secured borrowing
+  fire_sale_discount: 0.02         # delta, applied to forced sales
+  tax_rate: 0.21                   # US federal statutory, for the loss shield
+  run_fraction_grid: [0.0, 1.0, 201]
+  # SVB disclosed roughly $42bn of deposit outflow on 9 March 2023 alone. Used only as
+  # an overlay on the chart, never as a model input.
+  svb_realised_outflow_2023: 42000.0

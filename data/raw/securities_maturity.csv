@@ -1,0 +1,266 @@
+bank,as_of,classification,security_type,bucket,carrying_value,amortized_cost,weighted_avg_yield,accession
+SVB,2021-12-31,AFS,U.S. Treasury securities,total,15850.0,,1.05,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. Treasury securities,le_1y,247.0,,0.49,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. Treasury securities,1_5y,15091.0,,1.05,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. Treasury securities,5_10y,512.0,,1.21,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. Treasury securities,gt_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. agency debentures,total,196.0,,0.96,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. agency debentures,le_1y,80.0,,0.27,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. agency debentures,1_5y,36.0,,1.04,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. agency debentures,5_10y,80.0,,1.58,0000719739-22-000023
+SVB,2021-12-31,AFS,U.S. agency debentures,gt_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Foreign government debt securities,total,61.0,,-0.81,0000719739-22-000023
+SVB,2021-12-31,AFS,Foreign government debt securities,le_1y,61.0,,-0.81,0000719739-22-000023
+SVB,2021-12-31,AFS,Foreign government debt securities,1_5y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Foreign government debt securities,5_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Foreign government debt securities,gt_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued MBS,total,8589.0,,1.28,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued MBS,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued MBS,1_5y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued MBS,5_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued MBS,gt_10y,8589.0,,1.28,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMO - fixed rate,total,982.0,,1.41,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMO - fixed rate,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMO - fixed rate,1_5y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMO - fixed rate,5_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMO - fixed rate,gt_10y,982.0,,1.41,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMBS,total,1543.0,,1.76,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMBS,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMBS,1_5y,67.0,,1.13,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMBS,5_10y,1476.0,,1.79,0000719739-22-000023
+SVB,2021-12-31,AFS,Agency-issued CMBS,gt_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,AFS,Total,total,27221.0,,1.17,0000719739-22-000023
+SVB,2021-12-31,AFS,Total,le_1y,388.0,,0.24,0000719739-22-000023
+SVB,2021-12-31,AFS,Total,1_5y,15194.0,,1.05,0000719739-22-000023
+SVB,2021-12-31,AFS,Total,5_10y,2068.0,,1.64,0000719739-22-000023
+SVB,2021-12-31,AFS,Total,gt_10y,9571.0,,1.29,0000719739-22-000023
+SVB,2021-12-31,HTM,U.S. agency debentures,total,609.0,,2.05,0000719739-22-000023
+SVB,2021-12-31,HTM,U.S. agency debentures,le_1y,1.0,,2.26,0000719739-22-000023
+SVB,2021-12-31,HTM,U.S. agency debentures,1_5y,133.0,,2.43,0000719739-22-000023
+SVB,2021-12-31,HTM,U.S. agency debentures,5_10y,475.0,,1.94,0000719739-22-000023
+SVB,2021-12-31,HTM,U.S. agency debentures,gt_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued MBS,total,64439.0,,1.55,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued MBS,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued MBS,1_5y,7.0,,2.28,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued MBS,5_10y,806.0,,2.17,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued MBS,gt_10y,63626.0,,1.54,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - fixed rate,total,10226.0,,1.35,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - fixed rate,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - fixed rate,1_5y,14.0,,1.72,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - fixed rate,5_10y,316.0,,1.61,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - fixed rate,gt_10y,9896.0,,1.35,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - variable rate,total,100.0,,0.74,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - variable rate,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - variable rate,1_5y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - variable rate,5_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMO - variable rate,gt_10y,100.0,,0.74,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMBS,total,14959.0,,1.63,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMBS,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMBS,1_5y,211.0,,0.75,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMBS,5_10y,971.0,,1.93,0000719739-22-000023
+SVB,2021-12-31,HTM,Agency-issued CMBS,gt_10y,13777.0,,1.63,0000719739-22-000023
+SVB,2021-12-31,HTM,Municipal bonds and notes,total,7156.0,,2.82,0000719739-22-000023
+SVB,2021-12-31,HTM,Municipal bonds and notes,le_1y,48.0,,2.82,0000719739-22-000023
+SVB,2021-12-31,HTM,Municipal bonds and notes,1_5y,176.0,,2.43,0000719739-22-000023
+SVB,2021-12-31,HTM,Municipal bonds and notes,5_10y,1152.0,,2.76,0000719739-22-000023
+SVB,2021-12-31,HTM,Municipal bonds and notes,gt_10y,5780.0,,2.85,0000719739-22-000023
+SVB,2021-12-31,HTM,Corporate bonds,total,706.0,,1.86,0000719739-22-000023
+SVB,2021-12-31,HTM,Corporate bonds,le_1y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Corporate bonds,1_5y,33.0,,1.7,0000719739-22-000023
+SVB,2021-12-31,HTM,Corporate bonds,5_10y,673.0,,1.87,0000719739-22-000023
+SVB,2021-12-31,HTM,Corporate bonds,gt_10y,0.0,,0.0,0000719739-22-000023
+SVB,2021-12-31,HTM,Total,total,98195.0,,1.64,0000719739-22-000023
+SVB,2021-12-31,HTM,Total,le_1y,49.0,,2.8,0000719739-22-000023
+SVB,2021-12-31,HTM,Total,1_5y,574.0,,1.75,0000719739-22-000023
+SVB,2021-12-31,HTM,Total,5_10y,4393.0,,2.32,0000719739-22-000023
+SVB,2021-12-31,HTM,Total,gt_10y,93179.0,,1.61,0000719739-22-000023
+SVB,2022-12-31,AFS,U.S. Treasury securities,total,16135.0,,1.49,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. Treasury securities,le_1y,983.0,,1.16,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. Treasury securities,1_5y,14373.0,,1.43,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. Treasury securities,5_10y,779.0,,2.96,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. Treasury securities,gt_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. agency debentures,total,101.0,,4.15,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. agency debentures,le_1y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. agency debentures,1_5y,33.0,,4.47,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. agency debentures,5_10y,68.0,,4.02,0000719739-23-000021
+SVB,2022-12-31,AFS,U.S. agency debentures,gt_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Foreign government debt securities,total,1088.0,,2.12,0000719739-23-000021
+SVB,2022-12-31,AFS,Foreign government debt securities,le_1y,101.0,,1.06,0000719739-23-000021
+SVB,2022-12-31,AFS,Foreign government debt securities,1_5y,52.0,,2.29,0000719739-23-000021
+SVB,2022-12-31,AFS,Foreign government debt securities,5_10y,935.0,,2.21,0000719739-23-000021
+SVB,2022-12-31,AFS,Foreign government debt securities,gt_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued MBS,total,6603.0,,1.54,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued MBS,le_1y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued MBS,1_5y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued MBS,5_10y,43.0,,2.86,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued MBS,gt_10y,6560.0,,1.53,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMO - fixed rate,total,678.0,,1.33,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMO - fixed rate,le_1y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMO - fixed rate,1_5y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMO - fixed rate,5_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMO - fixed rate,gt_10y,678.0,,1.33,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMBS,total,1464.0,,1.89,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMBS,le_1y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMBS,1_5y,326.0,,2.21,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMBS,5_10y,1138.0,,1.84,0000719739-23-000021
+SVB,2022-12-31,AFS,Agency-issued CMBS,gt_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,AFS,Total,total,26069.0,,1.56,0000719739-23-000021
+SVB,2022-12-31,AFS,Total,le_1y,1084.0,,1.15,0000719739-23-000021
+SVB,2022-12-31,AFS,Total,1_5y,14784.0,,1.46,0000719739-23-000021
+SVB,2022-12-31,AFS,Total,5_10y,2963.0,,2.32,0000719739-23-000021
+SVB,2022-12-31,AFS,Total,gt_10y,7238.0,,1.51,0000719739-23-000021
+SVB,2022-12-31,HTM,U.S. agency debentures,total,486.0,,1.91,0000719739-23-000021
+SVB,2022-12-31,HTM,U.S. agency debentures,le_1y,1.0,,2.39,0000719739-23-000021
+SVB,2022-12-31,HTM,U.S. agency debentures,1_5y,118.0,,2.5,0000719739-23-000021
+SVB,2022-12-31,HTM,U.S. agency debentures,5_10y,367.0,,1.72,0000719739-23-000021
+SVB,2022-12-31,HTM,U.S. agency debentures,gt_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued MBS,total,57705.0,,1.56,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued MBS,le_1y,0.0,,1.65,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued MBS,1_5y,25.0,,2.38,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued MBS,5_10y,1066.0,,2.32,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued MBS,gt_10y,56614.0,,1.54,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - fixed rate,total,10461.0,,1.48,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - fixed rate,le_1y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - fixed rate,1_5y,90.0,,1.47,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - fixed rate,5_10y,129.0,,1.71,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - fixed rate,gt_10y,10242.0,,1.48,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - variable rate,total,79.0,,0.74,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - variable rate,le_1y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - variable rate,1_5y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - variable rate,5_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMO - variable rate,gt_10y,79.0,,0.74,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMBS,total,14471.0,,1.63,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMBS,le_1y,39.0,,0.45,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMBS,1_5y,153.0,,0.86,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMBS,5_10y,966.0,,1.93,0000719739-23-000021
+SVB,2022-12-31,HTM,Agency-issued CMBS,gt_10y,13313.0,,1.62,0000719739-23-000021
+SVB,2022-12-31,HTM,Municipal bonds and notes,total,7416.0,,2.82,0000719739-23-000021
+SVB,2022-12-31,HTM,Municipal bonds and notes,le_1y,29.0,,2.26,0000719739-23-000021
+SVB,2022-12-31,HTM,Municipal bonds and notes,1_5y,235.0,,2.48,0000719739-23-000021
+SVB,2022-12-31,HTM,Municipal bonds and notes,5_10y,1362.0,,2.74,0000719739-23-000021
+SVB,2022-12-31,HTM,Municipal bonds and notes,gt_10y,5790.0,,2.85,0000719739-23-000021
+SVB,2022-12-31,HTM,Corporate bonds,total,703.0,,1.86,0000719739-23-000021
+SVB,2022-12-31,HTM,Corporate bonds,le_1y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,HTM,Corporate bonds,1_5y,115.0,,1.72,0000719739-23-000021
+SVB,2022-12-31,HTM,Corporate bonds,5_10y,588.0,,1.88,0000719739-23-000021
+SVB,2022-12-31,HTM,Corporate bonds,gt_10y,0.0,,0.0,0000719739-23-000021
+SVB,2022-12-31,HTM,Total,total,91321.0,,1.66,0000719739-23-000021
+SVB,2022-12-31,HTM,Total,le_1y,69.0,,1.25,0000719739-23-000021
+SVB,2022-12-31,HTM,Total,1_5y,736.0,,1.9,0000719739-23-000021
+SVB,2022-12-31,HTM,Total,5_10y,4478.0,,2.43,0000719739-23-000021
+SVB,2022-12-31,HTM,Total,gt_10y,86038.0,,1.63,0000719739-23-000021
+Schwab,2021-12-31,AFS,U.S. agency mortgage-backed securities,le_1y,3483.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. agency mortgage-backed securities,1_5y,20916.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. agency mortgage-backed securities,5_10y,71705.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. agency mortgage-backed securities,gt_10y,238251.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. agency mortgage-backed securities,total,334355.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. Treasury securities,le_1y,4049.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. Treasury securities,1_5y,14569.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. Treasury securities,5_10y,2664.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. Treasury securities,gt_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. Treasury securities,total,21282.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Asset-backed securities,le_1y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Asset-backed securities,1_5y,4922.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Asset-backed securities,5_10y,3003.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Asset-backed securities,gt_10y,9621.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Asset-backed securities,total,17546.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Corporate debt securities,le_1y,1634.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Corporate debt securities,1_5y,6443.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Corporate debt securities,5_10y,4267.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Corporate debt securities,gt_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Corporate debt securities,total,12344.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. state and municipal securities,le_1y,23.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. state and municipal securities,1_5y,150.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. state and municipal securities,5_10y,1010.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. state and municipal securities,gt_10y,504.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,U.S. state and municipal securities,total,1687.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Non-agency commercial mortgage-backed securities,le_1y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Non-agency commercial mortgage-backed securities,1_5y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Non-agency commercial mortgage-backed securities,5_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Non-agency commercial mortgage-backed securities,gt_10y,1190.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Non-agency commercial mortgage-backed securities,total,1190.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Certificates of deposit,le_1y,300.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Certificates of deposit,1_5y,699.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Certificates of deposit,5_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Certificates of deposit,gt_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Certificates of deposit,total,999.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Foreign government agency securities,le_1y,101.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Foreign government agency securities,1_5y,324.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Foreign government agency securities,5_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Foreign government agency securities,gt_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Foreign government agency securities,total,425.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Commercial paper,le_1y,200.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Commercial paper,1_5y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Commercial paper,5_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Commercial paper,gt_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Commercial paper,total,200.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Other,le_1y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Other,1_5y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Other,5_10y,0.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Other,gt_10y,26.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Other,total,26.0,,,0000316709-22-000009
+Schwab,2021-12-31,AFS,Total,le_1y,9790.0,9761.0,1.28,0000316709-22-000009
+Schwab,2021-12-31,AFS,Total,1_5y,48023.0,47336.0,1.89,0000316709-22-000009
+Schwab,2021-12-31,AFS,Total,5_10y,82649.0,82556.0,1.78,0000316709-22-000009
+Schwab,2021-12-31,AFS,Total,gt_10y,249592.0,251829.0,1.11,0000316709-22-000009
+Schwab,2021-12-31,AFS,Total,total,390054.0,391482.0,1.35,0000316709-22-000009
+Schwab,2022-12-31,AFS,U.S. agency mortgage-backed securities,le_1y,1202.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. agency mortgage-backed securities,1_5y,14515.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. agency mortgage-backed securities,5_10y,14721.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. agency mortgage-backed securities,gt_10y,47250.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. agency mortgage-backed securities,total,77688.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. Treasury securities,le_1y,21210.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. Treasury securities,1_5y,18075.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. Treasury securities,5_10y,717.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. Treasury securities,gt_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. Treasury securities,total,40002.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Asset-backed securities,le_1y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Asset-backed securities,1_5y,4198.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Asset-backed securities,5_10y,1714.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Asset-backed securities,gt_10y,7111.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Asset-backed securities,total,13023.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Corporate debt securities,le_1y,382.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Corporate debt securities,1_5y,9138.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Corporate debt securities,5_10y,3035.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Corporate debt securities,gt_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Corporate debt securities,total,12555.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Certificates of deposit,le_1y,2134.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Certificates of deposit,1_5y,97.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Certificates of deposit,5_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Certificates of deposit,gt_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Certificates of deposit,total,2231.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Foreign government agency securities,le_1y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Foreign government agency securities,1_5y,969.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Foreign government agency securities,5_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Foreign government agency securities,gt_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Foreign government agency securities,total,969.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. state and municipal securities,le_1y,37.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. state and municipal securities,1_5y,30.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. state and municipal securities,5_10y,417.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. state and municipal securities,gt_10y,154.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,U.S. state and municipal securities,total,638.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Non-agency commercial mortgage-backed securities,le_1y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Non-agency commercial mortgage-backed securities,1_5y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Non-agency commercial mortgage-backed securities,5_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Non-agency commercial mortgage-backed securities,gt_10y,450.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Non-agency commercial mortgage-backed securities,total,450.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Other,le_1y,295.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Other,1_5y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Other,5_10y,0.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Other,gt_10y,20.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Other,total,315.0,,,0000316709-23-000009
+Schwab,2022-12-31,HTM,U.S. agency mortgage-backed securities,le_1y,409.0,,,0000316709-23-000009
+Schwab,2022-12-31,HTM,U.S. agency mortgage-backed securities,1_5y,5441.0,,,0000316709-23-000009
+Schwab,2022-12-31,HTM,U.S. agency mortgage-backed securities,5_10y,38888.0,,,0000316709-23-000009
+Schwab,2022-12-31,HTM,U.S. agency mortgage-backed securities,gt_10y,114198.0,,,0000316709-23-000009
+Schwab,2022-12-31,HTM,U.S. agency mortgage-backed securities,total,158936.0,,,0000316709-23-000009
+Schwab,2022-12-31,AFS,Total,le_1y,25260.0,25580.0,2.27,0000316709-23-000009
+Schwab,2022-12-31,AFS,Total,1_5y,47022.0,50074.0,1.94,0000316709-23-000009
+Schwab,2022-12-31,AFS,Total,5_10y,20604.0,23237.0,1.99,0000316709-23-000009
+Schwab,2022-12-31,AFS,Total,gt_10y,54985.0,61271.0,2.29,0000316709-23-000009
+Schwab,2022-12-31,AFS,Total,total,147871.0,160162.0,2.13,0000316709-23-000009
+Schwab,2022-12-31,HTM,Total,le_1y,409.0,420.0,2.51,0000316709-23-000009
+Schwab,2022-12-31,HTM,Total,1_5y,5441.0,5839.0,2.39,0000316709-23-000009
+Schwab,2022-12-31,HTM,Total,5_10y,38888.0,42235.0,1.72,0000316709-23-000009
+Schwab,2022-12-31,HTM,Total,gt_10y,114198.0,124580.0,1.71,0000316709-23-000009
+Schwab,2022-12-31,HTM,Total,total,158936.0,173074.0,1.74,0000316709-23-000009

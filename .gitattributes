@@ -1,0 +1,6 @@
+# The repository is developed on Windows and read on Linux. Normalise line endings on
+# commit so diffs stay readable; leave the filings alone, they are preserved artifacts
+# and should hash to what was downloaded from EDGAR.
+* text=auto eol=lf
+*.htm -text -diff
+*.csv text eol=lf
