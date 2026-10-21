@@ -10,6 +10,8 @@ than announcing that analysis has occurred.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import matplotlib
 matplotlib.use("Agg")
 
@@ -32,6 +34,9 @@ plt.rcParams.update({
     "figure.dpi": 140,
     "savefig.dpi": 200,
     "savefig.bbox": "tight",
+    # Embed TrueType rather than Type 3 in the PDFs. Type 3 text is not selectable
+    # or searchable and several journals reject it outright.
+    "pdf.fonttype": 42,
     "font.size": 9,
     "axes.titlesize": 10,
     "axes.titleweight": "semibold",
@@ -51,14 +56,29 @@ BILLIONS = FuncFormatter(lambda v, _: f"${v / 1000:,.0f}bn")
 
 
 def _save(fig, name: str) -> None:
+    """
+    Write each figure twice: PNG for reading the report on screen, PDF for
+    typesetting. The PDF is the one the manuscript includes, since scaling a 200
+    dpi raster into a single-column width is visibly soft next to vector text.
+
+    Both are byte-reproducible. Dropping the creation timestamp means a rebuild
+    that changes nothing shows up as no change, rather than as every figure
+    modified in the diff. The two formats spell the metadata differently, hence
+    the two dictionaries.
+    """
     FIGURES.mkdir(parents=True, exist_ok=True)
-    path = FIGURES / name
-    # Dropping the creation timestamp makes the PNGs byte-reproducible, so a rebuild
-    # that changes nothing shows up as no change rather than as seven modified files
-    # in every diff.
-    fig.savefig(path, metadata={"Software": None, "Creation Time": None})
+    stem = Path(name).stem
+
+    png = FIGURES / f"{stem}.png"
+    fig.savefig(png, metadata={"Software": None, "Creation Time": None})
+
+    pdf = FIGURES / f"{stem}.pdf"
+    fig.savefig(pdf, metadata={"Creator": None, "Producer": None,
+                               "CreationDate": None})
+
     plt.close(fig)
-    print(f"  {path.relative_to(FIGURES.parents[1])}")
+    root = FIGURES.parents[1]
+    print(f"  {png.relative_to(root)}  {pdf.relative_to(root)}")
 
 
 def curve_shift() -> None:

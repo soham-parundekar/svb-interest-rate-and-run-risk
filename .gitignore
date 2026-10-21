@@ -15,3 +15,17 @@ data/raw/fred_*.csv
 # data/processed/ and reports/figures/ are deliberately NOT ignored. They are the
 # results the report quotes and the figures it embeds, and committing them means the
 # repository can be reviewed without first sitting through a twenty-minute model run.
+
+# Figures are built into reports/figures and staged here for typesetting.
+paper/figures/
+
+# LaTeX build products
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/*.toc
