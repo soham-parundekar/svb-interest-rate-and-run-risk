@@ -87,7 +87,7 @@ that the resulting curve reprices its own par bonds to machine precision. Nelson
 Svensson is then fitted by minimising par-yield error rather than error against the
 bootstrapped zeros: fitting the zeros directly spends the model's flexibility matching
 bootstrap noise in the 20- and 30-year sector and misprices the ten-year par bond by
-10bp. Worst residual is 7.6bp at end-2021 and 10.1bp at end-2022, both at the twenty-year
+10bp. Worst residual is 8.7bp at end-2021 and 10.1bp at end-2022, both at the twenty-year
 point, which trades at a concession no four-parameter family can reach without
 distorting the tenors that matter more here.
 
@@ -396,7 +396,10 @@ The limitations that would move a number:
 - **The BCBS shocks use the 2016 USD calibration** of 200bp parallel, 300bp short and
   150bp long, which is what applied at both valuation dates. The Committee's 2024
   recalibration raises the long shock to 225bp from 1 January 2026; that post-dates the
-  period analysed and is run only as a robustness check.
+  period analysed and is not modelled here. Since the long shock enters through a decay
+  term rather than as a parallel move, the effect on a book as asset-heavy at the long
+  end as SVB's would not be a simple scaling of the reported figures, so no estimate of
+  it is offered.
 
 ## 9. Sources
 

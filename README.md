@@ -21,7 +21,7 @@ Three further checks, none of them fitted:
 
 | check | model | actual |
 |---|---|---|
-| Monte Carlo against closed-form Hull–White bond prices | within 0.4bp | — |
+| Monte Carlo against closed-form Hull–White bond prices | within 0.12bp | — |
 | SVB EVE at +200bp (one parameter calibrated, at +100bp) | −27.6% | −27.7% disclosed |
 | SVB base EVE level | $21,271m | $20,672m disclosed |
 
@@ -79,7 +79,7 @@ directly is the standard way a reconstruction like this goes quietly wrong, and 
 error grows with maturity and curve slope — exactly where SVB's book sat. Zero rates
 here are bootstrapped from the par curve by solving each node so a par bond of that
 maturity prices to 100, and the NSS fit is then made against par-yield error rather than
-against the bootstrapped zeros. Worst residual is 7.6bp at end-2021 and 10.1bp at
+against the bootstrapped zeros. Worst residual is 8.7bp at end-2021 and 10.1bp at
 end-2022, both at the 20-year point.
 
 **The Hull–White calibration is historical, not risk-neutral.** Mean reversion and
