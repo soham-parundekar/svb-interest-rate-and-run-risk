@@ -1,0 +1,123 @@
+\section{Research questions and design}
+\label{sec:design}
+
+\subsection{The question the design is built around}
+
+The exposure that preceded SVB's failure was not hidden. Some of it was published,
+in the filing reproduced in Table~\ref{tab:disclosed}, and the supervisory record
+indicates that the direction of the problem was recognised before it became acute
+\citep{FRB2023}. What was not published was any economic-value measure at the
+point it would have mattered most, since the 2022 filing dropped the profile that
+the 2021 filing had carried.
+
+That gap suggests a question that can be answered rather than argued about. An
+analyst at the end of 2021, holding nothing but what SVB had already filed and
+freely available market data, would have had a disclosed economic-value profile
+to work with. Could such an analyst have built a measure of the exposure that
+survived contact with the following year? And would the same measure, applied
+without modification to a bank that did not fail, have distinguished between
+them?
+
+This gives three questions.
+
+\begin{enumerate}
+\item Can a valuation model calibrated only on information available at
+31~December 2021 reproduce the economic-value profile that SVB published for that
+date, at shock points it was not fitted to?
+\item Applied identically to both banks and with its spreads held fixed, does the
+same model price their securities portfolios a year later, against what the banks
+subsequently disclosed?
+\item What assumption about depositor behaviour is required to make SVB's own
+published sensitivity internally consistent, and is that assumption supportable
+for the depositor base SVB actually had?
+\end{enumerate}
+
+The third is where the paper ends up, and it is worth saying why at the outset.
+An economic-value-of-equity figure is not a measurement in the way a securities
+fair value is. It is the net of an asset valuation, which the filings constrain
+tightly, and a deposit valuation, which they barely constrain at all. The
+asset side can be rebuilt and checked. The liability side depends on how long
+deposits are assumed to stay, and that assumption is not disclosed, not
+observable before the fact, and capable of moving the answer by more than the
+entire asset-side exposure.
+
+\subsection{Design}
+
+The model is calibrated at one date and tested at another, with nothing refitted
+in between.
+
+Calibration uses 31~December 2021 only. Zero-coupon curves are bootstrapped from
+published Treasury par yields and fitted with the Svensson extension of the
+Nelson--Siegel form \citep{NelsonSiegel1987, Svensson1994}. The short rate
+follows a one-factor Hull--White process \citep{HullWhite1990}, itself a
+time-inhomogeneous form of the mean-reverting specification in
+\citet{Vasicek1977}, with mean reversion and volatility estimated from the
+realised path of the three-month bill. Option-adjusted spreads are then solved,
+one per maturity and security-type bucket, so that the model reproduces each
+bank's disclosed fair values at that date.
+
+Those spreads are then frozen. The test is to re-price both portfolios at
+31~December 2022 under the curve that actually obtained, ageing each position and
+changing nothing else, and to compare the result against the fair values the banks
+subsequently disclosed. No parameter is permitted to see the 2022 data. This is
+the subject of Section~\ref{sec:comparison}.
+
+The deposit franchise is valued as a below-market funding source that decays over
+time, following the mechanism in \citet{Drechsler2021}, in which deposits hedge a
+long-duration asset book precisely to the extent that they are sticky and
+insensitive to rates. Two parameters govern it: a deposit beta, the pass-through
+from market rates to deposit rates, and a half-life for the runoff of the balance.
+SVB's own 2021 filing states a beta of 0.60, so that is used rather than
+estimated. The half-life is not disclosed by anyone, and it is the pivot of the
+whole exercise.
+
+Interest-rate shocks follow the standardised scenarios in the Basel Committee's
+2016 standard, in the USD calibration in force at both valuation dates: 200 basis
+points parallel, 300 short, 150 long, with a four-year decay and a floor on
+post-shock rates, together with the supervisory outlier test set at 15\% of
+Tier~1 capital \citep{BCBS2016}. The Committee raised the long-rate shock to 225
+basis points with effect from 1~January 2026 \citep{BCBS2024}; that calibration
+post-dates the period studied and is not applied here.
+
+\subsection{What is fitted and what is not}
+
+One parameter is solved against the disclosed profile. Holding beta at 0.60, the
+uninsured-deposit half-life is chosen so that the model reproduces the $-13.9\%$
+that SVB reported at $+100$ basis points. That solve returns a half-life of
+3.59~years for uninsured deposits and 12.56~years for insured.
+
+Everything else in the profile is then out of sample in the ordinary sense: the
+model was not shown it, and nothing was adjusted to improve the fit to it. The
+$+100$ basis point point is a calibration target and is reported as such
+throughout. It is not evidence that the model works, and no agreement at that
+point is claimed. The $+200$ basis point point, both downward shocks, and the
+base level of economic value are the places where the model can be wrong, and
+Section~\ref{sec:results} reports what it does there.
+
+\subsection{What the design can and cannot establish}
+
+Three boundaries are worth fixing before any results appear, because the
+temptation to read past each of them is real.
+
+First, the results are deterministic. The model is solved, not estimated from a
+sample, and the uncertainty reported in this paper is sensitivity to assumptions
+rather than sampling variation. Section~\ref{sec:sensitivity} reports ranges
+across explicit parameter variants. No standard errors, confidence intervals or
+significance tests are offered for any economic quantity, and the ranges should
+not be read as though they were. The one exception is the Monte Carlo error of the
+pricing engine itself, which is reported in Appendix~\ref{app:pricing} and
+concerns the numerical precision of a simulation whose answer is known
+analytically.
+
+Second, the paper makes no causal claim about SVB's failure. The design can
+establish whether the exposure was measurable from what had been published. It
+cannot establish that disclosing an economic-value figure in the 2022 filing
+would have changed the outcome, and no such counterfactual is attempted. Where
+the paper moves from measurement to reading, Section~\ref{sec:interpretation}
+says so.
+
+Third, the economic-value figures computed for Schwab have no disclosed
+comparator, because Schwab published none. They are model output under a stated
+deposit assumption and are labelled that way wherever they appear. They are
+included because applying one framework to both banks is what makes the
+comparison informative, not because they are measurements of Schwab's exposure.

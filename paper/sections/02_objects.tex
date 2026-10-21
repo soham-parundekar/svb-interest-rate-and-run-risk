@@ -1,0 +1,135 @@
+\section{The objects being compared}
+\label{sec:objects}
+
+The comparison in this paper is between two balance sheets that arrived at the end
+of 2022 holding similar problems on the asset side and entirely different ones on
+the liability side. SVB Financial Group and the Charles Schwab Corporation both
+carried large unrealised losses on securities classified as held to maturity, both
+had accumulated those securities during a period of historically low rates, and
+both were marked by the same move in the curve over 2022. One failed in March 2023.
+The other did not. The pair is therefore useful for a specific reason: it separates
+the size of the asset-side loss from the structure of the funding that has to
+sustain it.
+
+\subsection{What each bank disclosed}
+
+The two banks are not symmetric in what they told the public about their own
+interest-rate exposure, and the asymmetry is the empirical premise of this paper
+rather than an incidental feature of the data.
+
+SVB's annual report for 2021 contains a full economic-value-of-equity profile:
+a base level and the effect of four parallel shocks, in both dollars and
+percentages \citep{SVB10K2021}. Table~\ref{tab:disclosed} reproduces it. The
+report for 2022, filed on 24 February 2023 and two weeks before the bank was
+closed, contains net-interest-income sensitivity at the same four shocks and no
+economic-value figure at any of them \citep{SVB10K2022}. Schwab disclosed
+net-interest-income sensitivity at $\pm$100 basis points in both years and no
+economic-value figure in either \citep{Schwab10K2021, Schwab10K2022}. Its
+disclosed upside sensitivity fell sharply across the two years, from 14.1\% at
+$+100$ basis points in 2021 to 3.6\% in 2022, which is consistent with a book
+that had already repriced.
+
+\begin{table}[htbp]
+\centering
+\caption{Disclosed interest-rate sensitivity. SVB's 2021 report is the only
+observation in this sample that carries an economic-value-of-equity profile.
+Dashes mark figures the filing does not contain; they are absences in the source,
+not omissions here.}
+\label{tab:disclosed}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+ & \multicolumn{3}{c}{SVB, 31 Dec 2021} & SVB & Schwab \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-5} \cmidrule(lr){6-6}
+Shock & EVE (\$m) & $\Delta$EVE (\$m) & $\Delta$EVE (\%) & $\Delta$NII (\%) & $\Delta$NII (\%) \\
+ & & & & 31 Dec 2022 & 31 Dec 2022 \\
+\midrule
+$+200$bp & 14,950 & $-5{,}722$ & $-27.7$ & $3.5$ & -- \\
+$+100$bp & 17,799 & $-2{,}873$ & $-13.9$ & $1.8$ & $3.6$ \\
+Base     & 20,672 & 0          & 0       & --    & -- \\
+$-100$bp & 21,904 & $1{,}232$  & $6.0$   & $-1.8$ & $-3.2$ \\
+$-200$bp & 21,308 & $636$      & $3.1$   & $-5.8$ & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two features of the disclosed profile matter later. The first is that it is
+non-monotonic in the downward direction: a 100 basis point fall adds 6.0\% to
+economic value, but a 200 basis point fall adds only 3.1\%. The second is that
+the exposure SVB reported was already large. A 27.7\% fall in economic value of
+equity at a 200 basis point parallel rise is well beyond the 15\% of Tier~1
+capital that the Basel Committee's standard identifies as the threshold for
+supervisory attention \citep{BCBS2016}. This was disclosed, in a public filing,
+fifteen months before the bank failed.
+
+\subsection{The balance sheets behind those disclosures}
+
+Table~\ref{tab:objects} sets out the quantities that drive the rest of the paper.
+Every figure is taken from the filings named above.
+
+\begin{table}[htbp]
+\centering
+\caption{Funding structure and securities losses at both year-ends, in \$ millions
+except where noted. The after-tax taint is the loss that would be recognised if
+held-to-maturity securities were sold and the remainder of the portfolio
+reclassified; it is shown against book equity to indicate scale, not as a
+prediction that it would be incurred.}
+\label{tab:objects}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+ & \multicolumn{2}{c}{SVB} & \multicolumn{2}{c}{Schwab} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+ & 2021 & 2022 & 2021 & 2022 \\
+\midrule
+Uninsured deposits          & 182,100 & 165,400 & 134,800 & 68,900 \\
+Uninsured share (\%)        & 96.2    & 95.5    & 30.4    & 18.8 \\
+Book equity                 & 16,236  & 16,004  & 56,261  & 36,608 \\
+Unrealised loss, HTM        & 968     & 15,152  & 0       & 14,138 \\
+After-tax taint             & 765     & 11,970  & 0       & 11,169 \\
+Taint as \% of book equity  & 4.7     & 74.8    & 0.0     & 30.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The asset-side problem is comparable in absolute terms. SVB's unrealised
+held-to-maturity loss at the end of 2022 was \$15,152m against Schwab's
+\$14,138m. Measured against book equity the two diverge, because Schwab's equity
+base is larger: the after-tax consequence of recognising those losses would have
+consumed 74.8\% of SVB's book equity and 30.5\% of Schwab's.
+
+The funding side is where the two banks are barely the same kind of institution.
+At the end of 2022, 95.5\% of SVB's deposits were uninsured, against 18.8\% of
+Schwab's. The mechanism connecting the two columns is the one set out by
+\citet{Jiang2024}: an unrealised loss becomes a solvency problem only to the
+extent that the funding base has both the incentive and the ability to leave
+before the loss is absorbed, and uninsured depositors are the ones with the
+incentive. The pairing used here is a sharp case of that argument, since the two
+banks sit at opposite ends of the uninsured-leverage distribution while holding
+similar losses.
+
+\subsection{An accounting difference that has to be removed first}
+
+The two securities portfolios cannot be compared at face value, because Schwab's
+disclosed cost basis was reset during 2022. In two transfers, in January and
+November, Schwab moved securities with an original cost of \$206,828m out of
+available-for-sale and into held-to-maturity at a fair value of \$188,600m,
+leaving \$18,228m of loss in accumulated other comprehensive income to be
+amortised rather than carried against the securities themselves
+\citep{Schwab10K2022}. By the end of the year \$707m had been amortised back,
+leaving \$17,521m outstanding.
+
+The effect on any price comparison is large. Measured against the cost basis the
+filing reports, Schwab's securities book was worth 92.07 per \$100. Measured
+against what the bank originally paid, the same book was worth 87.47 per \$100.
+The difference is an accounting election, not an economic quantity, and a
+comparison that ignores it measures the election.
+
+SVB is not entirely free of this adjustment. It redesignated \$8,800m of
+securities during 2021, carrying \$132m of unrealised loss at the transfer date
+\citep{SVB10K2021}. The amount is small enough to leave its cost basis
+effectively intact for the purposes of this paper -- \$132m against Schwab's
+\$18,228m -- and by the 2022 valuation date no unamortised transfer loss remained
+on SVB's books. The comparison in Section~\ref{sec:comparison} is therefore made
+against Schwab's original cost rather than its disclosed basis, and the
+difference between the two is reported rather than absorbed.

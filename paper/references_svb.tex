@@ -1,0 +1,114 @@
+% Reference list in APA 7 form, carried by natbib's manual thebibliography so the
+% manuscript compiles without apacite or a biber backend.
+%
+% REQUIRED in the preamble, and different from the previous paper's:
+%
+%     \usepackage[round,authoryear]{natbib}
+%     \bibpunct{(}{)}{;}{a}{,}{,}
+%
+% The template used \bibpunct{(}{)}{,}{a}{}{,}, which renders "(Hull & White
+% 1990)" and separates multiple citations with commas. APA wants a comma before
+% the year and semicolons between citations, which is what the setting above
+% gives: "(Hull & White, 1990)" and "(Drechsler et al., 2021; Jiang et al.,
+% 2024)". Verified by compiling.
+%
+% On the author separator: natbib takes one label per entry and uses it for both
+% \citet and \citep, so a single entry cannot render "&" inside parentheses and
+% "and" in narrative text the way APA asks. The labels below use "&", which makes
+% parenthetical citations correct; narrative mentions are written out in prose with
+% \citeyearpar where the distinction matters.
+%
+% Every entry was checked against Crossref before being written here. The audit
+% trail, including the two metadata corrections it produced, is in
+% audit/reference_verification.md.
+
+\begin{thebibliography}{99}
+
+\bibitem[Basel Committee on Banking Supervision(2016)]{BCBS2016}
+Basel Committee on Banking Supervision. (2016). \textit{Interest rate risk in the
+banking book} (Standard No.\ d368). Bank for International Settlements.
+\url{https://www.bis.org/bcbs/publ/d368.htm}
+
+\bibitem[Basel Committee on Banking Supervision(2024)]{BCBS2024}
+Basel Committee on Banking Supervision. (2024). \textit{Recalibration of shocks for
+interest rate risk in the banking book} (Standard No.\ d578). Bank for
+International Settlements. \url{https://www.bis.org/bcbs/publ/d578.htm}
+
+\bibitem[Board of Governors of the Federal Reserve System(2023)]{FRB2023}
+Board of Governors of the Federal Reserve System. (2023). \textit{Review of the
+Federal Reserve's supervision and regulation of Silicon Valley Bank}.
+\url{https://www.federalreserve.gov/publications/files/svb-review-20230428.pdf}
+
+\bibitem[Charles Schwab Corporation(2022)]{Schwab10K2021}
+Charles Schwab Corporation. (2022). \textit{Annual report (Form 10-K) for the
+fiscal year ended December 31, 2021}. U.S.\ Securities and Exchange Commission.
+\url{https://www.sec.gov/Archives/edgar/data/316709/000031670922000009/schw-20211231.htm}
+
+\bibitem[Charles Schwab Corporation(2023)]{Schwab10K2022}
+Charles Schwab Corporation. (2023). \textit{Annual report (Form 10-K) for the
+fiscal year ended December 31, 2022}. U.S.\ Securities and Exchange Commission.
+\url{https://www.sec.gov/Archives/edgar/data/316709/000031670923000009/schw-20221231.htm}
+
+\bibitem[Diamond \& Dybvig(1983)]{DiamondDybvig1983}
+Diamond, D.~W., \& Dybvig, P.~H. (1983). Bank runs, deposit insurance, and
+liquidity. \textit{Journal of Political Economy}, \textit{91}(3), 401--419.
+\url{https://doi.org/10.1086/261155}
+
+\bibitem[Drechsler et~al.(2021)]{Drechsler2021}
+Drechsler, I., Savov, A., \& Schnabl, P. (2021). Banking on deposits: Maturity
+transformation without interest rate risk. \textit{The Journal of Finance},
+\textit{76}(3), 1091--1143. \url{https://doi.org/10.1111/jofi.13013}
+
+\bibitem[Federal Reserve Bank of St.\ Louis(n.d.)]{FRED}
+Federal Reserve Bank of St.\ Louis. (n.d.). \textit{Selected interest rates:
+3-month Treasury constant maturity, 10-year Treasury constant maturity, and
+federal funds effective rate (DGS3MO, DGS10, DFF)} [Data set]. FRED. Retrieved
+October 9, 2026, from \url{https://fred.stlouisfed.org/}
+
+\bibitem[Freddie Mac(n.d.)]{FreddieMac}
+Freddie Mac. (n.d.). \textit{Primary mortgage market survey: 30-year fixed rate
+mortgage average in the United States (MORTGAGE30US)} [Data set]. FRED. Retrieved
+October 9, 2026, from \url{https://fred.stlouisfed.org/series/MORTGAGE30US}
+
+\bibitem[Hull \& White(1990)]{HullWhite1990}
+Hull, J., \& White, A. (1990). Pricing interest-rate-derivative securities.
+\textit{Review of Financial Studies}, \textit{3}(4), 573--592.
+\url{https://doi.org/10.1093/rfs/3.4.573}
+
+\bibitem[Jiang et~al.(2024)]{Jiang2024}
+Jiang, E.~X., Matvos, G., Piskorski, T., \& Seru, A. (2024). Monetary tightening
+and U.S.\ bank fragility in 2023: Mark-to-market losses and uninsured depositor
+runs? \textit{Journal of Financial Economics}, \textit{159}, 103899.
+\url{https://doi.org/10.1016/j.jfineco.2024.103899}
+
+\bibitem[Nelson \& Siegel(1987)]{NelsonSiegel1987}
+Nelson, C.~R., \& Siegel, A.~F. (1987). Parsimonious modeling of yield curves.
+\textit{The Journal of Business}, \textit{60}(4), 473--489.
+\url{https://doi.org/10.1086/296409}
+
+\bibitem[SVB Financial Group(2022)]{SVB10K2021}
+SVB Financial Group. (2022). \textit{Annual report (Form 10-K) for the fiscal year
+ended December 31, 2021}. U.S.\ Securities and Exchange Commission.
+\url{https://www.sec.gov/Archives/edgar/data/719739/000071973922000023/sivb-20211231.htm}
+
+\bibitem[SVB Financial Group(2023)]{SVB10K2022}
+SVB Financial Group. (2023). \textit{Annual report (Form 10-K) for the fiscal year
+ended December 31, 2022}. U.S.\ Securities and Exchange Commission.
+\url{https://www.sec.gov/Archives/edgar/data/719739/000071973923000021/sivb-20221231.htm}
+
+\bibitem[Svensson(1994)]{Svensson1994}
+Svensson, L.~E.~O. (1994). \textit{Estimating and interpreting forward interest
+rates: Sweden 1992--1994} (Working Paper No.\ 4871). National Bureau of Economic
+Research. \url{https://doi.org/10.3386/w4871}
+
+\bibitem[U.S.\ Department of the Treasury(n.d.)]{Treasury}
+U.S.\ Department of the Treasury. (n.d.). \textit{Daily Treasury par yield curve
+rates} [Data set]. Retrieved October 9, 2026, from
+\url{https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve}
+
+\bibitem[Vasicek(1977)]{Vasicek1977}
+Vasicek, O. (1977). An equilibrium characterization of the term structure.
+\textit{Journal of Financial Economics}, \textit{5}(2), 177--188.
+\url{https://doi.org/10.1016/0304-405X(77)90016-2}
+
+\end{thebibliography}

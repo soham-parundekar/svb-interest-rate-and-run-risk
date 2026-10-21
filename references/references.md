@@ -61,7 +61,7 @@ without adjustment, and the project's Schwab result turns on them.
 
 ---
 
-## Regulatory and official sources (REF-005, REF-006)
+## Regulatory and official sources (REF-005, REF-006, REF-012)
 
 **REF-005** — Basel Committee on Banking Supervision (2016), *Interest rate risk in the
 banking book*, Standards, April 2016, BCBS publication d368.
@@ -74,18 +74,24 @@ calibration used here — 200bp parallel, 300bp short, 150bp long, with a four-y
 and a post-shock floor — is the 2016 one, which is the calibration in force at both of
 this project's valuation dates.
 
-The Committee recalibrated these shocks in 2024, raising the USD long-rate shock from
-150bp to 225bp with effect from 1 January 2026. That revision post-dates the period
-analysed here, so it is not the base case; it is run as a robustness check and reported
-separately. The 150-to-225 change was confirmed against a published summary of the
-recalibration (KPMG China, *Recalibration of shocks for IRRBB*, July 2024,
-<https://assets.kpmg.com/content/dam/kpmg/cn/pdf/en/2024/07/recalibration-of-shocks-for-irrbb.pdf>)
-rather than taken from memory.
+The Committee recalibrated these shocks in 2024; see REF-012. That revision takes
+effect from 1 January 2026 and post-dates both valuation dates, so it is not applied
+anywhere in this project. The scenarios use the 2016 calibration throughout.
 
 *Why the document is not stored here.* bis.org serves an HTML landing page in place of
 the PDF to automated requests. Defeating that would mean circumventing an access
 control, which this project does not do. The standard is freely available to a person
 visiting the page above.
+
+**REF-012** — Basel Committee on Banking Supervision (2024), *Recalibration of shocks
+for interest rate risk in the banking book*, July 2024, BCBS publication d578.
+<https://www.bis.org/bcbs/publ/d578.htm>
+Not preserved locally, for the same reason as REF-005.
+
+The revision that raises the USD long-rate shock from 150bp to 225bp with effect from
+1 January 2026. Recorded because the report's limitations section states which
+calibration is in force and which is not, and that statement needs a primary source
+rather than a secondary summary of one. Nothing in the project applies it.
 
 **REF-006** — Board of Governors of the Federal Reserve System (2023), *Review of the
 Federal Reserve's Supervision and Regulation of Silicon Valley Bank*, April 2023.
@@ -115,7 +121,8 @@ is paid for by the assumption that the deposits stay.
 
 **REF-008** — Jiang, E. X., Matvos, G., Piskorski, T. and Seru, A. (2024), "Monetary
 Tightening and U.S. Bank Fragility in 2023: Mark-to-Market Losses and Uninsured
-Depositor Runs?", *Journal of Financial Economics*.
+Depositor Runs?", *Journal of Financial Economics* 159, 103899.
+DOI <https://doi.org/10.1016/j.jfineco.2024.103899>.
 Not preserved locally; published version is under Elsevier copyright.
 Working paper: NBER w31048, <https://www.nber.org/papers/w31048>
 
