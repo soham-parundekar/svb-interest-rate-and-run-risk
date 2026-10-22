@@ -331,6 +331,26 @@ Calibrated against the pre-hedge $-15.4\%$ the implied half-life would be shorte
 That bias runs against the paper's own argument, which §8 states rather than
 leaving for a reader to notice.
 
+**The conflation is now measured, not conceded.** `prehedge_calibration.csv` solves
+the half-life against both the published $-13.9\%$ and the disclosed unhedged
+$-15.4\%$. Post-hedge 3.589602 years, pre-hedge 3.418174, so the swap book is worth
+**0.171429 years** of the figure -- immaterial against a parameter whose range runs
+from six months to ten years. The unfitted base economic value improves markedly
+under the like-for-like calibration, from \$21,271.3m (2.8993\% above the disclosed
+\$20,672m) to \$20,807.6m (0.6561\% above), which is weak independent support for the
+pre-hedge solve being the more coherent one.
+
+The pre-hedge solve gives $-30.395745\%$ at $+200$bp, which is **not** comparable to
+the disclosed $-27.70\%$: that disclosure is post-hedge. The out-of-sample comparison
+in §6 therefore stays on the post-hedge calibration, where both sides share a basis.
+
+**Swap-book facts, from Note 16 of the same filing** (class **O**): notional
+\$10,700m of pay-fixed, receive-floating interest rate swaps designated as fair-value
+hedges of the AFS portfolio under ASC 815, derivative asset fair value \$18m, nil at
+31 December 2020. Tenor and fixed rate are **not** disclosed, which is why the swaps
+are not modelled directly -- doing so would require inventing the assumption the
+paper objects to.
+
 Beware a coincidence in the same table: the FY2020 comparative shows $-15.4\%$ at
 $+200$bp, which is a different quantity that happens to share the value. The
 $-15.4\%$ cited in §8 is the FY2021 pre-hedge figure at $+100$bp, from the

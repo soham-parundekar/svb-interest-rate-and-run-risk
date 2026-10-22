@@ -330,6 +330,37 @@ def check_deposit_solve(led: Ledger) -> None:
               16.4672, tol=1e-3)
 
 
+def check_prehedge(led: Ledger) -> None:
+    """
+    The hedging conflation, measured rather than asserted.
+
+    An unhedged model calibrated to a post-hedge disclosure produces a half-life that
+    absorbs the swap book. SVB discloses the unhedged figure in the same filing, so
+    the like-for-like solve is available and the size of the conflation is a number
+    rather than a caveat.
+    """
+    table = processed("prehedge_calibration")
+    post = table[table.basis.str.startswith("post-hedge")].iloc[0]
+    pre = table[table.basis.str.startswith("pre-hedge")].iloc[0]
+
+    led.check("post-hedge target", post.target_pct, -13.9)
+    led.check("pre-hedge target", pre.target_pct, -15.4)
+    led.check("post-hedge half-life", post.uninsured_half_life, 3.589602)
+    led.check("pre-hedge half-life", pre.uninsured_half_life, 3.418174)
+    led.check("conflation, years", pre.uninsured_half_life - post.uninsured_half_life,
+              -0.171429, tol=1e-5)
+
+    # The unfitted base level improves under the like-for-like calibration, which is
+    # independent evidence that the pre-hedge solve is the more coherent one.
+    led.check("post-hedge base EVE", post.base_eve, 21271.335262)
+    led.check("pre-hedge base EVE", pre.base_eve, 20807.6198, tol=1e-3)
+    led.check("post-hedge base overstatement, pct",
+              100.0 * (post.base_eve / 20672.0 - 1.0), 2.8993, tol=1e-3)
+    led.check("pre-hedge base overstatement, pct",
+              100.0 * (pre.base_eve / 20672.0 - 1.0), 0.6561, tol=1e-3)
+    led.check("pre-hedge at +200bp", pre.at_plus_200, -30.395745)
+
+
 def check_recalibration(led: Ledger) -> None:
     """
     The 2024 Basel recalibration, run rather than disclaimed.
@@ -395,6 +426,7 @@ def main() -> int:
     check_transfers(led)
     check_diagnostics(led)
     check_deposit_solve(led)
+    check_prehedge(led)
     check_recalibration(led)
     return led.report()
 

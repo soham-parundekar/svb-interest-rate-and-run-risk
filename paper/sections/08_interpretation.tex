@@ -61,15 +61,38 @@ model that swap book.
 
 The half-life solved in Section~\ref{sec:comparison} is therefore the deposit
 assumption that reproduces a \emph{post-hedge} sensitivity using an \emph{unhedged}
-balance sheet. It is not a clean estimate of deposit stickiness: it absorbs whatever
-the swaps were contributing. Calibrated against the pre-hedge $-15.4\%$ instead, the
-implied half-life would be shorter and the deposit assumption correspondingly less
-generous. The direction of that bias works against the paper's own argument, since the
-true deposit assumption embedded in SVB's disclosure was less extreme than 3.59 years
-suggests. The argument survives it, because the sensitivity in
-Section~\ref{sec:sensitivity} is wide enough that the conclusion does not rest on the
-exact value. But the figure should be described as what it is, and the clean exercise
-would require modelling the swaps.
+balance sheet, and it absorbs whatever the swaps were contributing.
+
+The size of that contamination can be measured rather than conceded, because SVB
+discloses the unhedged figure in the same filing. Re-solving against $-15.4\%$ puts
+an unhedged model against an unhedged disclosure, and returns an uninsured half-life
+of 3.42~years against the 3.59 obtained from the published figure. The conflation is
+worth 0.17~years. Set against a parameter whose plausible range in
+Section~\ref{sec:sensitivity} spans six months to ten years, and whose movement from
+3.59 to 2.00 years more than doubles the measured exposure, 0.17~years changes
+nothing that matters.
+
+A second result from the same solve is more interesting, because it concerns a
+quantity that was never fitted. Calibrated post-hedge, the model returns a base
+economic value of \$21,271m against SVB's disclosed \$20,672m, an overstatement of
+2.90\%. Calibrated like-for-like against the pre-hedge figure, it returns \$20,808m,
+an overstatement of 0.66\%. Adjusting the calibration to remove a known mismatch
+improved the accuracy of a level the calibration does not target, by a factor of four.
+That is weak evidence, since a single quantity moving the right way proves little, but
+it is evidence in the direction the specification predicts.
+
+What the pre-hedge solve does not provide is a replacement validation. Its $+200$
+basis point figure is $-30.40\%$, which cannot be set against SVB's disclosed
+$-27.70\%$ because the disclosure is post-hedge and this figure is not. The published
+profile and the published pre-hedge number are on different bases, and only one of
+them extends beyond $+100$ basis points. The paper therefore keeps the post-hedge
+calibration for the out-of-sample comparison in Section~\ref{sec:comparison}, where
+both sides are on the same basis, and reports the pre-hedge solve here as the cleaner
+estimate of the deposit parameter itself. Modelling the swap book directly would
+collapse the two, and the filing discloses the notional (\$10,700m) and fair value
+(\$18m) but neither the tenor nor the fixed rate, so it is not something this
+reconstruction can do without inventing an assumption of exactly the kind the paper
+objects to.
 
 The hedging itself is worth one further note. \citet{Kim2024} finds that banks did not
 systematically ignore balance-sheet risk in this period, increasing hedging as
