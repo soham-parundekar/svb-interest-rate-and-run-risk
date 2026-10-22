@@ -106,7 +106,7 @@ support. It uses the deposit half-life implied by SVB's own disclosure, so the
 exposure it reports is the one consistent with what SVB published. On that basis
 SVB's worst-case loss at the end of 2021 was 36.24\% of Tier~1 capital --- more than
 twice the supervisory threshold --- and that figure is derived entirely from
-information in the FY2021 filing, fifteen months before the bank failed. Nothing in
+information in the FY2021 filing, well before the failure. Nothing in
 it required hindsight, a view on the path of rates, or any data the filing did not
 contain.
 
@@ -119,7 +119,12 @@ exposure becomes a failure, which is the subject of the next subsection.
 \subsection{Run thresholds}
 
 The run model asks a different question: what fraction of uninsured deposits has to
-leave before the bank cannot meet the demand. Outflows are met from cash first, then
+leave before the bank cannot meet the demand. The question is posed in the tradition
+of \citet{DiamondDybvig1983}, in which a bank funding illiquid assets with
+on-demand claims admits an equilibrium where withdrawal is individually rational
+because others are withdrawing; what is computed here is not that equilibrium but the
+balance-sheet threshold beyond which the demand cannot be met at all. Outflows are
+met from cash first, then
 secured borrowing, then sales of available-for-sale securities, then sales of
 held-to-maturity securities, with the accounting consequence that selling from the
 held-to-maturity portfolio forces the remainder to be marked.

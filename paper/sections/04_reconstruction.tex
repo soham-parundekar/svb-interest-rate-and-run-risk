@@ -33,8 +33,9 @@ assumption rather than defending it.
 
 \subsection{The curve}
 
-The U.S. Treasury publishes par yields, not spot rates. Discounting cash flows
-directly with par yields is a standard way for a reconstruction like this one to go
+The U.S. Treasury publishes par yields, not spot rates \citep{Treasury}. Discounting
+cash flows directly with par yields is a standard way for a reconstruction like this
+one to go
 quietly wrong, because the error grows with maturity and with the slope of the curve
 --- which is exactly where SVB's book sat.
 
@@ -73,7 +74,8 @@ stepped exactly, with no discretisation bias in the short rate itself, and keeps
 fit to the initial curve exact however coarse the time grid.
 
 Mean reversion and volatility are estimated from the realised path of the three-month
-bill, because a swaption surface is not public. Monthly observations from 1990 give a
+bill \citep{FRED}, because a swaption surface is not public. Monthly observations from
+1990 give a
 mean-reversion half-life of 7.80 years and a volatility of 61.87 basis points. That
 specification was chosen rather than assumed: the same estimator run daily over
 2003--2022 returns a half-life of 365 years and a long-run mean of 86\%, which is a
@@ -102,7 +104,8 @@ incentive --- the gap between the pool's weighted-average coupon and the prevail
 mortgage rate --- running from a floor of 5\% to a ceiling of 45\% conditional
 prepayment rate, centred at the money and turning over roughly two percentage points
 of incentive either side. The mortgage rate is the model's own ten-year zero rate plus
-a spread anchored at each valuation date to the published Freddie Mac survey rate.
+a spread anchored at each valuation date to the published Freddie Mac survey rate
+\citep{FreddieMac}.
 
 These parameters are stylised. They are not estimated from pool-level data, because
 the filings disclose neither loan-level balances nor actual weighted-average coupons,
