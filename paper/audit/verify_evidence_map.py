@@ -299,6 +299,24 @@ def check_diagnostics(led: Ledger) -> None:
                   rows.max_abs_nss_vs_bootstrap_bp.iloc[0], vs_bootstrap)
 
 
+def check_deposit_solve(led: Ledger) -> None:
+    """
+    The half-life solve is a one-parameter fit, so its only real property is
+    uniqueness. Brent's method brackets a sign change, which proves a root exists
+    and not that it is the only one; this pins the monotonicity check that does.
+    """
+    table = processed("deposit_solve_monotonicity")
+    led.check("monotonicity sample points", len(table), 38)
+    led.check("sampled from, years", table.half_life.min(), 0.25)
+    led.check("sampled to, years", table.half_life.max(), 24.5)
+    led.check("strictly increasing throughout",
+              int((table["diff"].dropna() > 0).all()), 1)
+    led.check("sensitivity at shortest half-life", table.delta_eve_pct.min(),
+              -67.8952, tol=1e-3)
+    led.check("sensitivity at longest half-life", table.delta_eve_pct.max(),
+              16.4672, tol=1e-3)
+
+
 def check_recalibration(led: Ledger) -> None:
     """
     The 2024 Basel recalibration, run rather than disclaimed.
@@ -363,6 +381,7 @@ def main() -> int:
     check_disclosure_asymmetry(led)
     check_transfers(led)
     check_diagnostics(led)
+    check_deposit_solve(led)
     check_recalibration(led)
     return led.report()
 

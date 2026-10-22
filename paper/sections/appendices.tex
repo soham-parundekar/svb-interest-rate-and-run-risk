@@ -1,0 +1,183 @@
+\appendix
+
+\section{Curve construction and fit diagnostics}
+\label{app:curve}
+
+The U.S. Treasury publishes par yields at eleven tenors. Zero rates are recovered by
+forward substitution: with nodes $z(\tau_1), \dots, z(\tau_{k-1})$ already determined,
+$z(\tau_k)$ is the rate that makes a par bond maturing at $\tau_k$, paying the
+published coupon semi-annually, price to one hundred. Coupon dates falling between
+existing nodes are discounted at a rate interpolated linearly between the last fixed
+node and the trial value of $z(\tau_k)$, so the construction is self-consistent
+rather than dependent on an interpolation applied after the fact. The residual on
+re-pricing each par bond from the completed curve is below one basis point of yield at
+every tenor and both dates.
+
+The bootstrapped zeros are then fitted with the Svensson form, in which the zero rate
+at tenor $\tau$ is
+
+\begin{equation}
+z(\tau) = \beta_0
+ + \beta_1 \frac{1 - e^{-\tau/\lambda_1}}{\tau/\lambda_1}
+ + \beta_2 \left( \frac{1 - e^{-\tau/\lambda_1}}{\tau/\lambda_1} - e^{-\tau/\lambda_1} \right)
+ + \beta_3 \left( \frac{1 - e^{-\tau/\lambda_2}}{\tau/\lambda_2} - e^{-\tau/\lambda_2} \right).
+\label{eq:nss}
+\end{equation}
+
+Fitting minimises error in \emph{par} yield rather than in the bootstrapped zeros,
+because the par yields are what Treasury actually published and the zeros are already
+a construction. The objective is non-convex and admits degenerate optima --- an
+unconstrained fit at the end of 2021 returns a level parameter of $-36\%$ with the
+second curvature term pinned at its bound, fitting the observed tenors acceptably
+while implying negative forward rates beyond thirty years. Fitting is therefore
+multi-start, with $\beta_0$ bounded to $[0, 0.15]$, and candidate solutions are
+rejected if the implied forward curve goes negative anywhere in the fitted range.
+
+Table~\ref{tab:residuals} reports the fit at both valuation dates.
+
+\begin{table}[htbp]
+\centering
+\caption{Par-yield fit at both valuation dates, in per cent, with residuals in basis
+points. Residual is fitted less observed. Root-mean-square error is 3.88 basis
+points at the end of 2021 and 5.39 at the end of 2022.}
+\label{tab:residuals}
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+ & \multicolumn{3}{c}{31 December 2021} & \multicolumn{3}{c}{31 December 2022} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Tenor & Observed & Fitted & Residual & Observed & Fitted & Residual \\
+\midrule
+1m & 0.06 & 0.05 & $-1.37$ & 4.12 & 4.13 & $+0.52$ \\
+3m & 0.06 & 0.09 & $+2.86$ & 4.42 & 4.44 & $+1.96$ \\
+6m & 0.19 & 0.18 & $-1.34$ & 4.76 & 4.69 & $-6.63$ \\
+1y & 0.39 & 0.38 & $-0.76$ & 4.73 & 4.79 & $+6.14$ \\
+2y & 0.73 & 0.74 & $+0.82$ & 4.41 & 4.42 & $+0.77$ \\
+3y & 0.97 & 0.98 & $+0.55$ & 4.22 & 4.17 & $-4.84$ \\
+5y & 1.26 & 1.25 & $-1.12$ & 3.99 & 3.98 & $-0.90$ \\
+7y & 1.44 & 1.41 & $-2.55$ & 3.96 & 3.95 & $-1.12$ \\
+10y & 1.52 & 1.58 & $+6.38$ & 3.88 & 3.97 & $+9.02$ \\
+20y & 1.94 & 1.85 & $-8.70$ & 4.14 & 4.04 & $-10.05$ \\
+30y & 1.90 & 1.95 & $+5.25$ & 3.97 & 4.02 & $+5.00$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The residuals are largest at the twenty-year point at both dates, which is where the
+published curve has a kink the four-factor form cannot follow: the thirty-year par
+yield is below the twenty-year at both dates, and a Svensson curve smooths through
+that rather than reproducing it. Since both banks held material positions in the
+over-ten-years bucket, this is the part of the fit that matters most for the result,
+and the error it introduces is of the same order as the 8.7 to 10 basis points
+reported rather than negligible.
+
+\section{Short-rate calibration and pricing validation}
+\label{app:pricing}
+
+Under the Hull--White dynamics of equation~\eqref{eq:hw}, a zero-coupon bond has the
+closed form
+
+\begin{equation}
+P(t,T) = A(t,T)\, e^{-B(t,T)\, r(t)},
+\qquad
+B(t,T) = \frac{1 - e^{-a(T-t)}}{a},
+\label{eq:zcb}
+\end{equation}
+
+with $A(t,T)$ determined by the initial curve and the volatility. The drift function
+$\theta(t)$ is fitted analytically to the forward curve of
+Appendix~\ref{app:curve}, so the model reproduces the initial term structure by
+construction and no fitting error is introduced at $t=0$.
+
+Simulation works on the decomposition $r(t) = x(t) + \alpha(t)$ described in
+Section~\ref{sec:reconstruction}. Because $x$ is an Ornstein--Uhlenbeck process with
+known transition density, it can be stepped exactly at any time increment, so the
+only discretisation error in a path is in the integral of $r$ accumulated for
+discounting, not in the short rate itself.
+
+The validation question is whether simulated discount factors average back to the
+curve the model was built on. If they do not, every price computed downstream is
+wrong in a way calibration will not reveal, since the option-adjusted spreads would
+simply absorb the error. Table~\ref{tab:mc} reports the comparison at the production
+path count and seed.
+
+\begin{table}[htbp]
+\centering
+\caption{Simulated against closed-form discount factors, 20,000 antithetic paths,
+monthly steps, $a = 0.0889$ and $\sigma = 61.9$ basis points. Error is in basis
+points of continuously compounded yield; the final column expresses the discrepancy
+in Monte Carlo standard errors.}
+\label{tab:mc}
+\small
+\begin{tabular}{rrrrrr}
+\toprule
+Maturity & Simulated & Closed form & Error (bp) & Std.\ error & Error in s.e. \\
+\midrule
+1  & 0.996188 & 0.996191 & $+0.0294$ & 0.000024 & $-0.120$ \\
+5  & 0.939254 & 0.939261 & $+0.0161$ & 0.000224 & $-0.034$ \\
+10 & 0.852332 & 0.852340 & $+0.0083$ & 0.000501 & $-0.014$ \\
+20 & 0.686029 & 0.685913 & $-0.0840$ & 0.000890 & $+0.130$ \\
+30 & 0.549768 & 0.549573 & $-0.1184$ & 0.001060 & $+0.184$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The worst error is 0.12 basis points of yield, at thirty years, and the largest
+discrepancy in standard-error units is 0.18. The engine sits well inside sampling
+noise at every tenor, and the test suite gates the pipeline at five basis points.
+These are the only standard errors in this paper, and they describe the numerical
+precision of a simulation whose answer is known analytically; they carry no
+information about uncertainty in any economic quantity.
+
+The parameters themselves are estimated from the three-month bill, and
+Section~\ref{sec:sensitivity} reports the estimator across windows and sampling
+frequencies. Two points from that table belong here. The specification used --- monthly
+observations from 1990 --- gives a mean-reversion half-life of 7.80 years, and a
+configuration guard rejects any fit implying a half-life beyond fifty years, which is
+what prevents the degenerate 2003--2022 estimates from entering the model silently.
+The honest qualification is that mean reversion is weakly identified under every
+specification tried, with a best $R^2$ of 0.0387.
+
+\section{The deposit franchise and the implied half-life}
+\label{app:deposits}
+
+Franchise value follows equation~\eqref{eq:deposits}: the book balance less the
+present value of the below-market funding benefit, with the balance decaying
+exponentially at a stated half-life and the benefit per period equal to the retained
+spread $(1-\beta) y_t$ net of a servicing cost. Deposits are split into insured and
+uninsured layers with separate half-lives, and the uninsured layer is the one the run
+model allows to leave.
+
+The solve in Section~\ref{sec:comparison} fixes $\beta$ at the 0.60 SVB discloses and
+the insured half-life at 3.5 times the uninsured one, preserving the ratio of the
+conservative case, then searches for the uninsured half-life $h$ at which the modelled
+change in economic value at $+100$ basis points equals the disclosed $-13.9\%$. The
+search uses Brent's method over $h \in [0.25, 25]$ years, bracketed by a sign change
+at the endpoints and converged to a tolerance of $10^{-4}$ years.
+
+A bracketing sign change establishes that a root exists but not that it is unique, so
+monotonicity was checked rather than assumed. Evaluating the sensitivity at 38 points
+across the search interval gives a function that is strictly increasing throughout,
+from $-67.90\%$ at three months to $+16.47\%$ at twenty-four and a half years, with no
+change of sign in the first difference anywhere. The root is therefore unique, and
+the solver returns $h = 3.5896$ years with the insured half-life following at
+12.5636.
+
+The direction has a straightforward reading. Lengthening the assumed half-life
+increases the present value of the below-market funding benefit, which raises both
+base economic value and the gain the liability side records when rates rise, and that
+gain offsets more of the asset-side loss. A bank that assumes its depositors stay
+longer reports a smaller exposure, monotonically and without limit over any range a
+reviewer would entertain.
+
+Two properties of the solution are worth stating. It is a one-parameter fit to a
+one-number target, so it cannot fail to hit that target and the agreement at $+100$
+basis points carries no information; this is why the paper treats only the other
+shock points as evidence. And it is conditional on everything else in the model being
+right, so any bias in the asset valuation is transferred into the implied half-life
+rather than showing up as a residual. The asset-side conservatism documented in
+Section~\ref{sec:comparison} therefore pushes the implied half-life upward, in the
+same direction as the hedging conflation discussed in
+Section~\ref{sec:interpretation}. Both work against the paper's argument, and the
+argument rests on the width of the sensitivity in Section~\ref{sec:sensitivity}
+rather than on the point estimate.
