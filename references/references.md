@@ -110,8 +110,15 @@ Federal Reserve's Supervision and Regulation of Silicon Valley Bank*, April 2023
 Local: `official_reports/2023_FederalReserve_SVB_Supervision_Review.pdf`
 
 The supervisory account of what happened, used for the framing of the failure and for
-the realised deposit outflow of roughly $42bn on 9 March 2023 that Module G overlays on
-its modelled threshold. A work of the United States Government and in the public domain.
+the realised deposit outflow that Module G overlays on its modelled threshold. The
+report states that outflows were "over $40 billion on March 9, and management expected
+$100 billion more" the following day, which is where `run_risk.svb_outflow_9_march_2023`
+and the $140bn two-day demand come from. A work of the United States Government and in
+the public domain.
+
+*A correction.* This entry previously gave the 9 March outflow as roughly $42bn, which
+is the figure in wide circulation but not the one in the cited source. The $40bn in the
+configuration was always right; the note describing it was not.
 
 ---
 

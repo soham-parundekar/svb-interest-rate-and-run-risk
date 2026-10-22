@@ -1,0 +1,164 @@
+\section{Model results}
+\label{sec:results}
+
+This section reports what the model produces. The comparisons against disclosure
+come in Section~\ref{sec:comparison} and the assumption sensitivity in
+Section~\ref{sec:sensitivity}; everything here is model output, and the figures for
+Schwab have no disclosed counterpart at all.
+
+\subsection{Economic value under the standardised scenarios}
+
+Table~\ref{tab:scenarios} reports the six Basel scenarios for both banks at both
+year-ends, on the conservative deposit assumption of a two-year uninsured half-life
+and the 0.60 beta SVB discloses.
+
+\begin{table}[htbp]
+\centering
+\caption{Change in economic value of equity under the six standardised scenarios,
+conservative deposit case, per cent of base economic value. Base levels are in \$
+millions. All figures are model output; neither bank disclosed an
+economic-value profile for 2022 and Schwab disclosed none in either year.}
+\label{tab:scenarios}
+\small
+\begin{tabular}{llrrrrrrr}
+\toprule
+Bank & Year & Base EVE & Par.\ up & Par.\ down & Short up & Short down & Steep. & Flat. \\
+\midrule
+SVB    & 2021 & 16,973 & $-62.47$  & $37.73$  & $3.36$    & $-0.38$  & $-48.02$ & $24.43$ \\
+SVB    & 2022 & 9,523  & $-93.24$  & $128.75$ & $-0.20$   & $0.22$   & $-66.83$ & $52.87$ \\
+Schwab & 2021 & 28,702 & $-89.65$  & $-0.90$  & $-24.24$  & $16.44$  & $-37.82$ & $-6.62$ \\
+Schwab & 2022 & 10,862 & $-161.83$ & $172.01$ & $-52.26$  & $53.96$  & $-56.08$ & $20.92$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two cautions before reading it.
+
+The percentages are taken against base economic value, and base economic value falls
+sharply over 2022 for both banks --- SVB from \$16,973m to \$9,523m, Schwab from
+\$28,702m to \$10,862m. A given dollar move therefore registers as a much larger
+percentage in the 2022 rows than in the 2021 rows, and the $-161.83\%$ in Schwab's
+corner is a small denominator as much as a large numerator. Comparisons down a column
+across years are not like-for-like; comparisons across a row are.
+
+The conservative deposit case is also a harsher assumption for Schwab than for SVB. A
+two-year uninsured half-life applied to a base that was 18.8\% uninsured is a
+stringent reading of a funding structure that was mostly insured and mostly sticky,
+whereas the same assumption applied to SVB's 96\% uninsured base is closer to a
+plausible central case. The conservative column is included for both banks so that
+one framework is applied to both, not because the assumption fits both equally. This
+is why the comparison that carries the paper's argument is the one in
+Section~\ref{sec:sensitivity}, where the deposit assumption is varied rather than
+fixed.
+
+With those in place, the pattern is as expected in direction and larger than expected
+in size. Both banks lose heavily in a parallel rise and in a steepener, which are the
+two scenarios that mark down a long asset book. Both are helped by a parallel fall at
+the end of 2022, when there was room beneath the curve for the shock to work. Neither
+is much moved by the short-rate scenarios at the end of 2021, when the front of the
+curve was already at the floor and a downward short shock had almost nothing to
+absorb --- SVB's $-0.38\%$ at short down is the floor binding, not an absence of
+exposure.
+
+Schwab at the end of 2021 is the one row that does not fit the pattern. It loses value
+in a parallel fall ($-0.90\%$) and in a flattener ($-6.62\%$), where SVB gains in
+both. On this model that is the deposit franchise dominating: a bank funded largely by
+insured deposits paying close to nothing earns a wide spread on those balances, and a
+fall in rates compresses it faster than the asset repricing compensates. It is worth
+flagging as a model-dependent result rather than a finding about Schwab, because it is
+precisely the quantity that no disclosure constrains.
+
+\subsection{The supervisory outlier test}
+
+The Basel framework treats a bank whose worst-case economic-value loss exceeds 15\% of
+Tier~1 capital as warranting supervisory attention \citep{BCBS2016}.
+Table~\ref{tab:outlier} applies that screen.
+
+\begin{table}[htbp]
+\centering
+\caption{Supervisory outlier test. Worst of the six standardised scenarios, measured
+against Tier~1 capital as reported in each filing. The implied-by-disclosure row uses
+the deposit half-life solved from SVB's own published sensitivity; the conservative
+rows use the two-year half-life.}
+\label{tab:outlier}
+\small
+\begin{tabular}{llrrrc}
+\toprule
+Bank & Year & Deposit case & Worst loss (\%) & Loss / Tier 1 (\%) & Breaches 15\% \\
+\midrule
+SVB    & 2021 & implied by disclosure & $-27.61$  & 36.24 & yes \\
+SVB    & 2021 & conservative          & $-62.47$  & 65.43 & yes \\
+SVB    & 2022 & conservative          & $-93.24$  & 50.73 & yes \\
+Schwab & 2021 & conservative          & $-89.65$  & 67.86 & yes \\
+Schwab & 2022 & conservative          & $-161.83$ & 43.62 & yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every bank-year breaches the threshold, and the breach is not marginal in any of them:
+the smallest ratio is 36.24\% against a 15\% screen.
+
+The first row is the one that matters most, because it is the only row with external
+support. It uses the deposit half-life implied by SVB's own disclosure, so the
+exposure it reports is the one consistent with what SVB published. On that basis
+SVB's worst-case loss at the end of 2021 was 36.24\% of Tier~1 capital --- more than
+twice the supervisory threshold --- and that figure is derived entirely from
+information in the FY2021 filing, fifteen months before the bank failed. Nothing in
+it required hindsight, a view on the path of rates, or any data the filing did not
+contain.
+
+That every bank-year breaches, Schwab's included, is the reason the test cannot carry
+the comparison on its own. The screen separates banks with large interest-rate
+exposure from banks without it, and in 2021 and 2022 both of these banks had large
+exposure. What it does not capture is the funding structure that decides whether such
+exposure becomes a failure, which is the subject of the next subsection.
+
+\subsection{Run thresholds}
+
+The run model asks a different question: what fraction of uninsured deposits has to
+leave before the bank cannot meet the demand. Outflows are met from cash first, then
+secured borrowing, then sales of available-for-sale securities, then sales of
+held-to-maturity securities, with the accounting consequence that selling from the
+held-to-maturity portfolio forces the remainder to be marked.
+
+Two distinct failure points come out of that waterfall. A solvency threshold, where
+realised losses exhaust equity, and a liquidity threshold, where the bank runs out of
+assets it can turn into cash regardless of its accounting equity. The binding
+threshold is whichever comes first.
+
+For SVB at the end of 2022 the binding threshold is \textbf{liquidity, at 67.5\%} of
+uninsured deposits. The solvency threshold is never reached in any of the four
+bank-years: the constraint that binds is the inability to raise cash, not the
+exhaustion of book equity. At a full run on all uninsured balances, \$54,043m of
+demand would have gone unfunded, and the fire-sale discount at which the solvency
+constraint would have become the binding one is 28.3\%.
+
+The 2021 threshold is 73.0\%, so the model has the bank becoming more fragile over
+2022 --- driven by the held-to-maturity loss rising from \$968m to \$15,152m, which
+takes the after-tax consequence of recognising it from 4.7\% to 74.8\% of book
+equity.
+
+Set against that, SVB lost over \$40bn of deposits on 9~March 2023 and management
+expected to lose over \$100bn more the following day \citep{FRB2023}. Taken together
+that is \$140bn of demand across the two days, or 84.6\% of the uninsured base
+measured at the end of 2022, against a modelled threshold of 67.5\%.
+
+The agreement in order of magnitude is worth noting and easy to over-read, so three
+qualifications. The model is a static balance-sheet calculation with no account of the
+speed at which a modern run moves, which makes 67.5\% better understood as an upper
+bound on what the balance sheet could absorb than as a forecast of what would trigger
+failure. The \$100bn is an expectation recorded by management, not a completed
+withdrawal: the bank was closed on 10~March, so the two-day figure measures demand
+rather than settled outflow. And the denominator is the uninsured balance at
+31~December 2022, which had been declining; the base on the day was not the base in
+the model. None of these is a reason to discard the comparison, but it is a comparison
+between a modelled bound and a reported demand, not between a prediction and an
+outcome.
+
+Schwab crosses neither threshold in either year. That holds across all 42
+combinations of secured borrowing access and fire-sale discount tried in
+Section~\ref{sec:sensitivity}: in every one, cash, borrowing capacity and
+available-for-sale securities together cover a complete run on uninsured balances,
+and nothing is left unfunded. The two banks carried comparable unrecognised losses
+into the end of 2022 --- \$15,152m against \$14,138m --- and on this model only one of
+them had a funding structure that could turn those losses into a failure.
