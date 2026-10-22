@@ -1,0 +1,127 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Silicon Valley Bank's annual report for 2021 told its readers what a rate rise would
+do to the bank. It disclosed an economic value of equity of \$20,672m and a profile
+of that value under four parallel shocks: a 200 basis point rise would remove
+\$5,722m, or 27.7\%, of it \citep{SVB10K2021}. Set against the \$16,205m of Tier~1
+capital reported for the same date, that is a loss of 35.3\% of Tier~1 --- more than
+twice the 15\% threshold at which the Basel Committee's standard identifies a bank as
+warranting supervisory attention \citep{BCBS2016}. The arithmetic requires no model:
+both figures appear in the same annual report. The report for 2022, filed on
+24~February 2023 and two weeks before
+the bank was closed, contains net-interest-income sensitivity at the same four shocks
+and no economic-value figure at any of them \citep{SVB10K2022}.
+
+That pairing invites a question with a determinate answer. If an analyst at the end of
+2021 had taken the disclosed profile seriously and tried to rebuild it --- using
+nothing but the filing itself and public curve data --- would the reconstruction have
+held up? And would the same framework, applied without modification to a bank that
+carried comparable securities losses through 2022 and survived, have distinguished
+between them?
+
+This paper answers both. The reconstruction holds up on the asset side and the
+framework does distinguish the two banks, but the exercise surfaces something that
+matters more than either result: a disclosed economic value of equity is not a
+measurement in the way a disclosed securities fair value is, because it nets an asset
+valuation the filings constrain tightly against a deposit valuation they do not
+constrain at all.
+
+\subsection{What is done}
+
+A valuation model is built from the inline XBRL of four annual reports, two for SVB
+and two for the Charles Schwab Corporation, together with Treasury par yield curves
+and public short-rate and mortgage-rate series. Zero curves are bootstrapped and
+fitted with the Svensson form \citep{NelsonSiegel1987, Svensson1994}, the short rate
+follows a one-factor Hull--White process \citep{HullWhite1990}, agency pass-throughs
+carry a prepayment model, and non-maturity deposits are valued as a decaying
+below-market funding source in the sense of \citet{Drechsler2021}. Everything is
+calibrated on 31~December 2021 information, one option-adjusted spread per
+security-type and maturity bucket, and the spreads are then frozen.
+
+The test is to price the same portfolios at 31~December 2022 under the curve that
+actually obtained and compare against what the banks subsequently disclosed. SVB's
+held-to-maturity book comes out at 80.36 per \$100 of carrying amount against the
+83.41 disclosed, an error of $-3.66\%$. Schwab requires a correction first, because it
+moved \$206,828m of original cost out of available-for-sale during 2022 and rebased
+its reported basis; measured against what it actually paid, the error is $-1.75\%$
+rather than the $-7.16\%$ the uncorrected comparison suggests.
+
+The model is then asked to reproduce SVB's published economic-value profile. Holding
+the deposit beta at the 0.60 SVB itself discloses, one parameter --- the half-life of
+uninsured deposits --- is solved so the model returns the $-13.9\%$ reported at $+100$
+basis points. At $+200$ basis points, which the model was not fitted to, it returns
+$-27.61\%$ against the $-27.70\%$ disclosed. It also recovers a feature of the
+profile's shape: SVB's disclosure is non-monotonic downward, adding 6.0\% of economic
+value at $-100$ basis points but only 3.1\% at $-200$, and the model independently
+turns in the same place, because the standard's post-shock floor absorbs most of the
+second hundred basis points at a date when the entire front of the curve sat below
+2\%.
+
+\subsection{What the exercise shows}
+
+The half-life that reproduces SVB's disclosure is 3.59~years. That single number is
+the paper's subject, for two reasons.
+
+It is not recoverable from any filing. Neither bank disclosed how long its
+non-maturity deposits were assumed to remain, and the measured exposure is acutely
+sensitive to the choice. At a two-year half-life --- no less defensible for a base
+that was 95.5\% uninsured at the end of 2022 and concentrated in venture-backed
+technology --- the same balance sheet reports $-62.47\%$ at $+200$ basis points
+instead of $-27.61\%$. Across the grid of deposit betas and half-lives the figure runs
+from $-122\%$ to $+21\%$. The published sensitivity was the output of an assumption
+about depositor loyalty that the filing did not state and no reader could have
+recovered.
+
+And it is the assumption that the comparison with Schwab isolates. Both banks carried
+similar unrecognised held-to-maturity losses into the end of 2022, \$15,152m against
+\$14,138m, and both breach the supervisory outlier screen in every bank-year tested.
+On a run model that meets outflows from cash, then secured borrowing, then sales, only
+SVB crosses a threshold: 67.5\% of uninsured deposits at the end of 2022, binding
+through liquidity rather than solvency. Schwab, funded 18.8\% by uninsured money
+against SVB's 95.5\%, crosses neither threshold in either year under any of 42
+parameter combinations tried. What separates them on this model is the funding
+structure rather than the size of the securities loss.
+
+\subsection{Relation to existing work}
+
+Two results frame the exercise. \citet{Drechsler2021} establish that a deposit
+franchise hedges a long-duration asset book precisely to the extent that the deposits
+are sticky and insensitive to rates, which is the mechanism the deposit valuation here
+implements and the reason an assumption about depositor behaviour can dominate a
+measured exposure. \citet{Jiang2024} show that mark-to-market losses translate into
+solvency problems in proportion to uninsured leverage, and mark the U.S.\ banking
+system to market cross-sectionally to identify banks at risk of self-fulfilling runs.
+
+This paper asks a narrower question from a different starting point. Rather than
+marking a cross-section from regulatory filings, it works from what two individual
+banks published about themselves, and it tests the reconstruction out of sample
+against disclosures the model had not seen. That design permits a claim the
+cross-sectional work does not make: not only that SVB's exposure was large, which was
+already visible, but that it was recoverable in detail from a single public filing
+fifteen months before the failure --- and that the figure the bank itself published
+rested on an undisclosed parameter capable of more than doubling it. The supervisory
+record indicates the direction of the problem was recognised before it became acute
+\citep{FRB2023}; what this paper adds is a measurement of how much the disclosed
+number depended on something the disclosure omitted.
+
+Nothing here is a causal claim about the failure. The design establishes what was
+measurable from published information. It does not test what any party would have done
+with a 2022 economic-value figure, and the counterfactual in which SVB had Schwab's
+funding mix is not observable.
+
+\subsection{Structure}
+
+Section~\ref{sec:objects} sets out the two balance sheets and the disclosure
+asymmetry between them. Section~\ref{sec:design} states the research questions, the
+calibrate-then-freeze design and the boundaries of what it can establish.
+Section~\ref{sec:reconstruction} gives the construction.
+Section~\ref{sec:results} reports the model's output under the standardised
+scenarios, the outlier test and the run thresholds.
+Section~\ref{sec:comparison} is the out-of-sample comparison against disclosure.
+Section~\ref{sec:sensitivity} puts a number on every assumption that no filing
+constrains, and is where the deposit result sits.
+Section~\ref{sec:interpretation} separates what the evidence establishes from what the
+paper reads into it, including two biases that work against its own argument.
+Section~\ref{sec:conclusion} concludes. Three appendices give the curve diagnostics,
+the pricing validation and the deposit solve.

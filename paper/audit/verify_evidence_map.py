@@ -217,6 +217,19 @@ def check_disclosure_asymmetry(led: Ledger) -> None:
         led.check(f"disclosed EVE pct at {shock:+}bp",
                   float(svb21[svb21.shock_bp == shock].eve_pct.iloc[0]), want)
 
+    # The opening claim of the paper, which uses disclosed figures only and is a
+    # different quantity from the model's worst-case ratio in the outlier test.
+    capital = raw("regulatory_capital")
+    tier1 = float(capital[(capital.bank == "SVB")
+                          & (capital.as_of == "2021-12-31")
+                          & (capital.entity == "SVB Financial")
+                          & (capital.metric == "tier1_capital")].value.iloc[0])
+    disclosed_loss = float(svb21[svb21.shock_bp == 200].eve_change.iloc[0])
+    led.check("SVB 2021 Tier 1 capital", tier1, 16205.0)
+    led.check("disclosed +200bp loss, $m", disclosed_loss, -5722.0)
+    led.check("disclosed loss over Tier 1, pct",
+              100.0 * abs(disclosed_loss) / tier1, 35.31, tol=5e-3)
+
     svb22 = frame[(frame.bank == "SVB") & (frame.as_of == "2022-12-31")]
     led.check("SVB 2022 EVE wholly absent", int(svb22.eve_pct.isna().all()), 1)
     led.check("SVB 2022 NII present at every shock",

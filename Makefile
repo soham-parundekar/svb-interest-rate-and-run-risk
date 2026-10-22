@@ -5,7 +5,7 @@ PYTHON ?= python
 export PYTHONPATH := .
 
 .PHONY: all data test results diagnostics figures paper-figures robustness \
-        recalibration clean help
+        recalibration paper clean help
 
 help:
 	@echo "make data     - fetch filings and market data, extract tables, bucket the books"
@@ -15,6 +15,7 @@ help:
 	@echo "make figures  - build the charts in reports/figures"
 	@echo "make robustness - re-run the out-of-sample test across assumption variants"
 	@echo "make recalibration - re-run the scenarios under the 2024 BCBS long shock"
+	@echo "make paper    - typeset the manuscript in paper/"
 	@echo "make all      - everything, in order"
 
 all: data test results diagnostics figures
@@ -59,6 +60,11 @@ robustness:
 # re-prices every scenario a second time.
 recalibration:
 	$(PYTHON) -m src.analysis.recalibration
+
+# Needs a TeX distribution carrying newtx; most do. Figures are staged first because
+# the manuscript reads them from paper/figures.
+paper: paper-figures
+	cd paper && latexmk -pdf -interaction=nonstopmode main.tex
 
 clean:
 	rm -rf data/processed/*.csv reports/figures/*.png reports/figures/*.pdf

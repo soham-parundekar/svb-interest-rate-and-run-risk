@@ -1,0 +1,137 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype}
+\usepackage{amsmath,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{placeins}
+\usepackage{fancyhdr}
+
+\usepackage[round,authoryear]{natbib}
+% APA wants a comma before the year and semicolons between citations, which is not
+% what the punctuation in the source this layout was adapted from produces.
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+\setstretch{1.06}
+\captionsetup{font=small,labelfont=bf,labelsep=period}
+\graphicspath{{figures/}}
+
+\providecommand{\AuthorLocation}{\textit{India}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape An economic value of equity is not a measurement}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\thispagestyle{plain}
+\begin{center}
+{\LARGE\bfseries An economic value of equity is not a measurement\par}
+\vspace{7pt}
+{\large Deposit assumptions, disclosed sensitivities and run thresholds at Silicon
+Valley Bank and the Charles Schwab Corporation\par}
+\vspace{14pt}
+
+\begingroup
+{\fontsize{10.1}{11.7}\selectfont\bfseries Soham Abhay Parundekar\par}
+\vspace{1.5pt}
+{\fontsize{8.0}{9.4}\selectfont\href{mailto:parundekarsoham@gmail.com}%
+{\nolinkurl{parundekarsoham@gmail.com}}\par}
+\vspace{1.0pt}
+{\fontsize{8.5}{10.0}\selectfont Independent Researcher, \AuthorLocation\par}
+\endgroup
+\vspace{8pt}
+\end{center}
+
+\begin{abstract}
+A disclosed economic value of equity nets an asset valuation that filings constrain
+tightly against a deposit valuation they do not constrain at all. We examine that
+asymmetry by rebuilding the interest-rate exposure of Silicon Valley Bank and the
+Charles Schwab Corporation from public filings and public curve data, calibrating
+entirely on 31~December 2021 information and then freezing the option-adjusted
+spreads. Priced a year forward, the model returns 80.36 per \$100 of carrying amount
+for SVB's held-to-maturity portfolio against the 83.41 disclosed, and $-1.75\%$
+error for Schwab's once its available-for-sale transfers are undone. It reproduces
+SVB's published sensitivity profile at shock points it was not fitted to, returning
+$-27.61\%$ at $+200$ basis points against the $-27.70\%$ disclosed and recovering
+the non-monotonicity of the downward shocks. Solving for the deposit decay consistent
+with that disclosure gives an uninsured half-life of 3.59~years; at a two-year
+half-life the same balance sheet shows $-62.47\%$ rather than $-27.61\%$, and across
+the grid of deposit assumptions the figure spans $-122\%$ to $+21\%$. Both banks
+breach the 15\% supervisory outlier screen in every year tested and carried
+comparable unrecognised losses, \$15,152m against \$14,138m; on the run model only
+SVB crosses a threshold, at 67.5\% of uninsured deposits and through liquidity rather
+than solvency. Results are deterministic re-solves rather than statistical estimates,
+and no causal claim is made about the March 2023 failure.
+\end{abstract}
+
+\noindent\textit{Keywords:} interest rate risk in the banking book; economic value of
+equity; deposit franchise; bank runs; disclosure; held-to-maturity securities.\par
+\noindent\textit{JEL classification:} G21, G28, E43, M41, G01.
+\vspace{8pt}
+
+\input{sections/01_introduction}
+\input{sections/02_objects}
+\input{sections/03_design}
+\input{sections/04_reconstruction}
+\input{sections/05_results}
+\input{sections/06_comparison}
+\input{sections/07_sensitivity}
+\input{sections/08_interpretation}
+\input{sections/09_conclusion}
+
+\section*{Funding}
+The author declares no external funding.
+
+\section*{Disclosure statement}
+The author declares no competing financial interests. The author is not and has not
+been affiliated with either institution studied.
+
+\section*{Data availability statement}
+Every input to this study is public. The four annual reports are available from the
+U.S.\ Securities and Exchange Commission's EDGAR system at the accession numbers
+given in the reference list, and copies are preserved in the repository below. Par
+yield curves are published by the U.S.\ Department of the Treasury and the short-rate
+and mortgage-rate series by the Federal Reserve Bank of St.\ Louis; both are
+redistributable and the retrieval code is included. The two Basel Committee standards
+are freely available from the Bank for International Settlements at the URLs given,
+and are cited rather than redistributed.
+
+\section*{Code availability}
+The complete analysis code, the extracted filing tables, the model outputs and the
+figures are available at \url{https://github.com/soham-parundekar/svb-interest-rate-and-run-risk}.
+Results are deterministic: every Monte Carlo draw derives from a seed recorded in the
+configuration file, and the same seed is reused across rate shocks so that
+differences between scenarios measure curvature rather than sampling noise. A single
+command reproduces the pipeline from the committed filings.
+
+\section*{Declaration of generative AI use}
+During the preparation of this work, the author used Claude in order to assist with
+code development, data extraction from filings, literature verification, manuscript
+drafting and LaTeX preparation. After using this tool, the author reviewed and edited
+the content as needed and takes full responsibility for the content of the published
+article.
+
+\begingroup
+\small
+\setlength{\bibsep}{4pt}
+\input{references_svb}
+\endgroup
+
+\input{sections/appendices}
+
+\end{document}
