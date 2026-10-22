@@ -1,0 +1,174 @@
+\section{Reconstructing the exposure}
+\label{sec:reconstruction}
+
+This section sets out the construction. It is specification rather than result, and
+its purpose is to make the exercise repeatable and to put the judgement calls where a
+reader can see them. The diagnostics quoted here are reported in full in
+Appendices~\ref{app:curve} and~\ref{app:pricing}.
+
+\subsection{From filings to a bucketed balance sheet}
+
+Both banks report securities by type and by contractual maturity band, deposits split
+between insured and uninsured, loans by product, and borrowings by term. Those tables
+are parsed from the inline XBRL of each filing into 192 positions across the four
+bank-years, each carrying an amortised cost, a fair value where one is disclosed, a
+contractual maturity bucket and a book yield.
+
+Two parsing conventions matter enough to state. An em-dash in these tables means a
+disclosed zero, while an empty cell is layout padding; conflating the two silently
+shifts a row's figures into the wrong columns, which is a failure mode that produces
+plausible numbers rather than an error. And the maturity tables are not reported on a
+consistent basis between the two banks: SVB's held-to-maturity bands are given at
+net carrying amount while Schwab's are given at fair value. Each bank's basis is
+therefore read from the table it belongs to rather than assumed. Totals are
+reconciled against the balance sheet figures in the same filing before anything is
+valued.
+
+Positions are priced at a representative maturity for their bucket: six months for
+under one year, three years for one to five, seven and a half for five to ten, and
+twenty years for over ten. The open-ended final bucket is the consequential one,
+since it holds the longest and most rate-sensitive paper and the filings do not say
+how far beyond ten years it reaches. Section~\ref{sec:sensitivity} varies this
+assumption rather than defending it.
+
+\subsection{The curve}
+
+The U.S. Treasury publishes par yields, not spot rates. Discounting cash flows
+directly with par yields is a standard way for a reconstruction like this one to go
+quietly wrong, because the error grows with maturity and with the slope of the curve
+--- which is exactly where SVB's book sat.
+
+Zero rates are therefore bootstrapped from the published par curve, solving each node
+so that a par bond of that maturity prices to one hundred, with intermediate coupon
+dates interpolated against the trial rate so the construction is self-consistent. The
+resulting zeros are then fitted with the Svensson extension of the Nelson--Siegel
+form \citep{NelsonSiegel1987, Svensson1994}, which gives a smooth curve with an
+analytic forward rate --- needed because the short-rate model is fitted to the forward
+curve rather than to the zeros.
+
+The fit is scored against par-yield error rather than against the bootstrapped zeros
+it was fitted through, which is the comparison a reviewer would make and the harder of
+the two. The worst residual is 8.70 basis points at the end of 2021 and 10.05 at the
+end of 2022, both at the twenty-year point, with root-mean-square errors of 3.88 and
+5.39 basis points. Fitting is multi-start with economic bounds on the level
+parameter, because the unconstrained problem admits degenerate solutions that fit the
+observed points acceptably while implying negative forward rates at long horizons.
+
+\subsection{The short rate}
+
+Securities with prepayment options cannot be valued off a curve alone, so the short
+rate follows a one-factor Hull--White process \citep{HullWhite1990},
+
+\begin{equation}
+\mathrm{d}r(t) = \bigl(\theta(t) - a\,r(t)\bigr)\,\mathrm{d}t + \sigma\,\mathrm{d}W(t),
+\label{eq:hw}
+\end{equation}
+
+which is the mean-reverting specification of \citet{Vasicek1977} with a
+time-dependent drift chosen so that the model reproduces the initial term structure
+exactly. Internally the short rate is decomposed as $r(t) = x(t) + \alpha(t)$, with
+$x$ a driftless mean-reverting Gaussian starting at zero and $\alpha$ a deterministic
+function carrying the initial curve. That decomposition lets the simulation be
+stepped exactly, with no discretisation bias in the short rate itself, and keeps the
+fit to the initial curve exact however coarse the time grid.
+
+Mean reversion and volatility are estimated from the realised path of the three-month
+bill, because a swaption surface is not public. Monthly observations from 1990 give a
+mean-reversion half-life of 7.80 years and a volatility of 61.87 basis points. That
+specification was chosen rather than assumed: the same estimator run daily over
+2003--2022 returns a half-life of 365 years and a long-run mean of 86\%, which is a
+regression failing to identify anything rather than a fact about interest rates.
+Section~\ref{sec:sensitivity} reports the full grid and is candid that mean reversion
+is weakly identified under every specification tried.
+
+Two consequences follow from calibrating historically rather than to traded options.
+The parameters carry no market price of interest-rate risk, which will tend to
+undervalue the prepayment option embedded in a mortgage book; and the volatility is
+an estimate of realised variation rather than of implied. Neither is corrected for.
+The option-adjusted spread absorbs what is left, and
+Section~\ref{sec:sensitivity} establishes that the rate parameters are not where the
+residual error lives.
+
+Valuation is by Monte Carlo with antithetic draws, 20,000 paths and monthly steps,
+and the same draws are reused across scenarios so that differences between scenarios
+measure curvature rather than sampling noise. Simulated discount factors reproduce
+the closed-form Hull--White bond price to within 0.12 basis points of yield at every
+tested maturity, which is the gate on everything downstream.
+
+\subsection{Prepayment and option-adjusted spreads}
+
+Agency pass-throughs prepay, and prepayment is modelled as an S-curve in refinancing
+incentive --- the gap between the pool's weighted-average coupon and the prevailing
+mortgage rate --- running from a floor of 5\% to a ceiling of 45\% conditional
+prepayment rate, centred at the money and turning over roughly two percentage points
+of incentive either side. The mortgage rate is the model's own ten-year zero rate plus
+a spread anchored at each valuation date to the published Freddie Mac survey rate.
+
+These parameters are stylised. They are not estimated from pool-level data, because
+the filings disclose neither loan-level balances nor actual weighted-average coupons,
+and they are held fixed across both banks and both valuation dates so that nothing can
+be tuned after the answer is visible.
+
+What is calibrated is one option-adjusted spread per security-type and maturity
+bucket, solved so that the model reproduces each bank's disclosed fair value at
+31~December 2021. Thirteen spreads for SVB and ten for Schwab, ranging from $-99$ to
+$87$ basis points across SVB's fitted buckets and $-168$ to $110$ across Schwab's.
+Twelve of SVB's thirteen and all ten of Schwab's solve to the disclosed value
+essentially exactly.
+
+The exception should be named. SVB's \$100m holding of variable-rate agency CMOs is
+disclosed above par, at \$101m, and a model that discounts at a spread cannot reach
+that level for a floating-rate position; the solver pins the spread at its $-300$
+basis point lower bound and still returns \$100.73m. The position is 0.08\% of SVB's
+securities book and the shortfall is \$0.27m, so it does not affect any figure
+reported in this paper, but it is a bucket the calibration failed to fit rather than
+one it fitted well.
+
+The spreads are then frozen. Nothing about them is re-estimated at the 2022 valuation
+date, which is what makes the test in Section~\ref{sec:comparison} out of sample.
+
+\subsection{The deposit franchise}
+
+Non-maturity deposits are valued as a below-market funding source that decays, in the
+sense of \citet{Drechsler2021}: a deposit base paying less than market rates is worth
+less than its face amount to the depositor and correspondingly more to the bank, and
+that value is an asset which rising rates increase and departing depositors destroy.
+Writing $D_0$ for the book balance, $h$ for the half-life of the balance, $\beta$ for
+the pass-through from market to deposit rates, $y_t$ for the market rate and $c$ for a
+servicing cost,
+
+\begin{equation}
+V = \sum_t D_0 \, e^{-t \ln 2 / h} \,
+    \bigl[(1 - \beta)\, y_t - c\bigr] \, \mathrm{DF}_t ,
+\label{eq:deposits}
+\end{equation}
+
+with franchise value taken as the book balance less $V$. Deposits are split into an
+insured and an uninsured layer, each with its own half-life, because the uninsured
+layer is the one that can leave.
+
+Three parameters, of which one is disclosed. SVB's FY2021 filing states a deposit
+beta of 0.60, so that is used rather than estimated \citep{SVB10K2021}. The servicing
+cost is set at 35 basis points, within the usual range and not a quantity the result
+turns on. The half-lives are disclosed by nobody, and they are where the exercise
+either stands or falls; Sections~\ref{sec:comparison} and~\ref{sec:sensitivity} treat
+them accordingly.
+
+\subsection{Scenarios}
+
+The shocks are the six standardised scenarios of the Basel Committee's 2016 standard
+in its USD calibration \citep{BCBS2016}: 200 basis points parallel, 300 short and 150
+long, with the short and long shapes decaying over four years, and the two rotation
+scenarios built from weighted combinations of them. The supervisory outlier threshold
+is 15\% of Tier~1 capital.
+
+Two implementation points change the answer. The shock applies to the zero curve, so
+the instantaneous forward curve has to be re-derived rather than shifted by the same
+amount; only the parallel case leaves the two equal, and the short-rate model is
+fitted to forwards. And post-shock rates are floored at zero, as the standard
+specifies. At the end of 2021 the entire front of the curve sat below 2\%, so a
+downward 200 basis point shock is substantially absorbed by the floor and the realised
+down-shock is nothing like its nominal size. A model that omits the floor reports a
+near-symmetric profile for a balance sheet whose exposure was anything but, and would
+miss the non-monotonicity that Section~\ref{sec:comparison} treats as its main
+qualitative result.
