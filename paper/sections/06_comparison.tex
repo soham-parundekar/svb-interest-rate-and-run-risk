@@ -1,0 +1,137 @@
+\section{The empirical comparison}
+\label{sec:comparison}
+
+Two comparisons are available. The securities portfolios can be checked against fair
+values the banks disclosed a year after the model was calibrated, which is a test of
+the asset-side machinery. And SVB's published economic-value profile can be checked
+at the shock points the model was not fitted to, which is a test of the whole
+construction including the deposit valuation. Neither comparison was available to
+the model: in both cases the figures being compared against were published after the
+date the model knows about, and no parameter was adjusted once they were seen.
+
+\subsection{Pricing the portfolios a year later}
+
+The exercise is mechanical. Each position is aged by one year, the curve at
+31~December 2022 replaces the curve at 31~December 2021, and the option-adjusted
+spreads solved at the earlier date are left where they are.
+Table~\ref{tab:oos} reports the result against what the banks disclosed.
+
+\begin{table}[htbp]
+\centering
+\caption{Out-of-sample securities valuation at 31~December 2022, in price per \$100
+of amortised cost net of credit allowance where one is recorded. Spreads were
+calibrated at 31~December 2021 and then frozen.
+Schwab's held-to-maturity portfolio is omitted because the transfers described in
+Section~\ref{sec:objects} make its disclosed cost basis non-comparable; the corrected
+comparison appears below.}
+\label{tab:oos}
+\small
+\begin{tabular}{llrrr}
+\toprule
+Bank & Classification & Predicted & Disclosed & Error (\%) \\
+\midrule
+SVB    & Held to maturity   & 80.36 & 83.41 & $-3.66$ \\
+SVB    & Available for sale & 89.28 & 91.14 & $-2.05$ \\
+Schwab & Available for sale & 85.72 & 92.33 & $-7.16$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+SVB's held-to-maturity book is the headline case, because it is the portfolio whose
+unrecognised loss mattered in March 2023. The model puts it at 80.36 against the
+83.41 implied by SVB's disclosure, which is a fair value of \$76,169m against a
+carrying amount of \$91,321m -- \$91,327m of amortised cost less a \$6m credit
+allowance. The error is $-3.66\%$, and it is in the conservative direction: the
+reconstruction understates the value of the book, which is to say it overstates the
+loss.
+
+Schwab's figure needs the correction set out in Section~\ref{sec:objects} before it
+can be read. Measured against the cost basis Schwab reports, the model is wrong by
+$-7.16\%$. Measured against what Schwab originally paid for the securities, which is
+the basis on which SVB's portfolio is measured, the comparison is 85.72 predicted
+against 87.47, an error of $-1.75\%$. On a whole-portfolio basis the corrected error
+is $-2.00\%$, against $-6.35\%$ uncorrected. More than two thirds of the apparent
+error in Schwab's case is the accounting election rather than the model.
+
+Taken together with SVB's whole-portfolio error of $-3.34\%$, the pattern worth
+noting is not the size of any individual error but the sign of all of them. Every
+comparison in Table~\ref{tab:oos}, and every variant in the sensitivity analysis of
+Section~\ref{sec:sensitivity}, errs in the same direction. A model that was simply
+imprecise would scatter. This one is biased, and
+Section~\ref{sec:sensitivity} traces where the bias lives rather than leaving it as
+a remark.
+
+\subsection{Reproducing SVB's own disclosed profile}
+
+The second comparison is the more demanding one, because an economic-value figure
+depends on the deposit valuation as well as the asset valuation, and the deposit
+assumption is not disclosed.
+
+One parameter is solved for. Holding the deposit beta at the 0.60 that SVB's own
+filing states, the uninsured-deposit half-life is chosen so that the model returns
+the $-13.9\%$ that SVB reported at $+100$ basis points. That solve gives 3.59~years
+for uninsured deposits and 12.56~years for insured. Everything else in
+Table~\ref{tab:profile} follows from it without further adjustment.
+
+\begin{table}[htbp]
+\centering
+\caption{Modelled against disclosed change in economic value of equity, SVB at
+31~December 2021. The $+100$ basis point row is the calibration target: the deposit
+half-life was solved to reproduce it, and the agreement there is arithmetic rather
+than evidence. The other rows are out of sample.}
+\label{tab:profile}
+\small
+\begin{tabular}{lrrl}
+\toprule
+Shock & Modelled (\%) & Disclosed (\%) & \\
+\midrule
+$+200$bp & $-27.61$ & $-27.70$ & out of sample \\
+$+100$bp & $-13.90$ & $-13.90$ & \textit{calibration target} \\
+$-100$bp & $4.60$   & $6.00$   & out of sample \\
+$-200$bp & $2.54$   & $3.10$   & out of sample \\
+\midrule
+Base EVE (\$m) & 21,271 & 20,672 & not fitted \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three things in that table are worth separating.
+
+The $+200$ basis point result is the strongest single number in the paper. The model
+returns $-27.61\%$ against the $-27.70\%$ SVB disclosed, having been fitted only at
+$+100$ basis points. Nothing in the construction forces the two to agree at twice
+the shock size, because the relationship between shock size and economic value is not
+linear in a portfolio containing prepayment options and a floored down-shock.
+
+The base level is not fitted at all. Only the sensitivity was targeted, so the
+\$21,271m the model returns against SVB's disclosed \$20,672m is an independent
+comparison, and it overstates by 2.9\%. That is a real discrepancy and not a
+rounding artefact. It is consistent with the asset-side conservatism in
+Table~\ref{tab:oos} being more than offset, at the base date, by a deposit franchise
+the model values generously.
+
+The downward shocks are where the qualitative test sits. SVB's disclosure is
+non-monotonic: a 100 basis point fall adds 6.0\% to economic value and a 200 basis
+point fall adds only 3.1\%, so the second hundred basis points of decline is
+value-destroying where the first was value-creating. The model reproduces that shape
+independently, falling from $4.60\%$ to $2.54\%$. It understates both levels by
+roughly a point and a half, but it turns in the same place and for the same reason:
+the post-shock floor absorbs most of the second hundred basis points at a date when
+the entire front of the curve sat below 2\%, while the deposit franchise continues to
+lose value as the spread it earns compresses. A model without the floor would report
+a smoothly improving profile and would miss this entirely.
+
+\subsection{What these comparisons do and do not license}
+
+The asset-side comparison is a genuine out-of-sample test and supports a
+correspondingly firm claim: a reconstruction built from public filings and public
+curve data priced two large securities portfolios a year forward to within two to
+four percent, with a known and consistent directional bias.
+
+The profile comparison supports a narrower claim. It establishes that the framework,
+once given one parameter from the bank's own disclosure, reproduces the rest of that
+bank's published sensitivity profile including a feature of its shape that is easy to
+get wrong. It does not establish that the deposit half-life so obtained is the right
+one, because the only evidence for that figure is the disclosure it was fitted to.
+That is the subject of Section~\ref{sec:sensitivity}, and it is where the paper's
+central result lies.

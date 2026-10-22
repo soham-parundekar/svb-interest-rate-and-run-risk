@@ -278,6 +278,59 @@ def check_diagnostics(led: Ledger) -> None:
                   rows.max_abs_nss_vs_bootstrap_bp.iloc[0], vs_bootstrap)
 
 
+def check_recalibration(led: Ledger) -> None:
+    """
+    The 2024 Basel recalibration, run rather than disclaimed.
+
+    The long shock reaches only the steepener and flattener, so the parallel and
+    short results must be untouched. That is the guard, and it is pinned here
+    alongside the finding: a stronger long leg makes the steepener the binding
+    scenario for SVB where the parallel rise held that place before.
+    """
+    table = processed("recalibration_comparison")
+    steepener = table[table.scenario == "steepener"]
+
+    expected = [
+        ("SVB", "2021-12-31", "conservative", -48.023804, -69.207057),
+        ("SVB", "2021-12-31", "implied_by_disclosure", -22.746056, -32.587907),
+        ("SVB", "2022-12-31", "conservative", -66.829778, -95.038007),
+        ("Schwab", "2021-12-31", "conservative", -37.821709, -63.058424),
+        ("Schwab", "2022-12-31", "conservative", -56.078071, -96.986044),
+    ]
+    for bank, as_of, case, under_2016, under_2024 in expected:
+        row = steepener[(steepener.bank == bank)
+                        & (steepener.as_of == as_of)
+                        & (steepener.deposit_case == case)].iloc[0]
+        led.check(f"steepener 2016 {bank} {as_of[:4]} {case}",
+                  row.delta_eve_pct_2016, under_2016)
+        led.check(f"steepener 2024 {bank} {as_of[:4]} {case}",
+                  row.delta_eve_pct_2024, under_2024)
+
+    verdict = processed("recalibration_outlier_test")
+    led.check("binding scenario changes in 3 bank-years",
+              int(verdict.worst_scenario_changed.sum()), 3)
+    led.check("outlier-test verdict unchanged everywhere",
+              int(verdict.breach_changed.sum()), 0)
+
+    # The disclosure-implied case is the only one with an external comparator, so
+    # it is the row the manuscript leads with.
+    implied = verdict[(verdict.bank == "SVB")
+                      & (verdict.deposit_case == "implied_by_disclosure")].iloc[0]
+    led.check("SVB implied worst loss under 2024",
+              implied.worst_delta_eve_pct_2024, -32.587907)
+    led.check("SVB implied loss over Tier 1 under 2024",
+              implied.loss_over_tier1_pct_2024, 42.776198)
+
+    # Schwab's binding scenario does not change: its parallel exposure stays worse
+    # than even the strengthened steepener.
+    for as_of, worst in [("2021-12-31", -89.653875), ("2022-12-31", -161.832014)]:
+        row = verdict[(verdict.bank == "Schwab") & (verdict.as_of == as_of)].iloc[0]
+        led.check(f"Schwab {as_of[:4]} still parallel_up",
+                  int(row.worst_scenario_2024 == "parallel_up"), 1)
+        led.check(f"Schwab {as_of[:4]} worst unchanged",
+                  row.worst_delta_eve_pct_2024, worst)
+
+
 def main() -> int:
     led = Ledger()
     check_out_of_sample(led)
@@ -289,6 +342,7 @@ def main() -> int:
     check_disclosure_asymmetry(led)
     check_transfers(led)
     check_diagnostics(led)
+    check_recalibration(led)
     return led.report()
 
 

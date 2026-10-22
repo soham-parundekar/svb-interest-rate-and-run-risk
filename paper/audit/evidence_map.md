@@ -251,6 +251,63 @@ The end-2022 figure and the claim that both sit at the 20-year point were
 correct. Both corrections were propagated to `README.md` and
 `reports/report.md`.
 
+## §7 addition: the 2024 recalibration, run
+
+`recalibration_comparison.csv` and `recalibration_outlier_test.csv`, from
+`src/analysis/recalibration.py`. The USD long shock moves from 150bp to 225bp and
+nothing else does, so the long shock reaches only the steepener (weight $+0.90$)
+and the flattener ($-0.60$). The parallel and short scenarios carry a long weight
+of zero and reproduce to 1.42e-14 percentage points across 45 rows, which is the
+guard on the comparison rather than a result.
+
+Steepener, change in EVE, all **M**:
+
+| bank | as_of | deposit case | 2016 | 2024 | move (pp) |
+|---|---|---|---|---|---|
+| SVB | 2021 | conservative | -48.023804 | -69.207057 | -21.183254 |
+| SVB | 2021 | implied_by_disclosure | -22.746056 | -32.587907 | -9.841851 |
+| SVB | 2022 | conservative | -66.829778 | -95.038007 | -28.208230 |
+| Schwab | 2021 | conservative | -37.821709 | -63.058424 | -25.236715 |
+| Schwab | 2022 | conservative | -56.078071 | -96.986044 | -40.907972 |
+
+The finding is a change of identity, not of magnitude. The binding scenario moves
+from `parallel_up` to `steepener` in **3 of 5** bank-years, all three of them SVB.
+On the disclosure-implied case -- the only one with an external comparator -- the
+worst-case loss goes from $-27.607520\%$ to $-32.587907\%$ and the Tier 1 ratio
+from $36.238743\%$ to $42.776198\%$. Schwab's binding scenario does not change in
+either year, because its parallel exposure ($-89.653875\%$ and $-161.832014\%$)
+stays worse than even the strengthened steepener. **No bank-year changes its
+outlier-test verdict**: all five breach 15\% of Tier 1 under both calibrations.
+
+Claim boundary: the 2024 calibration applies from 1 January 2026 and post-dates
+both valuation dates, so this is a counterfactual about measurement conventions,
+not a statement about what either bank's exposure was. It belongs in §7 beside the
+other assumption variants and must not migrate into the headline.
+
+## A known inconsistency, quantified and left alone
+
+SVB's 2022 held-to-maturity total is \$91,327m of amortised cost with a \$6m credit
+allowance, so \$91,321m of net carrying amount, against \$76,169m of fair value.
+The project divides by both:
+
+| where | denominator | disclosed price |
+|---|---|---|
+| `out_of_sample_validation.csv` (`actual_cost`) | 91,321 net carry | 83.407978 |
+| `robustness.py` (`DISCLOSED_HTM_PRICE`) | 91,327 gross cost | 83.402499 |
+
+The model's own `predicted_price` divides by `aged_cost`, which carries no credit
+allowance, so gross cost is the marginally more consistent comparator and
+`robustness.py` has the better of it. Unifying on 91,327 would move the headline
+error from $-3.659053\%$ to $-3.652\%$, a shift of 0.007 percentage points against
+a 3.7-point result.
+
+Not changed, because re-running to absorb 0.007 percentage points would invalidate
+every frozen figure this map pins and every drafted sentence that quotes one, for no
+change to any conclusion. The manuscript states the denominator explicitly instead:
+§6 names the \$91,321m carrying amount and the \$6m allowance that produces it, so
+the figure cannot be misread as gross cost. Flagged here so the choice is visible
+rather than silent.
+
 ## Claims the frozen evidence cannot support
 
 To be excluded from the manuscript unless separately authorized:
