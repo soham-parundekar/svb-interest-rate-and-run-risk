@@ -308,6 +308,34 @@ both valuation dates, so this is a counterfactual about measurement conventions,
 not a statement about what either bank's exposure was. It belongs in §7 beside the
 other assumption variants and must not migrate into the headline.
 
+## §8: the hedging disclosure, verified against the filing
+
+Not in any extracted CSV, so verified directly in
+`references/sec_filings/2021_SEC_SVBFinancialGroup_10K.htm`. The filing states,
+verbatim:
+
+> In March 2021 we purchased interest rate swaps to offset some of the additional
+> EVE sensitivity that has resulted from rapid balance sheet growth. As of
+> December 31, 2021, the estimated change in EVE in an up to 100 bps rate shock
+> would be -15.4 percent without any hedging applied. The addition of pay fixed
+> swaps reduces this exposure to -13.9 percent in the same scenario. The EVE
+> exposures shown in the table above include the impact of our hedging activity.
+
+Class **O**. Two consequences the write-up had not drawn out.
+
+The disclosed profile is **post-hedge**, and the reconstruction does not model the
+swap book. So the 3.589602-year implied half-life is the deposit assumption that
+reproduces a post-hedge sensitivity on an unhedged balance sheet: it absorbs
+whatever the swaps contributed and is not a clean estimate of deposit stickiness.
+Calibrated against the pre-hedge $-15.4\%$ the implied half-life would be shorter.
+That bias runs against the paper's own argument, which §8 states rather than
+leaving for a reader to notice.
+
+Beware a coincidence in the same table: the FY2020 comparative shows $-15.4\%$ at
+$+200$bp, which is a different quantity that happens to share the value. The
+$-15.4\%$ cited in §8 is the FY2021 pre-hedge figure at $+100$bp, from the
+narrative text and not the table.
+
 ## A known inconsistency, quantified and left alone
 
 SVB's 2022 held-to-maturity total is \$91,327m of amortised cost with a \$6m credit

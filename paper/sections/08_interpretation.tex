@@ -1,0 +1,158 @@
+\section{Interpretation and limitations}
+\label{sec:interpretation}
+
+\subsection{What the exercise establishes}
+
+The narrowest statement of the result is also the firmest. A valuation model built
+from public filings and public curve data, calibrated entirely on 31~December 2021
+information and then frozen, priced two large securities portfolios a year forward
+with errors of two to four per cent, and reproduced the economic-value profile SVB
+published for 2021 at shock points it was not fitted to, including a feature of that
+profile's shape. Nothing in the construction required data unavailable at the
+calibration date, a view on the path of rates, or hindsight about either bank.
+
+From that follows the measurement claim the paper is for. On the deposit assumption
+implied by SVB's own published sensitivity, SVB's worst-case loss under the
+standardised scenarios at the end of 2021 was 36.2\% of Tier~1 capital, against a
+supervisory threshold of 15\%. That figure is derivable from the FY2021 filing
+alone, fifteen months before the bank failed. The exposure was measurable from what
+had already been disclosed.
+
+\subsection{What the deposit assumption actually was}
+
+The more consequential reading concerns what a disclosed economic-value figure is.
+
+An economic value of equity is the difference between an asset valuation and a
+liability valuation. The filings constrain the first tightly: securities are reported
+at fair value by type and maturity, and Section~\ref{sec:comparison} shows the asset
+side can be rebuilt and checked against subsequent disclosure. They do not constrain
+the second at all. Neither bank disclosed how long its non-maturity deposits were
+assumed to remain, and Section~\ref{sec:sensitivity} shows that assumption moving the
+measured exposure across a range wider than the exposure itself --- from $-122\%$ to
+$+21\%$ across the grid, and 35 percentage points between two defensible points.
+
+So SVB's disclosed $-13.9\%$ at $+100$ basis points was not a measurement in the way
+its disclosed securities fair values were. It was the output of a model containing at
+least one assumption that the filing did not state and that no reader could have
+recovered. Solving for the value consistent with the disclosure gives an uninsured
+half-life of 3.59~years. For a deposit base that was 96\% uninsured and concentrated
+in venture-backed technology firms, that is a claim about depositor loyalty rather
+than a property of the balance sheet.
+
+This interpretation is the paper's, not a finding. What the evidence supports is
+narrower and should be kept distinct: the disclosed sensitivity is reproducible under
+a 3.59-year half-life (established), the measured exposure is highly sensitive to that
+parameter (established), and nothing in the filings pins it down (established). That
+the assumption was implausible for this particular depositor base is a judgement,
+supported by the composition figures in Section~\ref{sec:objects} and by the mechanism
+in \citet{Drechsler2021}, under which a deposit franchise hedges a long asset book
+only for as long as the deposits stay. \citet{Jiang2024} identify uninsured leverage
+as the variable that determines whether mark-to-market losses become solvency
+problems, which is the same point from the other direction.
+
+\subsection{A conflation in the implied half-life}
+
+One qualification belongs here rather than in a list, because it affects how the
+3.59-year figure should be read.
+
+SVB's FY2021 filing states that the economic-value exposures in its sensitivity table
+include the effect of its hedging, and that the $+100$ basis point figure would have
+been $-15.4\%$ without any hedging applied, reduced to $-13.9\%$ by pay-fixed swaps
+purchased in March 2021 \citep{SVB10K2021}. The reconstruction in this paper does not
+model that swap book.
+
+The half-life solved in Section~\ref{sec:comparison} is therefore the deposit
+assumption that reproduces a \emph{post-hedge} sensitivity using an \emph{unhedged}
+balance sheet. It is not a clean estimate of deposit stickiness: it absorbs whatever
+the swaps were contributing. Calibrated against the pre-hedge $-15.4\%$ instead, the
+implied half-life would be shorter and the deposit assumption correspondingly less
+generous. The direction of that bias works against the paper's own argument --- the
+true deposit assumption embedded in SVB's disclosure was less extreme than 3.59 years
+suggests --- and the argument survives it, because the sensitivity in
+Section~\ref{sec:sensitivity} is wide enough that the conclusion does not rest on the
+exact value. But the figure should be described as what it is, and the clean exercise
+would require modelling the swaps.
+
+\subsection{Why one bank failed and the other did not}
+
+Both banks carried comparable unrecognised losses into the end of 2022: \$15,152m for
+SVB against \$14,138m for Schwab. Both breach the supervisory outlier screen in every
+bank-year tested. On the run model, only SVB crosses a threshold, and it crosses on
+liquidity rather than solvency; Schwab crosses neither in either year under any of the
+42 parameter combinations tried.
+
+The association is clear and the paper reports it as an association. The two banks
+differed by a factor of five in uninsured deposit share, and on this model that
+difference and not the size of the securities loss is what separates a bank that
+could absorb a run from one that could not. Whether it is what separated the actual
+outcomes in March 2023 is a question this design cannot answer. SVB failed amid a
+concentrated, socially coordinated withdrawal that no static balance-sheet model
+represents, and the counterfactual in which it had Schwab's funding mix is not
+observable.
+
+\subsection{What the paper does not establish}
+
+Three claims are specifically not made.
+
+It is not claimed that the absence of an economic-value figure from SVB's FY2022
+filing contributed to the failure. The paper establishes that the exposure was
+measurable from the FY2021 filing; it does not test what any party would have done
+with a 2022 figure, and the supervisory record indicates that the direction of the
+problem was already recognised \citep{FRB2023}.
+
+It is not claimed that SVB's disclosed figures were incorrect or misleading. The
+disclosed profile is internally consistent and this paper reproduces it. The argument
+concerns what such a figure can convey when the assumption driving it is not stated,
+not whether this one was computed honestly.
+
+And no statistical claim is made anywhere. The results are deterministic re-solves of
+a model; the ranges reported are ranges across assumptions, not sampling
+distributions. Nothing in this paper should be read as a significance test or a
+confidence interval.
+
+\subsection{Limitations}
+
+The ones that would change a reported number, rather than a list of everything
+imperfect.
+
+\textit{Book yields stand in for coupons.} A bond bought at a premium is approximated
+by a par bond of the same yield. The option-adjusted spread absorbs the level error;
+the residual duration difference is not corrected.
+
+\textit{The prepayment curve is stylised.} Its parameters are not estimated from
+pool-level data, because the filings disclose neither loan-level balances nor actual
+weighted-average coupons. They are held fixed across both banks and both dates so
+nothing can be tuned after the answer is visible, and
+Section~\ref{sec:sensitivity} shows them to be the largest single source of
+residual error.
+
+\textit{Representative maturities stand in for contractual buckets.} The open-ended
+over-ten-years bucket is modelled at twenty years for bullets and twenty-five for
+pass-throughs. Varying this moves the headline prediction by about a point in either
+direction.
+
+\textit{Mean reversion is weakly identified.} The best $R^2$ in any specification
+tried is 0.0387. This is tolerable only because the reported quantity barely depends
+on the parameter, which Section~\ref{sec:sensitivity} demonstrates rather than
+asserts.
+
+\textit{One bucket failed to calibrate.} SVB's \$100m of variable-rate agency CMOs is
+disclosed above par and the solver cannot reach that level for a floating-rate
+position. The shortfall is \$0.27m on a \$126bn book.
+
+\textit{Loans carry no credit spread.} The filings disclose no loan-level fair value
+to calibrate one against. This understates credit risk and does not affect the
+rate sensitivity the economic-value measure captures.
+
+\textit{Schwab's yields are bucket-level.} Schwab reports yields by maturity band
+rather than by security type, so its positions inherit a band-level yield where SVB's
+inherit a type-level one.
+
+\textit{The run model has no clock.} It is a static balance-sheet calculation. It
+says what the balance sheet could absorb, not how fast a run moves, which is why the
+67.5\% threshold is better read as an upper bound than as a forecast.
+
+\textit{The 2024 shock recalibration is reported but not adopted.} It takes effect
+from January 2026 and post-dates both valuation dates. Its effect is reported in
+Section~\ref{sec:sensitivity}, where it changes which scenario binds for SVB without
+changing any outlier-test verdict.
