@@ -4,7 +4,8 @@
 PYTHON ?= python
 export PYTHONPATH := .
 
-.PHONY: all data test results diagnostics figures paper-figures robustness clean help
+.PHONY: all data test results diagnostics figures paper-figures robustness \
+        recalibration clean help
 
 help:
 	@echo "make data     - fetch filings and market data, extract tables, bucket the books"
@@ -13,6 +14,7 @@ help:
 	@echo "make diagnostics - curve-fit residuals and Monte Carlo pricing error"
 	@echo "make figures  - build the charts in reports/figures"
 	@echo "make robustness - re-run the out-of-sample test across assumption variants"
+	@echo "make recalibration - re-run the scenarios under the 2024 BCBS long shock"
 	@echo "make all      - everything, in order"
 
 all: data test results diagnostics figures
@@ -52,6 +54,11 @@ paper-figures: figures
 # report quotes its output rather than depending on it.
 robustness:
 	$(PYTHON) -m src.analysis.robustness
+
+# Also outside `make all`: it needs eve_scenarios.csv to compare against, and it
+# re-prices every scenario a second time.
+recalibration:
+	$(PYTHON) -m src.analysis.recalibration
 
 clean:
 	rm -rf data/processed/*.csv reports/figures/*.png reports/figures/*.pdf

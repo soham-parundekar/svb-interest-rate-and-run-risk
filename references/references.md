@@ -89,9 +89,20 @@ for interest rate risk in the banking book*, July 2024, BCBS publication d578.
 Not preserved locally, for the same reason as REF-005.
 
 The revision that raises the USD long-rate shock from 150bp to 225bp with effect from
-1 January 2026. Recorded because the report's limitations section states which
-calibration is in force and which is not, and that statement needs a primary source
-rather than a secondary summary of one. Nothing in the project applies it.
+1 January 2026. `src/models/shocks.py` uses the 2016 calibration, which is what applied
+at both valuation dates; `src/analysis/recalibration.py` re-runs the scenarios under the
+2024 long shock and reports the difference.
+
+*On the figure itself.* The d578 PDF prints old and new values together in each cell of
+the currency table — the USD long row reads "150225" when extracted, and other
+currencies show the same pattern (AUD parallel reads "300350"). The recalibrated USD set
+of 200bp parallel, 300bp short and 225bp long was confirmed against KPMG China,
+*Recalibration of shocks for IRRBB*, July 2024,
+<https://assets.kpmg.com/content/dam/kpmg/cn/pdf/en/2024/07/recalibration-of-shocks-for-irrbb.pdf>.
+A summary published by EY gives the USD long shock as 300bp, which disagrees; that
+figure also repeats its stated short shock exactly, which is the signature of a column
+misread, and it is not used here. Noted so the disagreement is on the record rather than
+resolved silently.
 
 **REF-006** — Board of Governors of the Federal Reserve System (2023), *Review of the
 Federal Reserve's Supervision and Regulation of Silicon Valley Bank*, April 2023.

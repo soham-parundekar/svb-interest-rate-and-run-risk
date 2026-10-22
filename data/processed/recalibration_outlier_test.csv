@@ -1,0 +1,6 @@
+bank,as_of,deposit_case,worst_scenario_2016,worst_scenario_2024,worst_scenario_changed,worst_delta_eve_pct_2016,worst_delta_eve_pct_2024,loss_over_tier1_pct_2016,loss_over_tier1_pct_2024,breaches_15pct_2016,breaches_15pct_2024,breach_changed
+SVB,2021-12-31,conservative,parallel_up,steepener,True,-62.47129033818868,-69.20705740669689,65.43025607417623,72.48506415902031,True,True,False
+SVB,2021-12-31,implied_by_disclosure,parallel_up,steepener,True,-27.60752048352944,-32.58790677220935,36.23874260824246,42.77619811471457,True,True,False
+SVB,2022-12-31,conservative,parallel_up,steepener,True,-93.23863192056612,-95.03800731455337,50.72663118504531,51.705584330260905,True,True,False
+Schwab,2021-12-31,conservative,parallel_up,parallel_up,False,-89.65387524383128,-89.65387524383128,67.8582130968421,67.85821309684212,True,True,False
+Schwab,2022-12-31,conservative,parallel_up,parallel_up,False,-161.83201402489587,-161.83201402489587,43.62191729377425,43.62191729377425,True,True,False

@@ -395,11 +395,19 @@ The limitations that would move a number:
   is why the modelled 67.5% threshold is better read as an upper bound than a forecast.
 - **The BCBS shocks use the 2016 USD calibration** of 200bp parallel, 300bp short and
   150bp long, which is what applied at both valuation dates. The Committee's 2024
-  recalibration raises the long shock to 225bp from 1 January 2026; that post-dates the
-  period analysed and is not modelled here. Since the long shock enters through a decay
-  term rather than as a parallel move, the effect on a book as asset-heavy at the long
-  end as SVB's would not be a simple scaling of the reported figures, so no estimate of
-  it is offered.
+  recalibration raises the long shock to 225bp from 1 January 2026. That post-dates the
+  period analysed, so it is not the base case, but it is run: `make recalibration`.
+
+  For USD only the long shock moves, and the long shock enters only the steepener and
+  flattener, so the parallel and short results are untouched — checked, and they
+  reproduce to 1.4e-14 of a percentage point. What changes is which scenario binds. The
+  steepener gains about 67bp at thirty years, and for SVB that is enough to make it the
+  worst of the six where the parallel rise held that place before. On the
+  disclosure-implied deposit assumption the worst-case loss moves from 27.6% to 32.6%
+  of base EVE, and from 36.2% to 42.8% of Tier 1. The same happens in both of SVB's
+  conservative-case years. It does not happen to Schwab, whose parallel exposure stays
+  worse than even the strengthened steepener. No bank-year changes its outlier-test
+  verdict: all five breach 15% of Tier 1 under both calibrations.
 
 ## 9. Sources
 
