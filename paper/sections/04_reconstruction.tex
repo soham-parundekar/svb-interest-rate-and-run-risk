@@ -1,10 +1,11 @@
 \section{Reconstructing the exposure}
 \label{sec:reconstruction}
 
-This section sets out the construction. It is specification rather than result, and
-its purpose is to make the exercise repeatable and to put the judgement calls where a
-reader can see them. The diagnostics quoted here are reported in full in
-Appendices~\ref{app:curve} and~\ref{app:pricing}.
+Nothing in the construction below is new, and that is the point of it: the exercise
+had to be one an analyst could have carried out at the end of 2021 with public data
+and standard tools. What follows records the judgement calls, because those are where
+a reconstruction like this one goes wrong rather than in the machinery. Full
+diagnostics are in Appendices~\ref{app:curve} and~\ref{app:pricing}.
 
 \subsection{From filings to a bucketed balance sheet}
 
@@ -37,14 +38,14 @@ The U.S. Treasury publishes par yields, not spot rates \citep{Treasury}. Discoun
 cash flows directly with par yields is a standard way for a reconstruction like this
 one to go
 quietly wrong, because the error grows with maturity and with the slope of the curve
---- which is exactly where SVB's book sat.
+which is exactly where SVB's book sat.
 
 Zero rates are therefore bootstrapped from the published par curve, solving each node
 so that a par bond of that maturity prices to one hundred, with intermediate coupon
 dates interpolated against the trial rate so the construction is self-consistent. The
 resulting zeros are then fitted with the Svensson extension of the Nelson--Siegel
 form \citep{NelsonSiegel1987, Svensson1994}, which gives a smooth curve with an
-analytic forward rate --- needed because the short-rate model is fitted to the forward
+analytic forward rate, needed because the short-rate model is fitted to the forward
 curve rather than to the zeros.
 
 The fit is scored against par-yield error rather than against the bootstrapped zeros
@@ -100,8 +101,8 @@ tested maturity, which is the gate on everything downstream.
 \subsection{Prepayment and option-adjusted spreads}
 
 Agency pass-throughs prepay, and prepayment is modelled as an S-curve in refinancing
-incentive --- the gap between the pool's weighted-average coupon and the prevailing
-mortgage rate --- running from a floor of 5\% to a ceiling of 45\% conditional
+incentive, the gap between the pool's weighted-average coupon and the prevailing
+mortgage rate, running from a floor of 5\% to a ceiling of 45\% conditional
 prepayment rate, centred at the money and turning over roughly two percentage points
 of incentive either side. The mortgage rate is the model's own ten-year zero rate plus
 a spread anchored at each valuation date to the published Freddie Mac survey rate

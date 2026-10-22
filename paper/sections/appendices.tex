@@ -26,7 +26,7 @@ z(\tau) = \beta_0
 
 Fitting minimises error in \emph{par} yield rather than in the bootstrapped zeros,
 because the par yields are what Treasury actually published and the zeros are already
-a construction. The objective is non-convex and admits degenerate optima --- an
+a construction. The objective is non-convex and admits degenerate optima. An
 unconstrained fit at the end of 2021 returns a level parameter of $-36\%$ with the
 second curvature term pinned at its bound, fitting the observed tenors acceptably
 while implying negative forward rates beyond thirty years. Fitting is therefore
@@ -131,8 +131,8 @@ information about uncertainty in any economic quantity.
 
 The parameters themselves are estimated from the three-month bill, and
 Section~\ref{sec:sensitivity} reports the estimator across windows and sampling
-frequencies. Two points from that table belong here. The specification used --- monthly
-observations from 1990 --- gives a mean-reversion half-life of 7.80 years, and a
+frequencies. Two points from that table belong here. The specification used, monthly
+observations from 1990, gives a mean-reversion half-life of 7.80 years, and a
 configuration guard rejects any fit implying a half-life beyond fifty years, which is
 what prevents the degenerate 2003--2022 estimates from entering the model silently.
 The qualification Section~\ref{sec:sensitivity} attaches to that table applies here
