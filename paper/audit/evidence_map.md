@@ -251,6 +251,30 @@ The end-2022 figure and the claim that both sit at the 20-year point were
 correct. Both corrections were propagated to `README.md` and
 `reports/report.md`.
 
+## §7: the short-rate identification failure
+
+`short_rate_calibration.csv`, from `src/analysis/diagnostics.py`. Twelve rows, the
+same Ornstein--Uhlenbeck estimator across four windows and three sampling steps.
+Previously this existed only as a print statement in `hull_white.py`, so the
+figures the report quoted were not traceable; persisting it fixes that, as with the
+other two diagnostics.
+
+Chosen specification, 1990--2022 monthly: half-life 7.7973 years, sigma 61.8651bp,
+long-run mean 1.7646\%, $R^2$ 0.0089, 574 observations. Consistent with the
+`a = 0.088896` and `sigma = 0.006187` in `pricing_diagnostics.csv`.
+
+The failure that drove the choice, 2003--2022 daily: half-life **364.8202 years**,
+long-run mean **86.0726\%**, $R^2$ **0.0000**. The monthly row over the same window
+is worse still at 522.7890 years. A configuration guard rejects any fit implying a
+half-life beyond 50 years.
+
+The honest extension, which the report did not previously state: the best $R^2$
+anywhere in the table is **0.0387**, and the chosen specification's is 0.0089. Mean
+reversion is weakly identified under *every* specification tried, not only the
+degenerate ones. §7 says so, and pairs it with the sweep result that the reported
+quantity barely depends on this parameter -- rate-model variants span 0.920251
+price points against 3.600821 for the asset-structure variants.
+
 ## §7 addition: the 2024 recalibration, run
 
 `recalibration_comparison.csv` and `recalibration_outlier_test.csv`, from

@@ -263,6 +263,27 @@ def check_diagnostics(led: Ledger) -> None:
     led.check("mean reversion a", pricing.mean_reversion_a.iloc[0], 0.088896, tol=1e-5)
     led.check("short-rate sigma", pricing.sigma.iloc[0], 0.006187, tol=1e-5)
 
+    short_rate = processed("short_rate_calibration")
+    led.check("calibration grid rows", len(short_rate), 12)
+    chosen = short_rate[short_rate.is_chosen_specification].iloc[0]
+    led.check("chosen window is 1990-2022 monthly",
+              int(chosen.window == "1990-2022" and chosen.step == "monthly"), 1)
+    led.check("chosen half-life, years", chosen.half_life_years, 7.7973, tol=1e-4)
+    led.check("chosen sigma, bp", chosen.sigma_bp, 61.8651, tol=1e-4)
+    led.check("chosen long-run mean, pct", chosen.long_run_mean_pct, 1.7646, tol=1e-4)
+    led.check("chosen R-squared", chosen.r_squared, 0.0089, tol=1e-4)
+
+    # The identification failure that drove the specification choice.
+    failed = short_rate[(short_rate.window == "2003-2022")
+                        & (short_rate.step == "daily")].iloc[0]
+    led.check("2003-2022 daily half-life, years", failed.half_life_years,
+              364.8202, tol=1e-3)
+    led.check("2003-2022 daily long-run mean, pct", failed.long_run_mean_pct,
+              86.0726, tol=1e-3)
+    led.check("2003-2022 daily R-squared", failed.r_squared, 0.0, tol=5e-5)
+    led.check("best R-squared anywhere in the grid", short_rate.r_squared.max(),
+              0.0387, tol=1e-4)
+
     curves = processed("curve_fit_diagnostics")
     expected = [
         ("2021-12-31", -8.704993, 3.875846, 10.882984),

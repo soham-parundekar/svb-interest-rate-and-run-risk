@@ -1,0 +1,214 @@
+\section{Assumption sensitivity and identification limits}
+\label{sec:sensitivity}
+
+The reconstruction in Section~\ref{sec:comparison} rests on choices that no filing
+constrains. This section puts a number on each of them, and the result is not
+symmetric: the asset-side choices move the answer by a few points, and the deposit
+choice moves it by more than the entire exposure being measured.
+
+Before any of it, the nature of the uncertainty. Everything below is a deterministic
+re-solve of the model with one input changed. These are not sampling distributions
+and they do not become confidence intervals when read quickly. Where a range appears
+it is the range across assumptions a reviewer might reasonably argue for, and the
+only standard errors anywhere in this paper are the Monte Carlo errors of the pricing
+engine in Appendix~\ref{app:pricing}.
+
+\subsection{The asset side}
+
+Thirteen variants re-run the out-of-sample test of Section~\ref{sec:comparison} with
+a single parameter changed and the random seed held fixed, so that differences
+between rows measure the assumption rather than simulation noise.
+Table~\ref{tab:sweep} reports them.
+
+\begin{table}[htbp]
+\centering
+\caption{Predicted SVB held-to-maturity price under each assumption variant, against
+the 83.40 implied by disclosure. Run at 4,000 paths with common random numbers, so
+the base case here is 80.35 rather than the 80.36 of
+Table~\ref{tab:oos}; the two are not interchangeable and the difference is
+simulation noise, not a result.}
+\label{tab:sweep}
+\small
+\begin{tabular}{lrr}
+\toprule
+Variant & Predicted & Error (\%) \\
+\midrule
+Base case & 80.35 & $-3.66$ \\
+\addlinespace
+Over-10y bullet maturity 15y & 81.43 & $-2.36$ \\
+Over-10y bullet maturity 25y & 79.52 & $-4.65$ \\
+Pass-through life 20y & 81.48 & $-2.30$ \\
+Pass-through life 28y & 79.80 & $-4.33$ \\
+Prepayment floor 2\% / ceiling 60\% & 78.30 & $-6.11$ \\
+Prepayment floor 8\% / ceiling 35\% & 81.90 & $-1.80$ \\
+Prepayment curve twice as steep & 80.71 & $-3.22$ \\
+Servicing and guarantee fee 25bp & 80.51 & $-3.47$ \\
+Servicing and guarantee fee 75bp & 80.14 & $-3.91$ \\
+\addlinespace
+Mean reversion half-life 14y & 80.63 & $-3.32$ \\
+Mean reversion half-life 4.6y & 80.12 & $-3.94$ \\
+Short-rate volatility 100bp & 81.04 & $-2.83$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three things follow.
+
+The prediction spans 3.60 price points across every variant, from 78.30 to 81.90, and
+the error never leaves the interval $[-6.11\%, -1.80\%]$. So the headline result is
+not an artefact of one fortunate parameter choice, but neither is it precise to better
+than a couple of points.
+
+Every variant errs in the same direction. That is the more informative fact. A model
+whose remaining error were noise would straddle the disclosed figure under at least
+some plausible assumption, and none of these thirteen does. The bias is structural.
+
+And it does not live in the rate model. The three variants that move the short-rate
+specification -- mean reversion half-lives of 14 and 4.6 years against the 7.8 used,
+and volatility raised from 62 to 100 basis points -- span 0.92 price points between
+them. The variants that change the shape of the asset book span 3.60. Whatever is
+left over after calibration is a feature of how contractual maturity buckets and
+prepayment behaviour are approximated, not of how the short rate is modelled. This
+matters because the short-rate calibration is the part of the model with the weakest
+statistical foundation, as the next subsection shows, and it turns out to be the part
+that matters least.
+
+\subsection{Identification limits in the short-rate calibration}
+
+Mean reversion and volatility are estimated from the realised path of the three-month
+bill rather than from a swaption surface. Table~\ref{tab:ou} runs that estimator
+across four windows and three sampling frequencies.
+
+\begin{table}[htbp]
+\centering
+\caption{Ornstein--Uhlenbeck estimates of the three-month bill across windows and
+sampling steps. The specification used throughout this paper is monthly data from
+1990, marked. Half-lives are in years, volatility in basis points, long-run mean in
+per cent.}
+\label{tab:ou}
+\small
+\begin{tabular}{llrrrrr}
+\toprule
+Window & Step & Obs. & Half-life & $\sigma$ & Long-run mean & $R^2$ \\
+\midrule
+1982--2022 & daily     & 10,252 & 4.69   & 111.77 & 2.44  & 0.0007 \\
+1982--2022 & monthly   & 713    & 4.97   & 101.19 & 2.55  & 0.0152 \\
+1982--2022 & quarterly & 238    & 5.51   & 97.42  & 2.52  & 0.0387 \\
+1990--2022 & daily     & 8,256  & 5.56   & 75.23  & 1.77  & 0.0006 \\
+\textbf{1990--2022} & \textbf{monthly} & \textbf{574} & \textbf{7.80} & \textbf{61.87} & \textbf{1.76} & \textbf{0.0089} \\
+1990--2022 & quarterly & 192    & 6.31   & 74.94  & 1.90  & 0.0273 \\
+2000--2022 & daily     & 5,753  & 5.08   & 74.60  & 1.22  & 0.0004 \\
+2000--2022 & monthly   & 400    & 7.26   & 62.17  & 1.21  & 0.0062 \\
+2000--2022 & quarterly & 134    & 5.14   & 73.78  & 1.23  & 0.0259 \\
+2003--2022 & daily     & 5,004  & 364.82 & 72.04  & 86.07 & 0.0000 \\
+2003--2022 & monthly   & 348    & 522.79 & 59.78  & 86.01 & 0.0000 \\
+2003--2022 & quarterly & 116    & 18.21  & 73.17  & 4.19  & 0.0016 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The 2003--2022 rows are the point. Estimated daily over that window the same
+estimator returns a mean-reversion half-life of 365 years and a long-run mean of
+86\%, with an $R^2$ of zero to four decimal places. Neither figure is a statement
+about interest rates. They are what a regression returns when the series it is given
+spends most of its length pinned near a bound and exhibits no reversion to identify,
+and a model built on them would have been nonsense in a way that no amount of
+subsequent calibration would have revealed. The specification used here was chosen
+because of this table, and a guard in the configuration rejects any fit implying a
+half-life beyond fifty years.
+
+The honest reading extends further than the failed rows, though. The best $R^2$
+anywhere in the table is 0.0387, and the chosen specification's is 0.0089. Mean
+reversion in the short rate is weakly identified under every specification tried, not
+merely the degenerate ones. What makes this tolerable rather than fatal is the result
+from Table~\ref{tab:sweep}: the quantity the paper reports is close to insensitive to
+this parameter. A weakly identified input that the answer barely depends on is a
+different situation from a weakly identified input that drives it. The deposit
+assumption is the second kind.
+
+\subsection{The deposit assumption, which dominates everything}
+
+The economic value of equity is the difference between an asset valuation the filings
+constrain tightly and a deposit valuation they do not constrain at all. Nothing in
+either bank's disclosure states how long its non-maturity deposits are assumed to
+remain.
+
+Figure~\ref{fig:heatmap} shows SVB's modelled change in economic value at $+200$
+basis points over a grid of 25 deposit betas and 25 uninsured half-lives. Across that
+surface the answer runs from $-122.24\%$ to $+21.34\%$. Holding beta at the 0.60 SVB
+itself discloses and varying only the half-life, the figure runs from $-120.44\%$ at
+six months to $+13.84\%$ at ten years. The same balance sheet, the same securities,
+the same curve, and the sign of the exposure is set by an assumption that no filing
+contains.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/05_deposit_heatmap}
+\caption{Modelled change in SVB's economic value of equity at $+200$ basis points,
+31~December 2021, across deposit beta and uninsured-deposit half-life. The two
+reference points discussed in the text sit inside this surface.}
+\label{fig:heatmap}
+\end{figure}
+
+Two points on that surface deserve names, because both are defensible and they
+disagree profoundly.
+
+The first is the half-life implied by SVB's own disclosure. Solving for the value that
+reproduces the published $-13.9\%$ at $+100$ basis points gives 3.59~years, and at
+that value the model returns $-27.61\%$ at $+200$ basis points, against the $-27.70\%$
+SVB published. That is the calibration of Section~\ref{sec:comparison}.
+
+The second is a two-year half-life, which is the conservative case used elsewhere in
+this paper. At two years the same balance sheet shows $-62.47\%$.
+
+The gap between those two numbers is roughly 35 percentage points of economic value,
+which is larger than the entire disclosed exposure at $+200$ basis points. And the
+choice between them is not a modelling detail. A 3.59-year half-life on uninsured
+deposits is a claim that a depositor base which was 96\% uninsured and concentrated in
+venture-backed technology firms would, on average, leave half its balances in place
+for three and a half years through a 200 basis point tightening. That is an assumption
+about depositor loyalty, and the mechanism in \citet{Drechsler2021} is explicit that
+the deposit franchise hedges a long asset book only for as long as the deposits stay.
+\citet{Jiang2024} supply the reason the assumption was fragile here specifically:
+uninsured depositors are the ones with both the incentive and the capacity to leave.
+
+So the finding is not that SVB's disclosed economic value was wrong. It is that the
+disclosed figure was the output of an unstated assumption which, moved to the other
+end of a defensible range, more than doubles the measured exposure --- and that the
+assumption was least likely to hold for precisely this depositor base.
+
+\subsection{Run thresholds}
+
+The run model inherits the same problem in a different form.
+Section~\ref{sec:results} reports a threshold of 67.5\% of uninsured deposits for SVB
+at the end of 2022, binding through liquidity rather than solvency. Varying secured
+borrowing access and the fire-sale discount across 21 combinations moves that
+threshold between 22.2\% and 70.5\%. Solvency never binds in the base case, but it
+does bind in some cells of that grid, so the correct statement is that liquidity binds
+first under the base assumptions and solvency can bind where asset sales are deeply
+discounted. Schwab crosses no threshold in either year under any combination tried.
+
+\subsection{The 2024 shock recalibration}
+
+One further variant concerns the measurement convention rather than the balance sheet.
+The Basel Committee recalibrated its standardised shocks in 2024, and for USD the
+long-rate shock rises from 150 to 225 basis points with effect from 1~January 2026
+\citep{BCBS2024}. That post-dates both valuation dates, so it is not the base case,
+but it is worth running because the long shock enters the steepener and flattener and
+leaves the parallel and short scenarios untouched by construction.
+
+Re-running under the 2024 long shock changes which scenario binds rather than how
+badly. For SVB the steepener becomes the worst of the six in all three of its cases,
+where the parallel rise held that place before. On the disclosure-implied deposit
+assumption the worst-case loss moves from $-27.61\%$ to $-32.59\%$ of base economic
+value, and from 36.24\% to 42.78\% of Tier~1 capital. Schwab is unaffected in both
+years, because its modelled parallel exposure remains worse than even the strengthened
+steepener. No bank-year changes its outlier-test verdict: all five breach the 15\%
+threshold under both calibrations.
+
+The implication is narrow and worth stating as such. Under the convention that takes
+effect in 2026, a supervisor applying the standardised scenarios to SVB's end-2021
+balance sheet would have been directed to a curve rotation rather than a level shift,
+and would have measured a loss roughly five percentage points larger. This is a
+counterfactual about measurement conventions and not a claim about what SVB's exposure
+was.

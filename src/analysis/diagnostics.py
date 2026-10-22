@@ -11,6 +11,7 @@ So this writes them out. Two tables:
 
   curve_fit_diagnostics.csv   par-yield residual per tenor, at both valuation dates
   pricing_diagnostics.csv     simulated against closed-form discount factors
+  short_rate_calibration.csv  the same estimator across windows and sampling steps
 
 The pricing table keeps its Monte Carlo standard error. That is sampling error of
 the simulation itself -- how precisely 20,000 paths pin down an expectation whose
@@ -30,6 +31,7 @@ from ..config import DATA_PROCESSED, params
 from ..models.hull_white import (
     HullWhite,
     calibrate_short_rate,
+    calibration_sensitivity,
     monte_carlo_vs_closed_form,
 )
 from ..models.nss import build_curve
@@ -96,11 +98,31 @@ def pricing_table() -> pd.DataFrame:
     return table
 
 
+def short_rate_table() -> pd.DataFrame:
+    """
+    The mean-reversion estimate across every window and sampling step.
+
+    This one is not a precision check but a record of an identification failure. Run
+    daily from 2003 the same estimator returns a half-life in the hundreds of years
+    with essentially no explanatory power, which is the regression failing to see any
+    reversion in a series pinned at the zero bound rather than a fact about interest
+    rates. The specification actually used -- monthly from 1990 -- was chosen because
+    of this table, so the table belongs on disk next to the results it justifies.
+    """
+    table = calibration_sensitivity()
+    config = params()["hull_white"]
+    table["is_chosen_specification"] = (
+        (table["window"] == "1990-2022") & (table["step"] == "monthly"))
+    table["max_half_life_guard_years"] = float(config["max_half_life_years"])
+    return table
+
+
 def main() -> None:
     DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
 
     curves = curve_fit_table()
     pricing = pricing_table()
+    short_rate = short_rate_table()
 
     with pd.option_context("display.width", 200):
         print("curve fit, worst par-yield residual by date")
@@ -120,10 +142,19 @@ def main() -> None:
     tolerance = float(pricing["tolerance_bp"].iloc[0])
     print(f"\nworst pricing error {worst_bp:.3f} bp against a {tolerance:.1f} bp gate")
 
+    with pd.option_context("display.width", 200):
+        print("\nshort-rate calibration across windows and sampling steps")
+        print(short_rate[["window", "step", "observations", "half_life_years",
+                          "sigma_bp", "long_run_mean_pct", "r_squared",
+                          "is_chosen_specification"]].to_string(
+            index=False, float_format=lambda v: f"{v:,.4f}"))
+
     curves.to_csv(DATA_PROCESSED / "curve_fit_diagnostics.csv", index=False)
     pricing.to_csv(DATA_PROCESSED / "pricing_diagnostics.csv", index=False)
+    short_rate.to_csv(DATA_PROCESSED / "short_rate_calibration.csv", index=False)
     print(f"written to {DATA_PROCESSED / 'curve_fit_diagnostics.csv'}")
     print(f"written to {DATA_PROCESSED / 'pricing_diagnostics.csv'}")
+    print(f"written to {DATA_PROCESSED / 'short_rate_calibration.csv'}")
 
 
 if __name__ == "__main__":
