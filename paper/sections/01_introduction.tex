@@ -27,6 +27,14 @@ measurement in the way a disclosed securities fair value is, because it nets an 
 valuation the filings constrain tightly against a deposit valuation they do not
 constrain at all.
 
+That proposition is stated here as a general one, and it should be read as a
+conjecture this case motivates rather than a result it establishes. The evidence is a
+single bank-year: SVB's FY2021 report is the only observation in this sample that
+carries a disclosed economic-value profile at all, which is itself part of the
+finding. Whether the same gap between a constrained asset side and an unconstrained
+liability side characterises such disclosures generally is a question for a sample
+this paper does not have.
+
 \subsection{What is done}
 
 A valuation model is built from the inline XBRL of four annual reports, two for SVB
@@ -85,25 +93,47 @@ structure rather than the size of the securities loss.
 
 \subsection{Relation to existing work}
 
-Two results frame the exercise. \citet{Drechsler2021} establish that a deposit
-franchise hedges a long-duration asset book precisely to the extent that the deposits
-are sticky and insensitive to rates, which is the mechanism the deposit valuation here
-implements and the reason an assumption about depositor behaviour can dominate a
-measured exposure. \citet{Jiang2024} show that mark-to-market losses translate into
-solvency problems in proportion to uninsured leverage, and mark the U.S.\ banking
-system to market cross-sectionally to identify banks at risk of self-fulfilling runs.
+\citet{Metrick2024} gives the standard account of the failure and the panic that
+followed it. Two results frame the mechanism this paper models.
+\citet{Drechsler2021} establish that a deposit franchise hedges a long-duration asset
+book precisely to the extent that the deposits are sticky and insensitive to rates,
+which is why an assumption about depositor behaviour can dominate a measured
+exposure. \citet{Jiang2024} show that mark-to-market losses translate into solvency
+problems in proportion to uninsured leverage, and mark the U.S.\ banking system to
+market cross-sectionally to identify banks at risk of self-fulfilling runs.
+\citet{Choi2023} supply the market counterpart, finding that investors appeared to
+price the risk of uninsured deposit reliance while failing to anticipate the
+realisation of the implied losses, which is a partial answer to the question of what
+public information already contained.
 
-This paper asks a narrower question from a different starting point. Rather than
-marking a cross-section from regulatory filings, it works from what two individual
-banks published about themselves, and it tests the reconstruction out of sample
-against disclosures the model had not seen. That design permits a claim the
-cross-sectional work does not make: not only that SVB's exposure was large, which was
-already visible, but that it was recoverable in detail from a single public filing
-fifteen months before the failure, and that the figure the bank itself published
-rested on an undisclosed parameter capable of more than doubling it. The supervisory
-record indicates the direction of the problem was recognised before it became acute
-\citep{FRB2023}; what this paper adds is a measurement of how much the disclosed
-number depended on something the disclosure omitted.
+The claim that a deposit assumption is a decision rather than a measurement is not
+new, and the priority belongs elsewhere. \citet{Chen2026} argues exactly this for
+uninsured balances in the banking book: that the retention schedule used in an
+economic-value calculation is a management choice, that its alternatives should be
+priced alongside it, and that the choice moves present value and duration across
+ranges wide enough to make the disclosed figure uninformative on its own. That work
+is conducted on a synthetic book, with no bank data and no named institution.
+
+What this paper adds is the instantiation. It takes a real bank that published an
+economic-value profile, reconstructs the asset side from the same filing and
+validates it against disclosures the model had not seen, and then recovers the
+deposit assumption the published figure must have embedded. The result is not that
+the assumption matters, which \citet{Chen2026} establishes, but that for this bank it
+was both unrecoverable by any reader and, as Section~\ref{sec:sensitivity} shows
+against the cross-bank evidence, implausible. The supervisory record indicates the
+direction of the problem was recognised before it became acute \citep{FRB2023}; what
+is added here is a measure of how much the disclosed number depended on something the
+disclosure omitted.
+
+A competing account of the 2023 failures should be noted, because this paper does not
+test it. \citet{KellyRose2025} argue that the crisis is better explained by bank
+business models, specifically exposure to the venture-capital and crypto-asset
+sectors then under pressure, than by balance-sheet metrics alone, and that the
+business-model account predicts which banks were affected more precisely. The
+reconstruction here is a balance-sheet account. It is consistent with their critique
+rather than a rebuttal of it: a measurement of what the filings could reveal says
+nothing about which variable best separates the banks that failed from those that did
+not.
 
 Nothing here is a causal claim about the failure. The design establishes what was
 measurable from published information. It does not test what any party would have done

@@ -37,6 +37,43 @@ own page: the two Basel standards, the Federal Reserve's SVB review, the four
 10-K filings (CIK and accession number in
 `references/source_register.csv`), and the three public datasets.
 
+## Second pass, 22 October 2026: six sources added after a referee-style audit
+
+A literature audit against OpenAlex and Crossref surfaced six papers the manuscript
+should engage. All six verified by DOI before being written in.
+
+| key | DOI | confirmed |
+|---|---|---|
+| Metrick2024 | 10.1257/jep.38.1.133 | J.\ Economic Perspectives 38(1), 133--152, 2024, 1 author |
+| Choi2023 | 10.3386/w31772 | NBER Working Paper 31772, 2023, 3 authors |
+| Kim2024 | 10.1002/fut.22486 | J.\ Futures Markets 44(4), 653--672, 2024, 1 author |
+| KellyRose2025 | 10.21033/wp-2025-04 | Federal Reserve Bank of Chicago WP 2025-04, 2 authors |
+| Coulier2025 | 10.2139/ssrn.5701421 | SSRN preprint, 2025, 4 authors incl.\ Reghezza |
+| Chen2026 | 10.2139/ssrn.7406878 | SSRN preprint, 2026, 1 author |
+
+Two of these changed what the paper claims rather than merely what it cites.
+
+**Chen (2026) holds priority on the framing.** It argues that the deposit retention
+schedule in an economic-value calculation is a management decision rather than a
+measurement, prices six schedules, and recommends disclosing the alternatives. The
+manuscript had been advancing that proposition as its own. §1 now cites it and
+restates the contribution as the empirical instantiation: a real bank, an asset side
+validated out of sample, and an implied assumption shown to be unrecoverable by any
+reader. Chen's example is synthetic and names no institution, which is what leaves
+the room.
+
+**Coulier et al. (2025) supplies a benchmark the paper lacked.** Mean behavioural
+non-maturing-deposit maturity of 1.99 years across 67 euro-area banks, standard
+deviation 1.33, with banks holding more uninsured or rate-sensitive deposits
+assigning shorter maturities. §7 previously rested on intuition about what 3.59 years
+implied for a 96%-uninsured base; it now rests on a documented regularity that SVB's
+implied assumption runs against. The unit mismatch is stated rather than glossed: a
+3.59-year half-life implies a mean life near 5.2 years, and the euro-area sample
+covers all non-maturing deposits rather than uninsured balances.
+
+*A note on author names.* Crossref registers Chen2026 as "Chih Chen"; OpenAlex lists
+"Chih Chang Chen". The bibliography follows the registration of record.
+
 ## Corrections the check produced
 
 **REF-008 was incomplete.** The register recorded Jiang et~al.\ as "NBER working

@@ -71,6 +71,14 @@ Section~\ref{sec:sensitivity} is wide enough that the conclusion does not rest o
 exact value. But the figure should be described as what it is, and the clean exercise
 would require modelling the swaps.
 
+The hedging itself is worth one further note. \citet{Kim2024} finds that banks did not
+systematically ignore balance-sheet risk in this period, increasing hedging as
+securities losses grew and scaling it back as they reversed, and concludes that SVB's
+conduct was idiosyncratic rather than representative. SVB did hold pay-fixed swaps,
+and its own filing records them reducing the $+100$ basis point exposure by 1.5
+percentage points. The reconstruction here is silent on whether that was adequate,
+and nothing in this paper should be read as evidence on the question.
+
 \subsection{Why one bank failed and the other did not}
 
 The two banks reached the end of 2022 holding unrecognised losses within a billion
@@ -79,11 +87,25 @@ supervisory outlier screen in every bank-year tested. On the run model, only SVB
 crosses a threshold, and it crosses on liquidity rather than solvency; Schwab crosses
 neither in either year under any of the 42 parameter combinations tried.
 
-The association is clear and the paper reports it as an association. The two banks
-differed by a factor of five in uninsured deposit share, and on this model that
-difference and not the size of the securities loss is what separates a bank that
-could absorb a run from one that could not. Whether it is what separated the actual
-outcomes in March 2023 is a question this design cannot answer. SVB failed amid a
+That pattern is consistent with the uninsured-leverage mechanism of
+\citet{Jiang2024}, and the paper reports it as consistency rather than as
+identification. Two banks differing in uninsured share also differ in depositor type,
+business model, asset mix, size and supervisory treatment, all at once. A design with
+two observations cannot attribute the difference in run thresholds to any one of
+them, and the sentence that the funding structure \emph{is} what separates these
+banks would require a cross-section this paper does not have. What can be said is
+narrower: holding the modelling framework fixed across both, the threshold moves with
+the uninsured share and not with the size of the securities loss.
+
+The limits run further than sample size. \citet{KellyRose2025} argue that the 2023
+failures are better explained by the business models of the banks involved, in SVB's
+case its concentration in venture-capital-backed clients whose own funding had
+deteriorated, than by balance-sheet metrics, and that this account separates the
+affected banks more precisely. Nothing in the present design adjudicates that. A
+reconstruction establishes what the filings could reveal about exposure; it does not
+establish which variable best predicts failure, and the two questions have been
+treated here as distinct throughout. Whether funding structure separated the actual
+outcomes in March 2023 is in any case beyond this design: SVB failed amid a
 concentrated, socially coordinated withdrawal that no static balance-sheet model
 represents, and the counterfactual in which it had Schwab's funding mix is not
 observable.
